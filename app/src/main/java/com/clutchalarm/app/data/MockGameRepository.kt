@@ -5,6 +5,7 @@ import com.clutchalarm.app.domain.model.EventType
 import com.clutchalarm.app.domain.model.GameEvent
 import com.clutchalarm.app.domain.model.GameState
 import com.clutchalarm.app.domain.model.GameTimeline
+import com.clutchalarm.app.domain.model.PlayDetails
 import com.clutchalarm.app.domain.model.Player
 import com.clutchalarm.app.domain.repository.GameRepository
 import kotlinx.coroutines.Dispatchers
@@ -42,6 +43,7 @@ private data class GameFile(val initialState: GameState, val events: List<PlayRe
                 offsetMs = record.offsetMs,
                 before = previous,
                 after = record.after,
+                details = record.details,
             ).also { previous = it.after }
         }
         return GameTimeline(initialState, timelineEvents)
@@ -57,4 +59,5 @@ private data class PlayRecord(
     val players: List<Player>,
     val offsetMs: Long,
     val after: GameState,
+    val details: PlayDetails = PlayDetails(),
 )

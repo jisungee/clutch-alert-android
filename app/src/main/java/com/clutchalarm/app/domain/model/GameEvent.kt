@@ -1,8 +1,26 @@
 package com.clutchalarm.app.domain.model
 
+import kotlinx.serialization.Serializable
+
 enum class EventType {
     GAME_STARTED, SINGLE, DOUBLE, TRIPLE, HOME_RUN, WALK, STRIKEOUT,
     FOUL, BATTED_OUT, RUN_SCORED, HALF_INNING_CHANGED, GAME_ENDED,
+    FIRST_PITCH, HALF_INNING_STARTED, HIT_BY_PITCH, REACHED_ON_ERROR,
+    DROPPED_THIRD_STRIKE_REACHED, FIELDERS_CHOICE_REACHED, STOLEN_BASE, WILD_PITCH,
+    OFFICIAL_REVIEW_STARTED, OFFICIAL_REVIEW_UPHELD, OFFICIAL_REVIEW_OVERTURNED,
+    BROADCAST_REPLAY, INJURY_SUSPECTED_STOPPAGE, INJURY_MEDICAL_CHECK, INJURY_SUBSTITUTION,
+}
+
+@Serializable
+data class PlayDetails(
+    val walkOff: Boolean = false,
+    val runsBattedIn: Int? = null,
+    val reviewSubject: String? = null,
+    val revisedCall: String? = null,
+) {
+    init {
+        require(runsBattedIn == null || runsBattedIn in 0..4)
+    }
 }
 
 data class GameEvent(
@@ -14,6 +32,7 @@ data class GameEvent(
     val offsetMs: Long,
     val before: GameState,
     val after: GameState,
+    val details: PlayDetails = PlayDetails(),
 ) {
     init {
         require(eventId.isNotBlank())

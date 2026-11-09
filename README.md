@@ -1,6 +1,6 @@
 # ClutchAlarm
 
-모의 야구 경기 데이터를 바탕으로 중요한 플레이를 알려주는 Android 앱입니다. 현재는 Compose Material 3 시작 화면과 모의 경기 JSON을 읽는 데이터 계층을 구현했습니다.
+모의 야구 경기 데이터를 바탕으로 중요한 플레이를 알려주는 Android 앱입니다. 현재는 모의 경기 목록과 상세 화면에서 경기를 선택하고 재생할 수 있습니다.
 
 ## 개발 환경
 
@@ -14,7 +14,7 @@
 
 1. 휴대폰 설정에서 **빌드 번호**를 일곱 번 눌러 개발자 옵션을 활성화하고 **USB 디버깅**을 켭니다.
 2. 데이터 전송이 가능한 USB 케이블로 연결한 뒤 휴대폰의 디버깅 승인 창을 확인합니다.
-3. Android Studio 상단에서 `app` 실행 구성과 연결한 휴대폰을 선택하고 **Run ▶**을 누릅니다. 설치 후 화면에 **ClutchAlarm**과 **야구 경기 알림 MVP**가 표시되는지 확인합니다.
+3. Android Studio 상단에서 `app` 실행 구성과 연결한 휴대폰을 선택하고 **Run ▶**을 누릅니다. **모의 경기** 목록에서 경기를 선택한 뒤 **재생**을 누릅니다.
 4. 기기가 목록에 없으면 SDK의 `platform-tools` 폴더에서 `adb devices`를 실행합니다. `unauthorized`가 나오면 휴대폰 잠금을 풀고 승인 창을 확인합니다. Windows에서는 기기에 따라 제조사 USB 드라이버가 필요합니다.
 
 [Android Developers 실기기 연결 가이드](https://developer.android.com/studio/run/device.html)
@@ -29,7 +29,7 @@ macOS와 Linux에서는 `sh ./gradlew :app:assembleDebug :app:testDebugUnitTest`
 
 ## 코드 구조
 
-`MainActivity`가 Android 런처에서 앱을 열고 `ui/StartScreen.kt`의 Compose 화면을 표시합니다. 화면 문구는 `res/values/strings.xml`에 있습니다. Kotlin 패키지는 `app/src/main/java/com/clutchalarm/app/` 아래에 있습니다.
+`MainActivity`가 `MockGameRepository`를 `GameViewModel`에 주입합니다. `GameApp`은 화면 상태에 따라 목록이나 `GameDetailScreen`을 표시합니다. Kotlin 패키지는 `app/src/main/java/com/clutchalarm/app/` 아래에 있습니다.
 
 | 위치 | 맡을 역할 |
 | --- | --- |
@@ -40,7 +40,7 @@ macOS와 Linux에서는 `sh ./gradlew :app:assembleDebug :app:testDebugUnitTest`
 | `domain/notification/`, `notification/` | 순수 Kotlin 알림 판정과 중복 방지, Android 알림 발송 |
 | `app/src/main/assets/games/`, `app/src/test/` | 모의 경기 JSON, JVM 단위 테스트 |
 
-향후 저장소가 모의 경기를 공급하면 재생 엔진이 시간순으로 상태를 갱신하고, ViewModel이 StateFlow로 화면에 전달합니다. 알림 판정은 경기 상태와 이벤트를 받아 발송할 후보를 고르고, Android 쪽에서 로컬 알림을 표시합니다.
+저장소가 모의 경기를 공급하면 재생 엔진이 시간순으로 상태를 갱신하고, ViewModel이 StateFlow로 화면에 전달합니다.
 
 ## 모의 경기 데이터
 
@@ -48,8 +48,16 @@ macOS와 Linux에서는 `sh ./gradlew :app:assembleDebug :app:testDebugUnitTest`
 
 모의 경기는 1회 일부를 담습니다. 원정팀이 단타와 2루타로 선취점을 얻고, 2루 주자가 진루하지 않은 채 타구 아웃 세 개로 공격이 끝납니다. 공수교대 뒤 홈팀의 솔로 홈런 두 개로 동점과 역전이 이어집니다. 세 번째 아웃 직후에는 아웃 3개를 기록하고, 공수교대 이벤트에서 카운트와 베이스를 초기화합니다.
 
+## 모의 경기 재생
+
+`GameSimulationEngine(timeline, scope)`는 타임라인의 절대 재생 시각에 각 이벤트의 `after` 상태를 적용합니다. `play()`는 처음부터 시작하고, `pause()`는 현재 시각을 저장하며, `resume()`은 다음 이벤트까지 남은 시간부터 이어갑니다. `reset()`은 재생을 중단하고 초기 상태로 돌아갑니다. 마지막 이벤트를 처리하면 모의 데이터의 실제 경기 상태와 별개로 재생 상태가 `COMPLETED`가 됩니다.
+
+ViewModel은 `viewModelScope` 아래에 상세 화면의 재생 작업을 만들고, Compose는 `collectAsStateWithLifecycle`로 화면 상태를 읽습니다. 상세에서 **목록**이나 시스템 뒤로 가기를 누르면 해당 작업을 취소합니다. 같은 경기를 다시 열면 초기 상태부터 시작합니다.
+
+ViewModel의 단일 `collectEvents` 소비자는 동일한 시각의 플레이도 순서대로 처리합니다. 초기화나 처음부터 재생을 요청하면 엔진이 이전 세션의 대기 이벤트를 폐기합니다. 이후 `NotificationRuleEngine`은 이 소비자에서 각 이벤트의 `before`와 `after`를 입력받을 수 있습니다.
+
 ## GitHub 협업
 
 - `main`에서 작업 브랜치를 만들고 PR에는 변경 범위, 확인 방법, 테스트 결과를 적습니다.
 - [AGENTS.md](AGENTS.md)에 프로젝트 규칙을 기록합니다. 알림 구현에 앞서 [알림 가이드라인](docx/클러치%20알림%20발송%20가이드라인%20v1.0.docx)을 확인합니다.
-- 다음 단계는 `GameTimeline`의 `offsetMs`를 기준으로 상태를 내보내는 `GameSimulationEngine`입니다.
+- `NotificationRuleEngine`은 알림 후보를 생성합니다. [알림 판정 정책과 검토 항목](docx/notification-policy-review.md)에 지원 데이터와 후속 연결 지점을 기록했습니다.
