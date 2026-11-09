@@ -11,6 +11,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -27,6 +28,10 @@ import com.clutchalarm.app.domain.model.EventType
 import com.clutchalarm.app.domain.model.GameEvent
 import com.clutchalarm.app.domain.model.InningHalf
 import com.clutchalarm.app.domain.simulation.PlaybackStatus
+import com.clutchalarm.app.domain.simulation.PlaybackSpeed
+import com.clutchalarm.app.notification.DeliveryStatus
+import com.clutchalarm.app.notification.NotificationAvailability
+import com.clutchalarm.app.notification.PublicationStatus
 
 @Composable
 fun GameDetailScreen(
@@ -35,6 +40,11 @@ fun GameDetailScreen(
     onPause: () -> Unit,
     onResume: () -> Unit,
     onReset: () -> Unit,
+    onSpeedChange: (PlaybackSpeed) -> Unit,
+    notificationAvailability: NotificationAvailability,
+    onSelectTeam: (String) -> Unit,
+    onRequestPermission: () -> Unit,
+    onOpenNotificationSettings: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val playback = detail.playback
@@ -63,6 +73,15 @@ fun GameDetailScreen(
             PlaybackStatus.COMPLETED -> "처음부터 다시 재생" to onPlay
         }
         Button(onClick = action, modifier = Modifier.fillMaxWidth()) { Text(buttonLabel) }
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            for (speed in PlaybackSpeed.entries) {
+                FilterChip(
+                    selected = playback.speed == speed,
+                    onClick = { onSpeedChange(speed) },
+                    label = { Text("${speed.multiplier}x") },
+                )
+            }
+        }
         if (playback.status == PlaybackStatus.PLAYING || playback.status == PlaybackStatus.PAUSED) {
             OutlinedButton(onClick = onPlay, modifier = Modifier.fillMaxWidth()) {
                 Text("처음부터 다시 재생")
@@ -70,6 +89,35 @@ fun GameDetailScreen(
         }
         if (playback.status != PlaybackStatus.IDLE) {
             OutlinedButton(onClick = onReset, modifier = Modifier.fillMaxWidth()) { Text("초기화") }
+        }
+
+        Card(Modifier.fillMaxWidth()) {
+            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text("응원 팀", style = MaterialTheme.typography.titleMedium)
+                for (team in listOf(game.awayTeam, game.homeTeam)) {
+                    FilterChip(
+                        selected = detail.preferredTeamId == team.id,
+                        onClick = { onSelectTeam(team.id) },
+                        label = { Text(team.name) },
+                    )
+                }
+                if (detail.preferredTeamId == null) {
+                    Text("팀을 선택하면 이후 경기 이벤트의 알림을 받을 수 있습니다.")
+                } else {
+                    when (notificationAvailability) {
+                        NotificationAvailability.AVAILABLE -> Text("경기 알림 사용 가능")
+                        NotificationAvailability.PERMISSION_REQUIRED -> {
+                            Text("알림 권한이 허용되지 않았습니다. 재생은 계속할 수 있습니다.")
+                            OutlinedButton(onClick = onRequestPermission) { Text("알림 권한 요청") }
+                            OutlinedButton(onClick = onOpenNotificationSettings) { Text("알림 설정 열기") }
+                        }
+                        NotificationAvailability.DISABLED -> {
+                            Text("시스템 설정에서 앱 또는 모의 경기 알림이 꺼져 있습니다.")
+                            OutlinedButton(onClick = onOpenNotificationSettings) { Text("알림 설정 열기") }
+                        }
+                    }
+                }
+            }
         }
 
         Card(Modifier.fillMaxWidth()) {
@@ -96,7 +144,41 @@ fun GameDetailScreen(
                 }
             }
         }
+
+        Card(Modifier.fillMaxWidth()) {
+            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text("알림 기록", style = MaterialTheme.typography.titleMedium)
+                if (detail.notificationHistory.isEmpty()) Text("생성된 알림 후보가 없습니다.")
+                detail.notificationHistory.asReversed().forEach { record ->
+                    val candidate = record.candidate
+                    Text(candidate.title, color = MaterialTheme.colorScheme.primary)
+                    Text(candidate.body)
+                    Text("${candidate.type.title} · 이벤트 ${candidate.eventId}")
+                    Text("후보 생성 · ${record.status.label()}")
+                    record.publication.label()?.let { Text(it) }
+                    if (record.cleaned) Text("기존 알림 정리됨")
+                    if (record.cleanupCount > 0) Text("기존 알림 ${record.cleanupCount}개 정리됨")
+                }
+            }
+        }
     }
+}
+
+private fun DeliveryStatus.label() = when (this) {
+    DeliveryStatus.SENT -> "시스템 발송 요청 성공"
+    DeliveryStatus.PERMISSION_DENIED -> "권한 거부"
+    DeliveryStatus.DISABLED -> "시스템 알림 꺼짐"
+    DeliveryStatus.RETENTION_LIMIT -> "중요 알림 보존으로 발송 생략"
+    DeliveryStatus.ERROR -> "발송 요청 실패"
+    DeliveryStatus.FILTERED -> "유형 설정으로 발송 생략"
+    DeliveryStatus.PREFERENCES_UNAVAILABLE -> "설정 확인 전 발송 생략"
+}
+
+private fun PublicationStatus.label() = when (this) {
+    PublicationStatus.NOT_REQUESTED -> null
+    PublicationStatus.CHECKING -> "시스템 게시 확인 중"
+    PublicationStatus.CONFIRMED -> "시스템 게시 확인 · 활성 목록"
+    PublicationStatus.UNCONFIRMED -> "시스템 게시 미확인"
 }
 
 @Composable

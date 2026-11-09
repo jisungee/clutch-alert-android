@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.clutchalarm.app.R
 import com.clutchalarm.app.domain.model.GameStatus
+import com.clutchalarm.app.notification.NotificationAvailability
 
 private val BroadcastColors = darkColorScheme(
     primary = Color(0xFF9FE0B3),
@@ -41,23 +42,57 @@ private val BroadcastColors = darkColorScheme(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GameApp(viewModel: GameViewModel) {
+fun GameApp(
+    viewModel: GameViewModel,
+    notificationAvailability: NotificationAvailability,
+    onRequestPermission: () -> Unit,
+    onOpenNotificationSettings: () -> Unit,
+) {
     val games by viewModel.games.collectAsStateWithLifecycle()
     val detail by viewModel.detail.collectAsStateWithLifecycle()
+    val showSettings by viewModel.showNotificationSettings.collectAsStateWithLifecycle()
+    val settings by viewModel.notificationSettings.collectAsStateWithLifecycle()
     val isDetail = detail != null
-    BackHandler(enabled = isDetail, onBack = viewModel::closeGame)
+    BackHandler(enabled = isDetail || showSettings) {
+        if (showSettings) viewModel.showNotificationSettings(false) else viewModel.closeGame()
+    }
 
     MaterialTheme(colorScheme = BroadcastColors) {
         Scaffold(topBar = {
             TopAppBar(
-                title = { Text(if (isDetail) "경기 중계" else stringResource(R.string.app_name)) },
+                title = {
+                    Text(when {
+                        showSettings -> "알림 유형 설정"
+                        isDetail -> "경기 중계"
+                        else -> stringResource(R.string.app_name)
+                    })
+                },
                 navigationIcon = {
-                    if (isDetail) TextButton(onClick = viewModel::closeGame) { Text("목록") }
+                    when {
+                        showSettings -> TextButton(onClick = { viewModel.showNotificationSettings(false) }) {
+                            Text("뒤로")
+                        }
+                        isDetail -> TextButton(onClick = viewModel::closeGame) { Text("목록") }
+                    }
+                },
+                actions = {
+                    if (!showSettings && (!isDetail || detail is GameDetailState.Loaded)) {
+                        TextButton(onClick = { viewModel.showNotificationSettings(true) }) { Text("알림 유형") }
+                    }
                 },
             )
         }) { padding ->
             val content = Modifier.fillMaxSize().padding(padding).padding(horizontal = 16.dp)
-            when (val selected = detail) {
+            if (showSettings) {
+                NotificationSettingsScreen(
+                    state = settings,
+                    onToggle = viewModel::setNotificationEnabled,
+                    onEnableAll = viewModel::enableAllNotifications,
+                    onDisableAll = viewModel::disableAllNotifications,
+                    onRetry = viewModel::loadNotificationPreferences,
+                    modifier = content,
+                )
+            } else when (val selected = detail) {
                 null -> GameList(games, viewModel::selectGame, viewModel::loadGames, content)
                 GameDetailState.Loading -> CenteredMessage(content) { CircularProgressIndicator() }
                 GameDetailState.Error -> CenteredMessage(content) {
@@ -70,6 +105,11 @@ fun GameApp(viewModel: GameViewModel) {
                     onPause = viewModel::pause,
                     onResume = viewModel::resume,
                     onReset = viewModel::reset,
+                    onSpeedChange = viewModel::setPlaybackSpeed,
+                    notificationAvailability = notificationAvailability,
+                    onSelectTeam = viewModel::selectPreferredTeam,
+                    onRequestPermission = onRequestPermission,
+                    onOpenNotificationSettings = onOpenNotificationSettings,
                     modifier = content,
                 )
             }
@@ -102,6 +142,10 @@ private fun GameList(
             items(state.games, key = { it.gameId }) { game ->
                 Card(onClick = { onSelect(game.gameId) }, modifier = Modifier.fillMaxWidth()) {
                     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        state.scenarios[game.gameId]?.let { scenario ->
+                            Text(scenario.name, style = MaterialTheme.typography.titleLarge)
+                            Text(scenario.description, style = MaterialTheme.typography.bodyMedium)
+                        }
                         Text(game.status.label(), color = MaterialTheme.colorScheme.primary)
                         Text("원정  ${game.awayTeam.name}", style = MaterialTheme.typography.titleMedium)
                         Text("홈  ${game.homeTeam.name}", style = MaterialTheme.typography.titleMedium)

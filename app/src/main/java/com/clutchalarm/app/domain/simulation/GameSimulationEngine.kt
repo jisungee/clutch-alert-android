@@ -22,12 +22,17 @@ import kotlin.time.TimeSource
 
 enum class PlaybackStatus { IDLE, PLAYING, PAUSED, COMPLETED }
 
+enum class PlaybackSpeed(val multiplier: Int) {
+    NORMAL(1), DOUBLE(2), FIVE_TIMES(5), TEN_TIMES(10),
+}
+
 data class PlaybackState(
     val gameState: GameState,
     val status: PlaybackStatus = PlaybackStatus.IDLE,
     val elapsedMs: Long = 0,
     val lastEvent: GameEvent? = null,
     val processedEventCount: Int = 0,
+    val speed: PlaybackSpeed = PlaybackSpeed.NORMAL,
 )
 
 /** The caller owns [scope] and cancels it when this engine is no longer needed. */
@@ -73,10 +78,11 @@ class GameSimulationEngine(
     }
 
     /** Starts a new session at offset zero, even if playback was already active. */
-    suspend fun play(): Unit = mutex.withLock {
+    suspend fun play(onSessionStarted: () -> Unit = {}): Unit = mutex.withLock {
         ownerJob.ensureActive()
         invalidateSession()
-        startWorker(initialState)
+        onSessionStarted()
+        startWorker(initialState.copy(speed = state.value.speed))
     }
 
     suspend fun pause(): Unit = mutex.withLock {
@@ -95,9 +101,26 @@ class GameSimulationEngine(
         if (current.status == PlaybackStatus.PAUSED) startWorker(current)
     }
 
-    suspend fun reset(): Unit = mutex.withLock {
+    suspend fun setSpeed(speed: PlaybackSpeed): Unit = mutex.withLock {
+        ownerJob.ensureActive()
+        val current = state.value
+        if (current.speed == speed) return@withLock
+        if (current.status != PlaybackStatus.PLAYING) {
+            mutableState.value = current.copy(speed = speed)
+            return@withLock
+        }
+
+        val position = checkNotNull(clock).positionMs(timelineEvents.last().offsetMs)
+        val nextOffset = timelineEvents[current.processedEventCount].offsetMs
+        stopWorker()
+        // Keep the cursor and session. Only the clock and the worker's pending wait change.
+        startWorker(current.copy(speed = speed, elapsedMs = minOf(position, nextOffset)), position)
+    }
+
+    suspend fun reset(onSessionReset: () -> Unit = {}): Unit = mutex.withLock {
         invalidateSession()
         mutableState.value = initialState
+        onSessionReset()
     }
 
     private fun invalidateSession() {
@@ -114,12 +137,12 @@ class GameSimulationEngine(
         clock = null
     }
 
-    private fun startWorker(snapshot: PlaybackState) {
+    private fun startWorker(snapshot: PlaybackState, startOffsetMs: Long = snapshot.elapsedMs) {
         if (timelineEvents.isEmpty()) {
             mutableState.value = snapshot.copy(status = PlaybackStatus.COMPLETED)
             return
         }
-        val playbackClock = PlaybackClock(snapshot.elapsedMs, timeSource.markNow())
+        val playbackClock = PlaybackClock(startOffsetMs, timeSource.markNow(), snapshot.speed)
         clock = playbackClock
         mutableState.value = snapshot.copy(status = PlaybackStatus.PLAYING)
         worker = scope.launch {
@@ -141,7 +164,8 @@ class GameSimulationEngine(
         val remainingMs = event.offsetMs - position
         if (remainingMs > 0) {
             mutableState.value = current.copy(elapsedMs = position)
-            return minOf(remainingMs, POSITION_UPDATE_INTERVAL_MS)
+            val realWaitMs = 1 + (remainingMs - 1) / current.speed.multiplier
+            return minOf(realWaitMs, POSITION_UPDATE_INTERVAL_MS)
         }
 
         val count = current.processedEventCount + 1
@@ -152,6 +176,7 @@ class GameSimulationEngine(
             elapsedMs = event.offsetMs,
             lastEvent = event,
             processedEventCount = count,
+            speed = current.speed,
         )
         check(eventQueue.trySend(QueuedEvent(session.value, event)).isSuccess)
         return if (completed) null else 0L
@@ -162,9 +187,14 @@ class GameSimulationEngine(
     }
 }
 
-private class PlaybackClock(private val startOffsetMs: Long, private val startedAt: TimeMark) {
+private class PlaybackClock(
+    private val startOffsetMs: Long,
+    private val startedAt: TimeMark,
+    private val speed: PlaybackSpeed,
+) {
     fun positionMs(nextOffsetMs: Long): Long {
-        val elapsedMs = startedAt.elapsedNow().inWholeMilliseconds
+        if (startOffsetMs >= nextOffsetMs) return nextOffsetMs
+        val elapsedMs = (startedAt.elapsedNow() * speed.multiplier).inWholeMilliseconds
         return startOffsetMs + elapsedMs.coerceIn(0, nextOffsetMs - startOffsetMs)
     }
 }

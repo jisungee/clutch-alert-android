@@ -1,0 +1,395 @@
+{
+  "initialState": {
+    "gameId": "mock-close",
+    "homeTeam": { "id": "seoul", "name": "서울 팔콘스" },
+    "awayTeam": { "id": "busan", "name": "부산 웨이브스" },
+    "homeScore": 3,
+    "awayScore": 2,
+    "inning": 7,
+    "half": "TOP",
+    "balls": 0,
+    "strikes": 0,
+    "outs": 0,
+    "bases": {},
+    "batter": { "id": "a8", "name": "유민재" },
+    "pitcher": { "id": "hp", "name": "임건우" },
+    "status": "IN_PROGRESS"
+  },
+  "events": [
+    {
+      "eventId": "half-start",
+      "gameId": "mock-close",
+      "eventType": "HALF_INNING_STARTED",
+      "teamId": "busan",
+      "players": [],
+      "offsetMs": 0,
+      "after": {
+        "gameId": "mock-close",
+        "homeTeam": { "id": "seoul", "name": "서울 팔콘스" },
+        "awayTeam": { "id": "busan", "name": "부산 웨이브스" },
+        "homeScore": 3,
+        "awayScore": 2,
+        "inning": 7,
+        "half": "TOP",
+        "balls": 0,
+        "strikes": 0,
+        "outs": 0,
+        "bases": {},
+        "batter": { "id": "a8", "name": "유민재" },
+        "pitcher": { "id": "hp", "name": "임건우" },
+        "status": "IN_PROGRESS"
+      }
+    },
+    {
+      "eventId": "away-first-out",
+      "gameId": "mock-close",
+      "eventType": "BATTED_OUT",
+      "teamId": "busan",
+      "players": [
+        { "id": "a8", "name": "유민재" }
+      ],
+      "offsetMs": 1000,
+      "after": {
+        "gameId": "mock-close",
+        "homeTeam": { "id": "seoul", "name": "서울 팔콘스" },
+        "awayTeam": { "id": "busan", "name": "부산 웨이브스" },
+        "homeScore": 3,
+        "awayScore": 2,
+        "inning": 7,
+        "half": "TOP",
+        "balls": 0,
+        "strikes": 0,
+        "outs": 1,
+        "bases": {},
+        "batter": { "id": "a9", "name": "장현우" },
+        "pitcher": { "id": "hp", "name": "임건우" },
+        "status": "IN_PROGRESS"
+      }
+    },
+    {
+      "eventId": "away-second-out",
+      "gameId": "mock-close",
+      "eventType": "BATTED_OUT",
+      "teamId": "busan",
+      "players": [
+        { "id": "a9", "name": "장현우" }
+      ],
+      "offsetMs": 2000,
+      "after": {
+        "gameId": "mock-close",
+        "homeTeam": { "id": "seoul", "name": "서울 팔콘스" },
+        "awayTeam": { "id": "busan", "name": "부산 웨이브스" },
+        "homeScore": 3,
+        "awayScore": 2,
+        "inning": 7,
+        "half": "TOP",
+        "balls": 0,
+        "strikes": 0,
+        "outs": 2,
+        "bases": {},
+        "batter": { "id": "a1", "name": "김도윤" },
+        "pitcher": { "id": "hp", "name": "임건우" },
+        "status": "IN_PROGRESS"
+      }
+    },
+    {
+      "eventId": "setup",
+      "gameId": "mock-close",
+      "eventType": "TRIPLE",
+      "teamId": "busan",
+      "players": [
+        { "id": "a1", "name": "김도윤" }
+      ],
+      "offsetMs": 3000,
+      "after": {
+        "gameId": "mock-close",
+        "homeTeam": { "id": "seoul", "name": "서울 팔콘스" },
+        "awayTeam": { "id": "busan", "name": "부산 웨이브스" },
+        "homeScore": 3,
+        "awayScore": 2,
+        "inning": 7,
+        "half": "TOP",
+        "balls": 0,
+        "strikes": 0,
+        "outs": 2,
+        "bases": {
+          "third": { "id": "a1", "name": "김도윤" }
+        },
+        "batter": { "id": "a2", "name": "이준서" },
+        "pitcher": { "id": "hp", "name": "임건우" },
+        "status": "IN_PROGRESS"
+      }
+    },
+    {
+      "eventId": "tie",
+      "gameId": "mock-close",
+      "eventType": "SINGLE",
+      "teamId": "busan",
+      "players": [
+        { "id": "a2", "name": "이준서" }
+      ],
+      "offsetMs": 4000,
+      "details": {
+        "runsBattedIn": 1
+      },
+      "after": {
+        "gameId": "mock-close",
+        "homeTeam": { "id": "seoul", "name": "서울 팔콘스" },
+        "awayTeam": { "id": "busan", "name": "부산 웨이브스" },
+        "homeScore": 3,
+        "awayScore": 3,
+        "inning": 7,
+        "half": "TOP",
+        "balls": 0,
+        "strikes": 0,
+        "outs": 2,
+        "bases": {
+          "first": { "id": "a2", "name": "이준서" }
+        },
+        "batter": { "id": "a3", "name": "박민재" },
+        "pitcher": { "id": "hp", "name": "임건우" },
+        "status": "IN_PROGRESS"
+      }
+    },
+    {
+      "eventId": "away-third-out",
+      "gameId": "mock-close",
+      "eventType": "BATTED_OUT",
+      "teamId": "busan",
+      "players": [
+        { "id": "a3", "name": "박민재" }
+      ],
+      "offsetMs": 5000,
+      "after": {
+        "gameId": "mock-close",
+        "homeTeam": { "id": "seoul", "name": "서울 팔콘스" },
+        "awayTeam": { "id": "busan", "name": "부산 웨이브스" },
+        "homeScore": 3,
+        "awayScore": 3,
+        "inning": 7,
+        "half": "TOP",
+        "balls": 0,
+        "strikes": 0,
+        "outs": 3,
+        "bases": {
+          "first": { "id": "a2", "name": "이준서" }
+        },
+        "batter": null,
+        "pitcher": { "id": "hp", "name": "임건우" },
+        "status": "IN_PROGRESS"
+      }
+    },
+    {
+      "eventId": "bottom-seven",
+      "gameId": "mock-close",
+      "eventType": "HALF_INNING_CHANGED",
+      "teamId": null,
+      "players": [],
+      "offsetMs": 6000,
+      "after": {
+        "gameId": "mock-close",
+        "homeTeam": { "id": "seoul", "name": "서울 팔콘스" },
+        "awayTeam": { "id": "busan", "name": "부산 웨이브스" },
+        "homeScore": 3,
+        "awayScore": 3,
+        "inning": 7,
+        "half": "BOTTOM",
+        "balls": 0,
+        "strikes": 0,
+        "outs": 0,
+        "bases": {},
+        "batter": { "id": "h1", "name": "윤지호" },
+        "pitcher": { "id": "ap", "name": "송시우" },
+        "status": "IN_PROGRESS"
+      }
+    },
+    {
+      "eventId": "home-lead",
+      "gameId": "mock-close",
+      "eventType": "HOME_RUN",
+      "teamId": "seoul",
+      "players": [
+        { "id": "h1", "name": "윤지호" }
+      ],
+      "offsetMs": 7000,
+      "details": {
+        "runsBattedIn": 1
+      },
+      "after": {
+        "gameId": "mock-close",
+        "homeTeam": { "id": "seoul", "name": "서울 팔콘스" },
+        "awayTeam": { "id": "busan", "name": "부산 웨이브스" },
+        "homeScore": 4,
+        "awayScore": 3,
+        "inning": 7,
+        "half": "BOTTOM",
+        "balls": 0,
+        "strikes": 0,
+        "outs": 0,
+        "bases": {},
+        "batter": { "id": "h2", "name": "한서준" },
+        "pitcher": { "id": "ap", "name": "송시우" },
+        "status": "IN_PROGRESS"
+      }
+    },
+    {
+      "eventId": "home-first-out",
+      "gameId": "mock-close",
+      "eventType": "BATTED_OUT",
+      "teamId": "seoul",
+      "players": [
+        { "id": "h2", "name": "한서준" }
+      ],
+      "offsetMs": 8000,
+      "after": {
+        "gameId": "mock-close",
+        "homeTeam": { "id": "seoul", "name": "서울 팔콘스" },
+        "awayTeam": { "id": "busan", "name": "부산 웨이브스" },
+        "homeScore": 4,
+        "awayScore": 3,
+        "inning": 7,
+        "half": "BOTTOM",
+        "balls": 0,
+        "strikes": 0,
+        "outs": 1,
+        "bases": {},
+        "batter": { "id": "h3", "name": "오지환" },
+        "pitcher": { "id": "ap", "name": "송시우" },
+        "status": "IN_PROGRESS"
+      }
+    },
+    {
+      "eventId": "home-second-out",
+      "gameId": "mock-close",
+      "eventType": "BATTED_OUT",
+      "teamId": "seoul",
+      "players": [
+        { "id": "h3", "name": "오지환" }
+      ],
+      "offsetMs": 9000,
+      "after": {
+        "gameId": "mock-close",
+        "homeTeam": { "id": "seoul", "name": "서울 팔콘스" },
+        "awayTeam": { "id": "busan", "name": "부산 웨이브스" },
+        "homeScore": 4,
+        "awayScore": 3,
+        "inning": 7,
+        "half": "BOTTOM",
+        "balls": 0,
+        "strikes": 0,
+        "outs": 2,
+        "bases": {},
+        "batter": { "id": "h4", "name": "김현준" },
+        "pitcher": { "id": "ap", "name": "송시우" },
+        "status": "IN_PROGRESS"
+      }
+    },
+    {
+      "eventId": "home-third-out",
+      "gameId": "mock-close",
+      "eventType": "BATTED_OUT",
+      "teamId": "seoul",
+      "players": [
+        { "id": "h4", "name": "김현준" }
+      ],
+      "offsetMs": 10000,
+      "after": {
+        "gameId": "mock-close",
+        "homeTeam": { "id": "seoul", "name": "서울 팔콘스" },
+        "awayTeam": { "id": "busan", "name": "부산 웨이브스" },
+        "homeScore": 4,
+        "awayScore": 3,
+        "inning": 7,
+        "half": "BOTTOM",
+        "balls": 0,
+        "strikes": 0,
+        "outs": 3,
+        "bases": {},
+        "batter": null,
+        "pitcher": { "id": "ap", "name": "송시우" },
+        "status": "IN_PROGRESS"
+      }
+    },
+    {
+      "eventId": "top-eight",
+      "gameId": "mock-close",
+      "eventType": "HALF_INNING_CHANGED",
+      "teamId": null,
+      "players": [],
+      "offsetMs": 11000,
+      "after": {
+        "gameId": "mock-close",
+        "homeTeam": { "id": "seoul", "name": "서울 팔콘스" },
+        "awayTeam": { "id": "busan", "name": "부산 웨이브스" },
+        "homeScore": 4,
+        "awayScore": 3,
+        "inning": 8,
+        "half": "TOP",
+        "balls": 0,
+        "strikes": 0,
+        "outs": 0,
+        "bases": {},
+        "batter": { "id": "a4", "name": "최현우" },
+        "pitcher": { "id": "hp", "name": "임건우" },
+        "status": "IN_PROGRESS"
+      }
+    },
+    {
+      "eventId": "comeback-runner",
+      "gameId": "mock-close",
+      "eventType": "WALK",
+      "teamId": "busan",
+      "players": [
+        { "id": "a4", "name": "최현우" }
+      ],
+      "offsetMs": 12000,
+      "after": {
+        "gameId": "mock-close",
+        "homeTeam": { "id": "seoul", "name": "서울 팔콘스" },
+        "awayTeam": { "id": "busan", "name": "부산 웨이브스" },
+        "homeScore": 4,
+        "awayScore": 3,
+        "inning": 8,
+        "half": "TOP",
+        "balls": 0,
+        "strikes": 0,
+        "outs": 0,
+        "bases": {
+          "first": { "id": "a4", "name": "최현우" }
+        },
+        "batter": { "id": "a5", "name": "정지훈" },
+        "pitcher": { "id": "hp", "name": "임건우" },
+        "status": "IN_PROGRESS"
+      }
+    },
+    {
+      "eventId": "comeback",
+      "gameId": "mock-close",
+      "eventType": "HOME_RUN",
+      "teamId": "busan",
+      "players": [
+        { "id": "a5", "name": "정지훈" }
+      ],
+      "offsetMs": 13000,
+      "details": {
+        "runsBattedIn": 2
+      },
+      "after": {
+        "gameId": "mock-close",
+        "homeTeam": { "id": "seoul", "name": "서울 팔콘스" },
+        "awayTeam": { "id": "busan", "name": "부산 웨이브스" },
+        "homeScore": 4,
+        "awayScore": 5,
+        "inning": 8,
+        "half": "TOP",
+        "balls": 0,
+        "strikes": 0,
+        "outs": 0,
+        "bases": {},
+        "batter": { "id": "a6", "name": "강민우" },
+        "pitcher": { "id": "hp", "name": "임건우" },
+        "status": "IN_PROGRESS"
+      }
+    }
+  ]
+}

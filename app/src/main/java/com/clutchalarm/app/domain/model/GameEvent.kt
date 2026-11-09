@@ -13,6 +13,7 @@ enum class EventType {
 
 @Serializable
 data class PlayDetails(
+    val firstPitchConfirmed: Boolean = false,
     val walkOff: Boolean = false,
     val runsBattedIn: Int? = null,
     val reviewSubject: String? = null,

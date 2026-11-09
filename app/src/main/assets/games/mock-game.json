@@ -23,6 +23,7 @@
       "teamId": null,
       "players": [],
       "offsetMs": 0,
+      "details": { "firstPitchConfirmed": true },
       "after": {
         "gameId": "mock-001",
         "homeTeam": { "id": "seoul", "name": "서울 팔콘스" },
@@ -32,7 +33,7 @@
         "inning": 1,
         "half": "TOP",
         "balls": 0,
-        "strikes": 0,
+        "strikes": 1,
         "outs": 0,
         "bases": {},
         "batter": { "id": "a1", "name": "김도윤" },

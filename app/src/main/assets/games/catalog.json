@@ -1,0 +1,37 @@
+[
+  {
+    "file": "mock-game.json",
+    "name": "모의 경기 · 일반",
+    "description": "첫 투구, 출루, 득점, 세 번째 아웃과 공수교대가 이어지는 1회."
+  },
+  {
+    "file": "mock-close.json",
+    "name": "모의 경기 · 접전",
+    "description": "7회 초 동점, 7회 말 홈팀 리드, 8회 초 원정팀의 역전 2점 홈런."
+  },
+  {
+    "file": "mock-home-runs.json",
+    "name": "모의 경기 · 홈런",
+    "description": "4회 초 역전 2점, 솔로, 3점, 만루 홈런을 차례로 재현."
+  },
+  {
+    "file": "mock-big-inning.json",
+    "name": "모의 경기 · 빅이닝",
+    "description": "5회 초 적시타로 이닝 4득점을 달성하고, 5번째 득점에서는 빅이닝이 반복되지 않는 장면."
+  },
+  {
+    "file": "mock-walkoff-hit.json",
+    "name": "모의 경기 · 끝내기 안타",
+    "description": "9회 말 4대4, 3루 주자가 홈에 들어오며 홈팀이 끝내기 승리."
+  },
+  {
+    "file": "mock-walkoff-homer.json",
+    "name": "모의 경기 · 끝내기 홈런",
+    "description": "9회 말 한 점 뒤진 홈팀이 1루 주자를 두고 2점 홈런으로 승리."
+  },
+  {
+    "file": "mock-special.json",
+    "name": "모의 경기 · 판독과 부상",
+    "description": "1루 아웃 판정 번복과 투수 부상 의심, 의료진 확인, 교체를 재현."
+  }
+]

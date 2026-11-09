@@ -31,6 +31,7 @@ data class NotificationCandidate(
     val type: NotificationType,
     val title: String,
     val body: String,
+    val important: Boolean = type == NotificationType.COMEBACK || type == NotificationType.HOME_RUN,
 )
 
 data class NotificationDecision(
@@ -114,6 +115,9 @@ class NotificationRuleEngine {
         }
         val decision = when (event.eventType) {
             EventType.FIRST_PITCH -> Message(NotificationType.GAME_STARTED, "${preferred.name} 경기 시작! 첫 투구")
+            EventType.GAME_STARTED -> if (event.details.firstPitchConfirmed &&
+                before.status == GameStatus.NOT_STARTED && after.status == GameStatus.IN_PROGRESS
+            ) Message(NotificationType.GAME_STARTED, "${preferred.name} 경기 시작! 첫 투구") else null
             EventType.OFFICIAL_REVIEW_STARTED -> Message(
                 NotificationType.VIDEO_REVIEW,
                 listOfNotNull(event.details.reviewSubject?.takeIf { it.isNotBlank() }, "공식 비디오 판독 시작")
@@ -123,7 +127,7 @@ class NotificationRuleEngine {
             EventType.OFFICIAL_REVIEW_OVERTURNED -> Message(
                 NotificationType.VIDEO_REVIEW,
                 event.details.revisedCall?.takeIf { it.isNotBlank() }
-                    ?.let { "비디오 판독 결과 · ${it}(으)로 번복" } ?: "비디오 판독 결과 · 판정 번복",
+                    ?.let { "비디오 판독 결과 · $it 판정으로 번복" } ?: "비디오 판독 결과 · 판정 번복",
             )
             EventType.INJURY_SUSPECTED_STOPPAGE -> injury(event, "부상 의심 · 경기 중단")
             EventType.INJURY_MEDICAL_CHECK -> injury(event, "부상 여부 의료진 확인 중")
@@ -169,6 +173,7 @@ class NotificationRuleEngine {
                 type = message.type,
                 title = message.title,
                 body = body,
+                important = message.important,
             )
         }
         return NotificationDecision(candidate, nextContext)
@@ -232,7 +237,7 @@ class NotificationRuleEngine {
             tied && !preferredScored -> "⚠️ 동점 허용"
             else -> type.title
         }
-        return Message(type, "$play! $result", title)
+        return Message(type, "$play! $result", title, important = walkOff || comeback || leadAllowed || homer)
     }
 
     private fun injury(event: GameEvent, situation: String): Message {
@@ -241,7 +246,12 @@ class NotificationRuleEngine {
         return Message(NotificationType.INJURY, listOfNotNull(team?.name, players, situation).joinToString(" "))
     }
 
-    private data class Message(val type: NotificationType, val text: String, val title: String = type.title)
+    private data class Message(
+        val type: NotificationType,
+        val text: String,
+        val title: String = type.title,
+        val important: Boolean = false,
+    )
 
     private class ScorePerspective(home: Boolean, event: GameEvent) {
         val beforePreferred = if (home) event.before.homeScore else event.before.awayScore

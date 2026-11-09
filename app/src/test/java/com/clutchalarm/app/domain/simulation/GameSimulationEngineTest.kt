@@ -25,6 +25,70 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class GameSimulationEngineTest {
     @Test
+    fun supportedSpeedsScaleAbsoluteOffsetsAndRoundWaitsUp() = runTest {
+        for (speed in PlaybackSpeed.entries) {
+            val timeline = timeline(101, 203)
+            val engine = engine(timeline)
+            assertEquals(PlaybackSpeed.NORMAL, engine.state.value.speed)
+            engine.setSpeed(speed)
+            engine.play()
+            val first = 1L + 100 / speed.multiplier
+            val last = 1L + 202 / speed.multiplier
+            step(first - 1)
+            assertEquals(0, engine.state.value.processedEventCount)
+            step(1)
+            assertEquals(1, engine.state.value.processedEventCount)
+            step(last - first)
+            assertEquals(PlaybackStatus.COMPLETED, engine.state.value.status)
+            assertEquals(speed, engine.state.value.speed)
+        }
+    }
+
+    @Test
+    fun changingSpeedWhilePlayingKeepsPositionAndDeliversEveryEventInOrder() = runTest {
+        val timeline = timeline(100, 1_000, 1_000, 2_000)
+        val engine = engine(timeline)
+        val received = collectEvents(engine)
+        engine.play()
+        step(250)
+        engine.setSpeed(PlaybackSpeed.FIVE_TIMES)
+        assertEquals(250L, engine.state.value.elapsedMs)
+        step(149)
+        assertEquals(timeline.events.take(1), received)
+        step(1)
+        assertEquals(timeline.events.take(3), received)
+
+        step(100)
+        engine.setSpeed(PlaybackSpeed.NORMAL)
+        assertEquals(1_500L, engine.state.value.elapsedMs)
+        step(499)
+        assertEquals(3, received.size)
+        step(1)
+        assertEquals(timeline.events, received)
+    }
+
+    @Test
+    fun pausedSpeedChangeFreezesPositionAndResetRestoresNormalSpeed() = runTest {
+        val engine = engine(timeline(1_000))
+        engine.play()
+        step(100)
+        engine.pause()
+        engine.setSpeed(PlaybackSpeed.TEN_TIMES)
+        step(1_000)
+        assertEquals(100L, engine.state.value.elapsedMs)
+        assertEquals(0, engine.state.value.processedEventCount)
+        engine.resume()
+        step(89)
+        assertEquals(0, engine.state.value.processedEventCount)
+        step(1)
+        assertEquals(PlaybackStatus.COMPLETED, engine.state.value.status)
+        assertEquals(PlaybackSpeed.TEN_TIMES, engine.state.value.speed)
+        engine.reset()
+        assertEquals(PlaybackSpeed.NORMAL, engine.state.value.speed)
+        assertEquals(0L, engine.state.value.elapsedMs)
+    }
+
+    @Test
     fun appliesAfterStatesAtAbsoluteOffsets() = runTest {
         val timeline = timeline(100, 350, 500)
         val engine = engine(timeline)

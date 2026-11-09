@@ -44,9 +44,9 @@ macOS와 Linux에서는 `sh ./gradlew :app:assembleDebug :app:testDebugUnitTest`
 
 ## 모의 경기 데이터
 
-`MockGameRepository(assets)`는 `app/src/main/assets/games/mock-game.json`을 읽습니다. `listGames()`는 경기의 초기 상태를, `getGame(gameId)`는 초기 상태와 이벤트 목록이 담긴 `GameTimeline`을 반환합니다. JSON에는 초기 상태와 플레이 직후의 상태를 기록합니다. 로더가 초기 상태 또는 직전 플레이의 결과를 다음 플레이의 `before`로 연결합니다. 이벤트의 `offsetMs`는 재생 시작부터 지난 밀리초이며, 같은 시점의 이벤트는 파일 순서를 따릅니다.
+`MockGameRepository(assets)`는 `app/src/main/assets/games/catalog.json`에서 시나리오 이름, 설명, 경기 파일을 읽습니다. `listScenarios()`는 목록에 표시할 메타데이터와 초기 상태를, `getGame(gameId)`는 선택한 경기의 `GameTimeline`을 반환합니다. JSON에는 초기 상태와 플레이 직후 상태를 기록합니다. 로더가 직전 상태를 각 플레이의 `before`로 연결합니다. `offsetMs`가 같으면 파일 순서로 재생합니다.
 
-모의 경기는 1회 일부를 담습니다. 원정팀이 단타와 2루타로 선취점을 얻고, 2루 주자가 진루하지 않은 채 타구 아웃 세 개로 공격이 끝납니다. 공수교대 뒤 홈팀의 솔로 홈런 두 개로 동점과 역전이 이어집니다. 세 번째 아웃 직후에는 아웃 3개를 기록하고, 공수교대 이벤트에서 카운트와 베이스를 초기화합니다.
+기존 일반 경기와 접전, 홈런, 빅이닝, 끝내기 안타, 끝내기 홈런, 판독과 부상까지 7개 장면을 선택할 수 있습니다. 각 파일은 검증에 필요한 경기 구간을 담습니다. [알림 통합 테스트 보고서](docs/notification-test-report.md)에서 재현 조건과 결과를 확인할 수 있습니다.
 
 ## 모의 경기 재생
 
@@ -54,7 +54,15 @@ macOS와 Linux에서는 `sh ./gradlew :app:assembleDebug :app:testDebugUnitTest`
 
 ViewModel은 `viewModelScope` 아래에 상세 화면의 재생 작업을 만들고, Compose는 `collectAsStateWithLifecycle`로 화면 상태를 읽습니다. 상세에서 **목록**이나 시스템 뒤로 가기를 누르면 해당 작업을 취소합니다. 같은 경기를 다시 열면 초기 상태부터 시작합니다.
 
-ViewModel의 단일 `collectEvents` 소비자는 동일한 시각의 플레이도 순서대로 처리합니다. 초기화나 처음부터 재생을 요청하면 엔진이 이전 세션의 대기 이벤트를 폐기합니다. 이후 `NotificationRuleEngine`은 이 소비자에서 각 이벤트의 `before`와 `after`를 입력받을 수 있습니다.
+ViewModel의 단일 `collectEvents` 소비자는 동일한 시각의 플레이도 순서대로 처리합니다. 초기화나 처음부터 재생을 요청하면 엔진이 이전 세션의 대기 이벤트를 폐기합니다. `NotificationRuleEngine`은 각 이벤트의 `before`와 `after`로 후보를 만들고, Android 발송기는 결과를 시스템 알림에 그대로 표시합니다.
+
+## 스마트폰에서 알림 테스트
+
+경기 상세에서 **응원 팀**을 고르고 **재생**을 누릅니다. Android 13 이상에서 권한이 없다면 **알림 권한 요청**을 누르고 허용합니다. 앱이나 채널이 차단되어 있으면 **알림 설정 열기**를 사용합니다. 상세 하단 **알림 기록**에서 후보와 발송 상태를 볼 수 있습니다. 시스템 알림을 누르면 해당 경기 상세가 열립니다. 같은 경기를 보고 있었다면 현재 재생 위치가 유지됩니다.
+
+상세 상단의 **알림 유형**에서 경기 진행, 타격·출루, 점수 변화, 주요 상황에 속한 알림을 각각 켜거나 끌 수 있습니다. 설정은 앱을 다시 실행해도 유지되며, **전체 알림 활성화**로 기본값을 복원합니다.
+
+**일시정지 → 재개**는 같은 세션이며, **처음부터 다시 재생**은 새 테스트 세션입니다. 응원 팀과 경기별 발송 기록은 메모리에 저장됩니다. 알림을 눌러 앱이 새로 시작되면 경기 상세를 초기 상태로 엽니다. 시스템 알림의 보존 상한과 발송·게시 상태의 의미는 [Android 알림 보존 정책](docs/notification-retention.md)에 정리했습니다.
 
 ## GitHub 협업
 
