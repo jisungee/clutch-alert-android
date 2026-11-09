@@ -17,6 +17,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import androidx.core.app.NotificationManagerCompat
 import com.clutchalarm.app.data.MockGameRepository
 import com.clutchalarm.app.data.DataStoreNotificationPreferencesRepository
 import com.clutchalarm.app.notification.AndroidNotificationDispatcher
@@ -86,10 +87,15 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun openNotificationSettings() {
-        val settings = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
-        } else {
-            Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", packageName, null))
+        val settings = when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
+                NotificationManagerCompat.from(this).areNotificationsEnabled() ->
+                Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS)
+                    .putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
+                    .putExtra(Settings.EXTRA_CHANNEL_ID, AndroidNotificationDispatcher.CHANNEL_ID)
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ->
+                Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
+            else -> Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", packageName, null))
         }
         startActivity(settings)
     }

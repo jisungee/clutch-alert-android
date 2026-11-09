@@ -31,7 +31,7 @@ class AndroidNotificationDispatcher(context: Context) : NotificationDispatcher {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             manager.createNotificationChannel(
                 NotificationChannel(CHANNEL_ID, app.getString(R.string.game_notification_channel),
-                    NotificationManager.IMPORTANCE_DEFAULT),
+                    NotificationManager.IMPORTANCE_HIGH).apply { enableVibration(true) },
             )
         }
     }
@@ -74,7 +74,8 @@ class AndroidNotificationDispatcher(context: Context) : NotificationDispatcher {
                 .setContentTitle(candidate.title)
                 .setContentText(candidate.body)
                 .setStyle(NotificationCompat.BigTextStyle().bigText(candidate.body))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setDefaults(Notification.DEFAULT_SOUND or Notification.DEFAULT_VIBRATE)
                 .setContentIntent(contentIntent)
                 .setAutoCancel(true)
                 .addExtras(Bundle().apply {
@@ -127,7 +128,7 @@ class AndroidNotificationDispatcher(context: Context) : NotificationDispatcher {
         val extras = notification.extras
         val managed = extras.getBoolean(EXTRA_MANAGED)
         val onGameChannel = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notification.channelId == CHANNEL_ID
+            notification.channelId == CHANNEL_ID || notification.channelId == LEGACY_CHANNEL_ID
         } else notification.icon == R.drawable.ic_game_notification
         if (!onGameChannel || (!managed && !legacyTag.matches(tag))) return null
 
@@ -143,7 +144,8 @@ class AndroidNotificationDispatcher(context: Context) : NotificationDispatcher {
         manager.getNotificationChannel(CHANNEL_ID)?.importance == NotificationManager.IMPORTANCE_NONE
 
     companion object {
-        const val CHANNEL_ID = "mock_game_events"
+        const val CHANNEL_ID = "mock_game_events_heads_up"
+        private const val LEGACY_CHANNEL_ID = "mock_game_events"
         const val ACTION_OPEN_GAME = "com.clutchalarm.app.OPEN_GAME"
         const val EXTRA_GAME_ID = "com.clutchalarm.app.GAME_ID"
         private const val EXTRA_MANAGED = "com.clutchalarm.app.MANAGED_NOTIFICATION"

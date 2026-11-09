@@ -67,6 +67,7 @@ class MockScenarioIntegrationTest {
             assertEquals(PlaybackStatus.COMPLETED, detail.playback.status)
             assertEquals(5, detail.notifications.size)
             assertTrue(detail.notifications.all { it.status == DeliveryStatus.FILTERED })
+            assertTrue(detail.sentNotifications.isEmpty())
             assertTrue(dispatches.isEmpty())
 
             viewModel.setNotificationEnabled(VIDEO_REVIEW, true)

@@ -16,6 +16,7 @@ import com.clutchalarm.app.notification.PublicationStatus
 import com.clutchalarm.app.domain.notification.NotificationCandidate
 import com.clutchalarm.app.domain.notification.NotificationType
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
@@ -128,9 +129,15 @@ class GameViewModelTest {
             assertEquals(listOf(NotificationType.GAME_STARTED, NotificationType.REACHED_BASE), dispatched.map { it.type })
             assertEquals(List(2) { DeliveryStatus.PERMISSION_DENIED },
                 viewModel.loaded().notifications.map { it.status })
+            assertEquals(0, viewModel.loaded().sentNotifications.size)
 
+            val recorded = viewModel.loaded().notifications
             viewModel.pause()
             runCurrent()
+            viewModel.setPlaybackSpeed(com.clutchalarm.app.domain.simulation.PlaybackSpeed.DOUBLE)
+            runCurrent()
+            assertEquals(recorded, viewModel.loaded().notifications)
+            viewModel.setPlaybackSpeed(com.clutchalarm.app.domain.simulation.PlaybackSpeed.NORMAL)
             advanceTimeBy(10_000)
             runCurrent()
             assertEquals(2, dispatched.size)
@@ -143,6 +150,7 @@ class GameViewModelTest {
             assertEquals(listOf("play-1", "play-2", "play-3"), dispatched.map { it.eventId })
             assertEquals(NotificationType.RUN_ALLOWED, dispatched.last().type)
             assertEquals(DeliveryStatus.SENT, viewModel.loaded().notifications.last().status)
+            assertEquals(listOf("play-3"), viewModel.loaded().sentNotifications.map { it.candidate.eventId })
 
             viewModel.selectGame("mock-001") // An alert tap on the current game preserves playback.
             assertEquals(3, viewModel.loaded().playback.processedEventCount)
@@ -168,7 +176,7 @@ class GameViewModelTest {
     }
 
     @Test
-    fun recordsConfirmationAndCleanupAcrossPlaybackSessions() = runTest {
+    fun recordsConfirmationAndCleanupWithinTheCurrentPlaybackSession() = runTest {
         val scheduler = StandardTestDispatcher(testScheduler)
         Dispatchers.setMain(scheduler)
         val repository = MockGameRepository(scheduler) { file ->
@@ -194,28 +202,73 @@ class GameViewModelTest {
             viewModel.selectPreferredTeam("busan")
             viewModel.play()
             runCurrent()
-            val pending = viewModel.loaded().notificationHistory.single()
+            val pending = viewModel.loaded().notifications.single()
             assertEquals(DeliveryStatus.SENT, pending.status)
             assertEquals(PublicationStatus.CHECKING, pending.publication)
             advanceTimeBy(100)
             runCurrent()
-            assertEquals(PublicationStatus.CONFIRMED, viewModel.loaded().notificationHistory.single().publication)
-
-            viewModel.reset()
+            assertEquals(PublicationStatus.CONFIRMED, viewModel.loaded().notifications.single().publication)
+            advanceTimeBy(3_000)
             runCurrent()
-            assertEquals(1, viewModel.loaded().notificationHistory.size)
-            assertEquals(0, viewModel.loaded().notifications.size)
-            viewModel.play()
-            runCurrent()
-            advanceTimeBy(100)
-            runCurrent()
-            val (original, replay) = viewModel.loaded().notificationHistory
+            val (original, replay) = viewModel.loaded().notifications
             assertEquals(PublicationStatus.CONFIRMED, original.publication)
             assertEquals(true, original.cleaned)
             assertEquals(PublicationStatus.UNCONFIRMED, replay.publication)
             assertEquals(1, replay.cleanupCount)
-            assertEquals(replay, viewModel.loaded().notifications.single())
+            assertEquals(listOf(replay, original), viewModel.loaded().sentNotifications)
+            assertEquals("김도윤", replay.gameState.bases.first?.name)
             assertEquals(2, attempts)
+            viewModel.reset()
+            runCurrent()
+            assertEquals(0, viewModel.loaded().notifications.size)
+        } finally {
+            viewModel.viewModelScope.cancel()
+            runCurrent()
+            Dispatchers.resetMain()
+        }
+    }
+
+    @Test
+    fun lateConfirmationCannotChangeRecordsAfterReplayOrGameSwitch() = runTest {
+        val scheduler = StandardTestDispatcher(testScheduler)
+        Dispatchers.setMain(scheduler)
+        val repository = MockGameRepository(scheduler) { file ->
+            requireNotNull(javaClass.getResource("/games/$file")).readText(Charsets.UTF_8)
+        }
+        val confirmations = List(3) { CompletableDeferred<NotificationConfirmation>() }
+        var attempts = 0
+        val viewModel = GameViewModel(repository, testScheduler.timeSource, object : NotificationDispatcher {
+            override fun dispatch(candidate: NotificationCandidate) = DeliveryStatus.SENT
+            override fun dispatchTracked(candidate: NotificationCandidate) =
+                NotificationSubmission(DeliveryStatus.SENT, NotificationAddress("test", ++attempts))
+
+            override suspend fun confirm(submission: NotificationSubmission): NotificationConfirmation =
+                confirmations[requireNotNull(submission.address).id - 1].await()
+        })
+        try {
+            viewModel.selectGame("mock-001")
+            runCurrent()
+            viewModel.selectPreferredTeam("busan")
+            viewModel.play()
+            runCurrent()
+            viewModel.play()
+            runCurrent()
+            val newRecord = viewModel.loaded().notifications.single()
+            assertEquals(NotificationAddress("test", 2), newRecord.address)
+            confirmations[0].complete(NotificationConfirmation(true, setOf(requireNotNull(newRecord.address))))
+            runCurrent()
+            assertEquals(newRecord, viewModel.loaded().notifications.single())
+
+            viewModel.selectGame("mock-special")
+            runCurrent()
+            viewModel.selectPreferredTeam("busan")
+            viewModel.play()
+            runCurrent()
+            val otherGameRecord = viewModel.loaded().notifications.single()
+            confirmations[1].complete(NotificationConfirmation(true, setOf(requireNotNull(otherGameRecord.address))))
+            runCurrent()
+            assertEquals(otherGameRecord, viewModel.loaded().notifications.single())
+            assertEquals("mock-special", otherGameRecord.candidate.gameId)
         } finally {
             viewModel.viewModelScope.cancel()
             runCurrent()

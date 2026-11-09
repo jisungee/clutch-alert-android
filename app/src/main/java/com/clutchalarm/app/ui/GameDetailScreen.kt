@@ -29,9 +29,7 @@ import com.clutchalarm.app.domain.model.GameEvent
 import com.clutchalarm.app.domain.model.InningHalf
 import com.clutchalarm.app.domain.simulation.PlaybackStatus
 import com.clutchalarm.app.domain.simulation.PlaybackSpeed
-import com.clutchalarm.app.notification.DeliveryStatus
 import com.clutchalarm.app.notification.NotificationAvailability
-import com.clutchalarm.app.notification.PublicationStatus
 
 @Composable
 fun GameDetailScreen(
@@ -109,13 +107,12 @@ fun GameDetailScreen(
                         NotificationAvailability.PERMISSION_REQUIRED -> {
                             Text("알림 권한이 허용되지 않았습니다. 재생은 계속할 수 있습니다.")
                             OutlinedButton(onClick = onRequestPermission) { Text("알림 권한 요청") }
-                            OutlinedButton(onClick = onOpenNotificationSettings) { Text("알림 설정 열기") }
                         }
                         NotificationAvailability.DISABLED -> {
                             Text("시스템 설정에서 앱 또는 모의 경기 알림이 꺼져 있습니다.")
-                            OutlinedButton(onClick = onOpenNotificationSettings) { Text("알림 설정 열기") }
                         }
                     }
+                    OutlinedButton(onClick = onOpenNotificationSettings) { Text("알림 설정 열기") }
                 }
             }
         }
@@ -145,40 +142,8 @@ fun GameDetailScreen(
             }
         }
 
-        Card(Modifier.fillMaxWidth()) {
-            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("알림 기록", style = MaterialTheme.typography.titleMedium)
-                if (detail.notificationHistory.isEmpty()) Text("생성된 알림 후보가 없습니다.")
-                detail.notificationHistory.asReversed().forEach { record ->
-                    val candidate = record.candidate
-                    Text(candidate.title, color = MaterialTheme.colorScheme.primary)
-                    Text(candidate.body)
-                    Text("${candidate.type.title} · 이벤트 ${candidate.eventId}")
-                    Text("후보 생성 · ${record.status.label()}")
-                    record.publication.label()?.let { Text(it) }
-                    if (record.cleaned) Text("기존 알림 정리됨")
-                    if (record.cleanupCount > 0) Text("기존 알림 ${record.cleanupCount}개 정리됨")
-                }
-            }
-        }
+        ReplayNotificationSections(detail)
     }
-}
-
-private fun DeliveryStatus.label() = when (this) {
-    DeliveryStatus.SENT -> "시스템 발송 요청 성공"
-    DeliveryStatus.PERMISSION_DENIED -> "권한 거부"
-    DeliveryStatus.DISABLED -> "시스템 알림 꺼짐"
-    DeliveryStatus.RETENTION_LIMIT -> "중요 알림 보존으로 발송 생략"
-    DeliveryStatus.ERROR -> "발송 요청 실패"
-    DeliveryStatus.FILTERED -> "유형 설정으로 발송 생략"
-    DeliveryStatus.PREFERENCES_UNAVAILABLE -> "설정 확인 전 발송 생략"
-}
-
-private fun PublicationStatus.label() = when (this) {
-    PublicationStatus.NOT_REQUESTED -> null
-    PublicationStatus.CHECKING -> "시스템 게시 확인 중"
-    PublicationStatus.CONFIRMED -> "시스템 게시 확인 · 활성 목록"
-    PublicationStatus.UNCONFIRMED -> "시스템 게시 미확인"
 }
 
 @Composable

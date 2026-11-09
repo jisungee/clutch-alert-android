@@ -1,6 +1,7 @@
 package com.clutchalarm.app.notification
 
 import com.clutchalarm.app.domain.notification.NotificationCandidate
+import com.clutchalarm.app.domain.model.GameState
 import java.util.UUID
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -33,11 +34,13 @@ data class NotificationConfirmation(
 data class NotificationRecord(
     val candidate: NotificationCandidate,
     val status: DeliveryStatus,
+    val gameState: GameState,
     val address: NotificationAddress? = null,
     val publication: PublicationStatus = PublicationStatus.NOT_REQUESTED,
     val cleaned: Boolean = false,
     val cleanupCount: Int = 0,
-    val recordId: Long = 0,
+    val cleanupRequestedCount: Int = 0,
+    val cleanupChecked: Boolean = false,
 )
 
 data class NotificationAddress(val tag: String, val id: Int)

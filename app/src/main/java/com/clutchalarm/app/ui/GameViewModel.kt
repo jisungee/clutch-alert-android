@@ -48,8 +48,11 @@ sealed interface GameDetailState {
         val latestEvent: GameEvent? = null,
         val preferredTeamId: String? = null,
         val notifications: List<NotificationRecord> = emptyList(),
-        val notificationHistory: List<NotificationRecord> = emptyList(),
-    ) : GameDetailState
+        val notificationRound: Long = 0,
+    ) : GameDetailState {
+        val sentNotifications: List<NotificationRecord>
+            get() = notifications.asReversed().filter { it.status == DeliveryStatus.SENT }
+    }
 }
 
 data class NotificationSettingsState(
@@ -80,8 +83,6 @@ class GameViewModel(
     private var engine: GameSimulationEngine? = null
     private val notificationSession = NotificationSession()
     private var notificationToken: NotificationSession.Token? = null
-    private val notificationHistory = mutableMapOf<String, List<NotificationRecord>>()
-    private var nextNotificationRecordId = 0L
     var currentGameId: String? = null
         private set
 
@@ -177,10 +178,7 @@ class GameViewModel(
             coroutineScope {
                 val simulation = GameSimulationEngine(timeline, this, timeSource)
                 engine = simulation
-                mutableDetail.value = GameDetailState.Loaded(
-                    simulation.state.value,
-                    notificationHistory = notificationHistory[gameId].orEmpty(),
-                )
+                mutableDetail.value = GameDetailState.Loaded(simulation.state.value)
 
                 launch {
                     simulation.state.collect { playback ->
@@ -189,16 +187,17 @@ class GameViewModel(
                 }
                 simulation.collectEvents { event ->
                     updateDetail(simulation) {
-                        val candidate = notificationToken?.let { token ->
-                            notificationSession.onEvent(token, event, it.preferredTeamId.orEmpty())
+                        val token = notificationToken
+                        val candidate = token?.let { activeToken ->
+                            notificationSession.onEvent(activeToken, event, it.preferredTeamId.orEmpty())
                         }
-                        val records = if (candidate == null) it.notifications else
-                            it.notifications + dispatch(candidate)
+                        val records = if (candidate != null) {
+                            it.notifications + dispatch(candidate, event, simulation, token)
+                        } else it.notifications
                         it.copy(
                             playback = simulation.state.value,
                             latestEvent = event,
                             notifications = records,
-                            notificationHistory = notificationHistory[gameId].orEmpty(),
                         )
                     }
                 }
@@ -229,7 +228,7 @@ class GameViewModel(
         simulation.play {
             updateDetail(simulation) {
                 notificationToken = notificationSession.begin(it.playback.gameState.gameId)
-                it.copy(latestEvent = null, notifications = emptyList())
+                it.copy(latestEvent = null, notifications = emptyList(), notificationRound = it.notificationRound + 1)
             }
         }
     }
@@ -244,7 +243,10 @@ class GameViewModel(
         simulation.reset {
             updateDetail(simulation) {
                 endNotifications()
-                it.copy(playback = simulation.state.value, latestEvent = null, notifications = emptyList())
+                it.copy(
+                    playback = simulation.state.value, latestEvent = null, notifications = emptyList(),
+                    notificationRound = it.notificationRound + 1,
+                )
             }
         }
     }
@@ -254,7 +256,12 @@ class GameViewModel(
         notificationToken = null
     }
 
-    private fun dispatch(candidate: NotificationCandidate): NotificationRecord {
+    private fun dispatch(
+        candidate: NotificationCandidate,
+        event: GameEvent,
+        simulation: GameSimulationEngine,
+        token: NotificationSession.Token,
+    ): NotificationRecord {
         val preferences = notificationSettings.value.preferences
         val submission = when {
             preferences == null -> NotificationSubmission(DeliveryStatus.PREFERENCES_UNAVAILABLE)
@@ -262,21 +269,24 @@ class GameViewModel(
             else -> dispatcher.dispatchTracked(candidate)
         }
         val record = NotificationRecord(
-            candidate, submission.status, submission.address,
-            when {
+            candidate = candidate,
+            status = submission.status,
+            gameState = event.after,
+            address = submission.address,
+            publication = when {
                 submission.address != null -> PublicationStatus.CHECKING
                 submission.status == DeliveryStatus.SENT -> PublicationStatus.UNCONFIRMED
                 else -> PublicationStatus.NOT_REQUESTED
             },
-            recordId = ++nextNotificationRecordId,
+            cleanupRequestedCount = submission.cleanupRequested.size,
         )
-        notificationHistory[candidate.gameId] = notificationHistory[candidate.gameId].orEmpty() + record
         if (submission.address != null || submission.cleanupRequested.isNotEmpty()) {
             viewModelScope.launch {
                 yield()
                 val confirmation = dispatcher.confirm(submission)
+                if (notificationToken !== token) return@launch
                 fun update(item: NotificationRecord): NotificationRecord {
-                    val current = item.recordId == record.recordId
+                    val current = item.candidate.id == candidate.id
                     val cleaned = item.cleaned || item.address in confirmation?.cleaned.orEmpty()
                     if (!current && cleaned == item.cleaned) return item
                     return item.copy(
@@ -285,17 +295,11 @@ class GameViewModel(
                         else PublicationStatus.UNCONFIRMED,
                         cleaned = cleaned,
                         cleanupCount = if (current) confirmation?.cleaned?.size ?: 0 else item.cleanupCount,
+                        cleanupChecked = item.cleanupChecked || (current && submission.cleanupRequested.isNotEmpty()),
                     )
                 }
-                for ((gameId, items) in notificationHistory) {
-                    notificationHistory[gameId] = items.map(::update)
-                }
-                val simulation = engine ?: return@launch
                 updateDetail(simulation) {
-                    it.copy(
-                        notifications = it.notifications.map(::update),
-                        notificationHistory = notificationHistory[it.playback.gameState.gameId].orEmpty(),
-                    )
+                    it.copy(notifications = it.notifications.map(::update))
                 }
             }
         }

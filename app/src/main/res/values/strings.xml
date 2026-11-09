@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ClutchAlarm</string>
-    <string name="game_notification_channel">모의 경기 알림</string>
+    <string name="game_notification_channel">모의 경기 알림 (팝업)</string>
 </resources>
