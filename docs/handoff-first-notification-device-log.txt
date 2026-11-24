@@ -1,0 +1,7 @@
+11-24 12:06:07.576  3935  3935 D ClutchBehavior: process=fb1fbba5-22a4-478c-bfd8-54cd2dfb6ded {"name":"app_open"}
+11-24 12:06:36.285  3935  3935 I ClutchNotificationOpen: source=LIST game=mock-001 post=none sequence=0 scope=null newRead=false status=NOT_APPLICABLE
+11-24 12:09:19.480  3935  4844 D ClutchNotificationPost: post=46c942ad-cd37-46d2-aa5f-2e5283276228:1 sequence=1 scope=INSTALLATION installation=02ee5b90-36a5-4497-89bf-ecf5fa2dd823 game=mock-001
+11-24 12:09:40.105  3935  3935 D ClutchBehavior: process=fb1fbba5-22a4-478c-bfd8-54cd2dfb6ded {"name":"first_done","notificationId":"46c942ad-cd37-46d2-aa5f-2e5283276228:1","notificationSequence":1,"installationId":"02ee5b90-36a5-4497-89bf-ecf5fa2dd823","gameId":"mock-001"}
+11-24 12:09:40.106  3935  3935 I ClutchNotificationOpen: source=NOTIFICATION game=mock-001 post=46c942ad-cd37-46d2-aa5f-2e5283276228:1 sequence=1 scope=INSTALLATION newRead=true status=NEW
+11-24 12:10:08.922  3935  3935 I ClutchNotificationOpen: source=NOTIFICATION game=mock-001 post=46c942ad-cd37-46d2-aa5f-2e5283276228:1 sequence=1 scope=INSTALLATION newRead=false status=DUPLICATE
+11-24 12:10:16.568  3935  3935 I ClutchNotificationOpen: source=LIST game=mock-001 post=none sequence=0 scope=null newRead=false status=NOT_APPLICABLE

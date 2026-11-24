@@ -37,7 +37,7 @@ internal fun HomeScreen(state: GameListState, onShowGames: () -> Unit, modifier:
         Surface(color = Color(0x33FFFFFF), shape = RoundedCornerShape(16.dp)) {
             Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 Text("모의 경기", color = Color.White, fontWeight = FontWeight.Bold)
-                Text("준비된 경기 장면을 재생하고 중요한 순간의 알림을 확인해보세요.",
+                Text("아래에서 경기를 고른 뒤, 상세에서 이번 경기의 알림 팀을 선택하고 재생하세요.",
                     color = Color.White, style = MaterialTheme.typography.bodyMedium)
             }
         }
@@ -60,7 +60,7 @@ internal fun HomeScreen(state: GameListState, onShowGames: () -> Unit, modifier:
         }
         Text("첫 투구부터 출루, 역전 홈런까지", color = Color.White,
             style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-        Text("경기 상세에서 응원할 팀을 고르고 재생을 시작해보세요. 일시정지와 배속으로 원하는 속도로 확인할 수 있어요.",
+        Text("알림이 오면 화면 위에서 알림창을 내려 클러치알림의 알림을 눌러보세요. 해당 경기 상세로 돌아올 수 있어요. 알림이 꺼져 있어도 경기 재생은 가능합니다.",
             color = Color(0xFFFFDCE4), style = MaterialTheme.typography.bodyMedium)
         Spacer(Modifier.height(12.dp))
     }

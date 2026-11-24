@@ -108,4 +108,6 @@ ViewModel의 단일 `collectEvents` 소비자는 동일한 시각의 플레이�
 
 새 로컬 알림은 경기 ID와 발송 건별 POST_ID를 전달합니다. 최초 알림 설정 저장 이후 성공 발송에는 설치 단위 영속 순번을 부여하며, 기존 PROCESS 범위 알림을 설치 1번으로 취급하지 않습니다. 상세가 실제 표시되면 로컬 저장소로 최초/중복 열람을 구분하며 목록 진입·화면 회전은 새 알림 열람이 아닙니다. [알림 진입 계약](docs/notification-entry-report.md)을 참고하세요.
 
-`app_open`, `first_done`, `repeat_done`, `drop`은 공통 기록기를 사용해 DEBUG 빌드의 `ClutchBehavior` 태그에 JSON으로 기록합니다. 서버 전송은 없습니다. 이벤트 기준, 94개 단위 테스트와 별도 QA 앱의 실제 기기 검증 건수는 [행동 이벤트 보고서](docs/behavior-events-report.md)에 정리했습니다. 기존 설치를 보존하는 별도 앱은 `./gradlew.bat -PbehaviorQa=true :app:assembleDebug`로 빌드합니다.
+`app_open`, `first_done`, `repeat_done`, `drop`은 공통 기록기를 사용해 DEBUG 빌드의 `ClutchBehavior` 태그에 JSON으로 기록합니다. 서버 전송은 없습니다. 이벤트 기준과 별도 QA 앱의 실제 기기 검증 건수는 [행동 이벤트 보고서](docs/behavior-events-report.md)에 정리했습니다. 기존 설치를 보존하는 별도 앱은 `./gradlew.bat -PbehaviorQa=true :app:assembleDebug`로 빌드합니다.
+
+11/27 인계용 브랜치·커밋 기준, QA APK, 새 설치에서 첫 시스템 알림 열람까지의 실제 결과, 알림 OFF 재생 및 재현 명령은 [인계 점검서](docs/handoff-20261127.md)에 정리했습니다. 최종 빌드와 96개 단위 테스트가 통과했습니다.

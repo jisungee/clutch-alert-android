@@ -96,10 +96,37 @@ fun GameDetailScreen(
             }
         }
 
+        val teams = listOf(game.awayTeam, game.homeTeam)
+        val selectedTeam = teams.firstOrNull { it.id == detail.preferredTeamId }
+        if (selectedTeam == null) {
+            Text("알림을 받을 팀을 먼저 선택해주세요. 이번 모의 경기에서만 사용하며 저장된 응원팀은 바뀌지 않아요.",
+                style = MaterialTheme.typography.bodyMedium)
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                for (team in teams) {
+                    FilterChip(selected = false, onClick = { onSelectTeam(team.id) }, label = { Text(team.name) })
+                }
+            }
+        } else {
+            Text("이번 경기 알림 팀 · ${selectedTeam.name}", style = MaterialTheme.typography.labelLarge)
+        }
+        when (notificationAvailability) {
+            NotificationAvailability.AVAILABLE -> Text(
+                "재생 후 화면 위에서 알림창을 내려 클러치알림의 알림을 눌러보세요. 같은 경기의 재생 상태는 유지돼요.",
+                style = MaterialTheme.typography.bodySmall)
+            NotificationAvailability.PERMISSION_REQUIRED -> {
+                Text("알림 권한이 꺼져 있어요. 경기 재생은 가능하지만 시스템 알림은 오지 않아요. 알림을 받으려면 권한을 허용해주세요.")
+                OutlinedButton(onClick = onRequestPermission, modifier = Modifier.fillMaxWidth()) { Text("알림 권한 허용하기") }
+                OutlinedButton(onClick = onOpenNotificationSettings, modifier = Modifier.fillMaxWidth()) { Text("시스템 알림 설정 열기") }
+            }
+            NotificationAvailability.DISABLED -> {
+                Text("시스템 알림이 꺼져 있어요. 경기 재생은 가능하지만 시스템 알림은 오지 않아요. 설정에서 앱 알림과 ‘모의 경기 알림 (팝업)’을 켜주세요.")
+                OutlinedButton(onClick = onOpenNotificationSettings, modifier = Modifier.fillMaxWidth()) { Text("시스템 알림 설정 열기") }
+            }
+        }
         Text(playback.status.label(), style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.primary)
         val (buttonLabel, action) = when (playback.status) {
-            PlaybackStatus.IDLE -> "재생" to onPlay
+            PlaybackStatus.IDLE -> "모의 경기 재생하기" to onPlay
             PlaybackStatus.PLAYING -> "일시정지" to onPause
             PlaybackStatus.PAUSED -> "재개" to onResume
             PlaybackStatus.COMPLETED -> "처음부터 다시 재생" to onPlay
@@ -155,8 +182,8 @@ fun GameDetailScreen(
                         label = { Text(team.name) },
                     )
                 }
-                if (detail.preferredTeamId == null) {
-                    Text("팀을 선택하면 이후 경기 이벤트의 알림을 받을 수 있습니다.")
+                if (selectedTeam == null) {
+                    Text("위 두 팀 중 한 팀을 선택한 뒤 재생하면 해당 팀의 알림을 받을 수 있어요.")
                 } else {
                     when (notificationAvailability) {
                         NotificationAvailability.AVAILABLE -> Text("경기 알림 사용 가능")
@@ -165,7 +192,7 @@ fun GameDetailScreen(
                             OutlinedButton(onClick = onRequestPermission) { Text("알림 권한 요청") }
                         }
                         NotificationAvailability.DISABLED -> {
-                            Text("시스템 설정에서 앱 또는 모의 경기 알림이 꺼져 있습니다.")
+                            Text("시스템 알림이 꺼져 있어요. 경기 재생은 가능하며 설정에서 알림을 켤 수 있어요.")
                         }
                     }
                     OutlinedButton(onClick = onOpenNotificationSettings) { Text("알림 설정 열기") }

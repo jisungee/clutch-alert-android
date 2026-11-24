@@ -1,0 +1,2 @@
+11-24 12:06:07.576  3935  3935 D ClutchBehavior: process=fb1fbba5-22a4-478c-bfd8-54cd2dfb6ded {"name":"app_open"}
+11-24 12:06:36.285  3935  3935 I ClutchNotificationOpen: source=LIST game=mock-001 post=none sequence=0 scope=null newRead=false status=NOT_APPLICABLE
