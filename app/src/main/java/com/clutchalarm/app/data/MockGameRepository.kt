@@ -21,7 +21,7 @@ class MockGameRepository private constructor(
     loadGames: () -> List<Pair<GameTimeline, GameScenario?>>,
 ) : GameRepository {
     constructor(readGameJson: () -> String) : this(Dispatchers.IO, loadGames = {
-        listOf(Json.decodeFromString<GameFile>(readGameJson()).toTimeline() to null)
+        listOf(decodeTimeline(readGameJson()) to null)
     })
 
     constructor(assets: AssetManager) : this(Dispatchers.IO, readAsset = { fileName ->
@@ -31,7 +31,7 @@ class MockGameRepository private constructor(
     internal constructor(ioDispatcher: CoroutineDispatcher, readAsset: (String) -> String) :
         this(ioDispatcher, loadGames = {
             Json.decodeFromString<List<ScenarioEntry>>(readAsset("catalog.json")).map { entry ->
-                val timeline = Json.decodeFromString<GameFile>(readAsset(entry.file)).toTimeline()
+                val timeline = decodeTimeline(readAsset(entry.file))
                 timeline to GameScenario(entry.name, entry.description)
             }
         })
@@ -89,3 +89,9 @@ private data class PlayRecord(
     val after: GameState,
     val details: PlayDetails = PlayDetails(),
 )
+
+private fun decodeTimeline(json: String): GameTimeline =
+    if (kotlinx.serialization.json.Json.parseToJsonElement(json).let {
+        it is kotlinx.serialization.json.JsonObject && "game_info" in it
+    }) SnapshotGameAdapter.decode(json)
+    else Json.decodeFromString<GameFile>(json).toTimeline()

@@ -1,11 +1,19 @@
 package com.clutchalarm.app.ui
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Surface
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -44,21 +52,47 @@ fun GameDetailScreen(
     onRequestPermission: () -> Unit,
     onOpenNotificationSettings: () -> Unit,
     modifier: Modifier = Modifier,
+    savedTeamName: String? = null,
 ) {
     val playback = detail.playback
     val game = playback.gameState
 
     Column(
-        modifier.verticalScroll(rememberScrollState()).padding(vertical = 12.dp),
+        modifier.verticalScroll(rememberScrollState()).padding(vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        Card(Modifier.fillMaxWidth()) {
-            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("${game.inning}회 ${if (game.half == InningHalf.TOP) "초" else "말"}",
-                    color = MaterialTheme.colorScheme.primary)
-                ScoreRow("원정", game.awayTeam.name, game.awayScore)
-                ScoreRow("홈", game.homeTeam.name, game.homeScore)
-                Text("볼 ${game.balls}   스트라이크 ${game.strikes}   아웃 ${game.outs}")
+        Surface(shape = RoundedCornerShape(24.dp), color = MaterialTheme.colorScheme.surface) {
+            Column(Modifier.fillMaxWidth().padding(20.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
+                Text(if (detail.notificationsEnabled) "모의 경기" else "PDF 기반 테스트 경기 · 알림 발송 보류", color = MaterialTheme.colorScheme.primary,
+                    style = MaterialTheme.typography.labelLarge)
+                Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                    TeamName("원정", game.awayTeam.name, Modifier.weight(1f))
+                    Text("${game.awayScore} : ${game.homeScore}",
+                        style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(horizontal = 8.dp))
+                    TeamName("홈", game.homeTeam.name, Modifier.weight(1f))
+                }
+                Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = RoundedCornerShape(16.dp)) {
+                    Row(Modifier.fillMaxWidth().padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
+                        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Text("${game.inning}회 ${if (game.half == InningHalf.TOP) "초" else "말"}",
+                                style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+                            Text("${game.outs} OUT", style = MaterialTheme.typography.labelLarge)
+                        }
+                        BaseballDiamond(game.bases, Modifier.weight(1f).height(76.dp))
+                    }
+                }
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+                    CountIndicator("B", "볼", game.balls, 3, Color(0xFF16845B))
+                    CountIndicator("S", "스트라이크", game.strikes, 2, Color(0xFFC38A00))
+                    CountIndicator("O", "아웃", game.outs, 3, MaterialTheme.colorScheme.primary)
+                }
+                Text(listOfNotNull(
+                    game.bases.first?.let { "1루 ${it.name}" },
+                    game.bases.second?.let { "2루 ${it.name}" },
+                    game.bases.third?.let { "3루 ${it.name}" },
+                ).joinToString(" · ").ifEmpty { "주자 없음" },
+                    style = MaterialTheme.typography.bodySmall)
             }
         }
 
@@ -89,9 +123,31 @@ fun GameDetailScreen(
             OutlinedButton(onClick = onReset, modifier = Modifier.fillMaxWidth()) { Text("초기화") }
         }
 
+        Surface(shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.surface) {
+            Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Text("경기상황", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+                HorizontalDivider(color = MaterialTheme.colorScheme.primary, thickness = 2.dp)
+                Text("타자  ${game.batter?.name ?: "미제공"}   ·   투수  ${game.pitcher?.name ?: "미제공"}",
+                    style = MaterialTheme.typography.bodyMedium)
+                val event = detail.latestEvent
+                if (event == null) {
+                    Text("재생을 시작하면 최신 경기 상황이 표시됩니다.")
+                } else {
+                    Text(event.sourceLabel ?: event.eventType.label(), color = MaterialTheme.colorScheme.primary,
+                        fontWeight = FontWeight.Bold)
+                    Text(event.sourceSummary ?: event.description())
+                }
+                HorizontalDivider()
+                Text("이닝별 득점 · H/E · 라인업 · 선수 기록은 제공하지 않습니다.",
+                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+        }
+
         Card(Modifier.fillMaxWidth()) {
             Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text("응원 팀", style = MaterialTheme.typography.titleMedium)
+                Text("응원팀 · ${savedTeamName ?: "미선택"}", style = MaterialTheme.typography.titleMedium)
+                Text("이번 모의 경기 알림 관점 (임시)", style = MaterialTheme.typography.labelLarge)
+                Text("아래 선택은 저장된 응원팀을 바꾸지 않습니다.", style = MaterialTheme.typography.bodySmall)
                 for (team in listOf(game.awayTeam, game.homeTeam)) {
                     FilterChip(
                         selected = detail.preferredTeamId == team.id,
@@ -117,41 +173,35 @@ fun GameDetailScreen(
             }
         }
 
-        Card(Modifier.fillMaxWidth()) {
-            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("주자 상황", style = MaterialTheme.typography.titleMedium)
-                BaseballDiamond(game.bases, Modifier.fillMaxWidth().height(148.dp))
-                Text("1루  ${game.bases.first?.name ?: "비어 있음"}")
-                Text("2루  ${game.bases.second?.name ?: "비어 있음"}")
-                Text("3루  ${game.bases.third?.name ?: "비어 있음"}")
-                Text("타자  ${game.batter?.name ?: "—"}")
-                Text("투수  ${game.pitcher?.name ?: "—"}")
-            }
-        }
-
-        Card(Modifier.fillMaxWidth()) {
-            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("최근 플레이", style = MaterialTheme.typography.titleMedium)
-                val event = detail.latestEvent
-                if (event == null) {
-                    Text("아직 발생한 플레이가 없습니다.")
-                } else {
-                    Text(event.eventType.label(), color = MaterialTheme.colorScheme.primary)
-                    Text(event.description())
-                }
-            }
-        }
-
         ReplayNotificationSections(detail)
     }
 }
 
 @Composable
-private fun ScoreRow(side: String, team: String, score: Int) {
-    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalAlignment = Alignment.CenterVertically) {
-        Text("$side  $team", Modifier.weight(1f), style = MaterialTheme.typography.titleMedium)
-        Text(score.toString(), style = MaterialTheme.typography.headlineSmall)
+private fun TeamName(side: String, name: String, modifier: Modifier) {
+    Column(modifier, horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(side, style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text(name, style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
+    }
+}
+
+@Composable
+private fun CountIndicator(label: String, description: String, count: Int?, total: Int, color: Color) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(6.dp),
+        modifier = Modifier.semantics(mergeDescendants = true) { contentDescription = "$description ${count ?: "미상"}" }) {
+        Text("$label  ${count ?: "—"}", style = MaterialTheme.typography.labelLarge)
+        if (count != null) Canvas(Modifier.height(10.dp).width(52.dp)) {
+            val step = size.width / total
+            repeat(total) { index ->
+                drawCircle(if (index < count) color else Color(0xFFDDE0E6),
+                    radius = minOf(step / 3, size.height / 2),
+                    center = Offset(step * (index + 0.5f), size.height / 2))
+            }
+        }
     }
 }
 
@@ -170,15 +220,23 @@ private fun BaseballDiamond(bases: Bases, modifier: Modifier) {
             lineTo(third.x, third.y)
             close()
         }
-        val chalk = Color(0xFFDDECE0)
-        drawPath(field, Color(0xFF276044))
+        val chalk = Color(0xFF424B5C)
+        drawPath(field, Color(0xFFF1F2F5))
         drawPath(field, chalk, style = Stroke(2.dp.toPx()))
         drawCircle(chalk, radius = 3.dp.toPx(), center = center)
         for ((base, occupied) in listOf(
             first to (bases.first != null), second to (bases.second != null),
             third to (bases.third != null), home to false,
         )) {
-            drawCircle(if (occupied) Color(0xFFFFCC64) else chalk, 7.dp.toPx(), base)
+            val diamond = Path().apply {
+                moveTo(base.x, base.y - 7.dp.toPx())
+                lineTo(base.x + 7.dp.toPx(), base.y)
+                lineTo(base.x, base.y + 7.dp.toPx())
+                lineTo(base.x - 7.dp.toPx(), base.y)
+                close()
+            }
+            drawPath(diamond, if (occupied) Color(0xFFFFCC32) else Color.White)
+            drawPath(diamond, chalk, style = Stroke(2.dp.toPx()))
         }
     }
 }
@@ -191,6 +249,11 @@ private fun PlaybackStatus.label() = when (this) {
 }
 
 private fun EventType.label() = when (this) {
+    EventType.PITCHER_CHANGE -> "투수 교체"
+    EventType.PITCHER_STAT -> "투수 기록"
+    EventType.DEFENSE_HIGHLIGHT -> "호수비"
+    EventType.BENCH_CLEARING -> "벤치클리어링"
+    EventType.SNAPSHOT -> "원본 상태 스냅샷"
     EventType.GAME_STARTED -> "경기 시작"
     EventType.SINGLE -> "단타"
     EventType.DOUBLE -> "2루타"

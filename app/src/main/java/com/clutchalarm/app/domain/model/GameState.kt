@@ -41,8 +41,8 @@ data class GameState(
     val awayScore: Int,
     val inning: Int,
     val half: InningHalf,
-    val balls: Int,
-    val strikes: Int,
+    val balls: Int?,
+    val strikes: Int?,
     val outs: Int,
     val bases: Bases,
     val batter: Player?,
@@ -54,6 +54,6 @@ data class GameState(
         require(homeTeam.id != awayTeam.id) { "Home and away teams must differ" }
         require(homeScore >= 0 && awayScore >= 0) { "Scores cannot be negative" }
         require(inning >= 1) { "Inning must be positive" }
-        require(balls in 0..3 && strikes in 0..2 && outs in 0..3) { "Invalid count" }
+        require((balls == null || balls in 0..3) && (strikes == null || strikes in 0..2) && outs in 0..3) { "Invalid count" }
     }
 }

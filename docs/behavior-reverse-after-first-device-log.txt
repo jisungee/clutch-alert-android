@@ -1,0 +1,8 @@
+11-24 11:37:10.775 30777 30777 D ClutchBehavior: process=fc26840a-51e0-4fe3-91b3-56add338afec {"name":"app_open"}
+11-24 11:37:54.141 30777 30777 I ClutchNotificationOpen: source=LIST game=mock-001 post=none sequence=0 scope=null newRead=false status=NOT_APPLICABLE
+11-24 11:38:25.652 30777 31604 D ClutchNotificationPost: post=17ab0b5b-b202-49c8-baab-25e250f2e00e:1 sequence=1 scope=INSTALLATION installation=06e02412-161c-4025-b26c-2b9a569a2115 game=mock-001
+11-24 11:38:28.628 30777 31606 D ClutchNotificationPost: post=17ab0b5b-b202-49c8-baab-25e250f2e00e:2 sequence=2 scope=INSTALLATION installation=06e02412-161c-4025-b26c-2b9a569a2115 game=mock-001
+11-24 11:38:48.844 30777 30777 D ClutchBehavior: process=fc26840a-51e0-4fe3-91b3-56add338afec {"name":"repeat_done","action":"notification_open","notificationId":"17ab0b5b-b202-49c8-baab-25e250f2e00e:2","notificationSequence":2,"installationId":"06e02412-161c-4025-b26c-2b9a569a2115","gameId":"mock-001"}
+11-24 11:38:48.844 30777 30777 I ClutchNotificationOpen: source=NOTIFICATION game=mock-001 post=17ab0b5b-b202-49c8-baab-25e250f2e00e:2 sequence=2 scope=INSTALLATION newRead=true status=NEW
+11-24 11:39:07.237 30777 30777 D ClutchBehavior: process=fc26840a-51e0-4fe3-91b3-56add338afec {"name":"first_done","notificationId":"17ab0b5b-b202-49c8-baab-25e250f2e00e:1","notificationSequence":1,"installationId":"06e02412-161c-4025-b26c-2b9a569a2115","gameId":"mock-001"}
+11-24 11:39:07.237 30777 30777 I ClutchNotificationOpen: source=NOTIFICATION game=mock-001 post=17ab0b5b-b202-49c8-baab-25e250f2e00e:1 sequence=1 scope=INSTALLATION newRead=true status=NEW

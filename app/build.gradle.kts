@@ -17,10 +17,19 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "0.1.0"
+        manifestPlaceholders["appLabel"] = "@string/app_name"
+    }
+
+    // Opt-in validation package keeps the installed user's app and all of its data intact.
+    if (providers.gradleProperty("behaviorQa").orNull == "true") {
+        defaultConfig.applicationId = "com.clutchalarm.app.behaviorqa"
+        defaultConfig.versionNameSuffix = "-behaviorqa"
+        defaultConfig.manifestPlaceholders["appLabel"] = "ClutchAlarm QA"
     }
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     compileOptions {

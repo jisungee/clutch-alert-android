@@ -16,13 +16,21 @@ import android.service.notification.StatusBarNotification
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.clutchalarm.app.BuildConfig
+import kotlinx.coroutines.CancellationException
 import com.clutchalarm.app.MainActivity
 import com.clutchalarm.app.R
 import com.clutchalarm.app.domain.notification.NotificationCandidate
+import com.clutchalarm.app.data.DataStoreNotificationPublisher
+import java.io.IOException
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class AndroidNotificationDispatcher(context: Context) : NotificationDispatcher {
+class AndroidNotificationDispatcher(context: Context,
+    private val publisher: NotificationPublisher = DataStoreNotificationPublisher(context)) : NotificationDispatcher {
     private val app = context.applicationContext
     private val manager = app.getSystemService(NotificationManager::class.java)
     private val compat = NotificationManagerCompat.from(app)
@@ -44,61 +52,83 @@ class AndroidNotificationDispatcher(context: Context) : NotificationDispatcher {
         else -> NotificationAvailability.AVAILABLE
     }
 
-    override fun dispatch(candidate: NotificationCandidate): DeliveryStatus = dispatchTracked(candidate).status
+    override fun dispatch(candidate: NotificationCandidate): DeliveryStatus = runBlocking { submit(candidate).status }
 
-    override fun dispatchTracked(candidate: NotificationCandidate): NotificationSubmission = synchronized(retention) {
-        val cleanup = mutableSetOf<NotificationAddress>()
-        try {
-            when (availability()) {
-                NotificationAvailability.PERMISSION_REQUIRED ->
-                    return@synchronized NotificationSubmission(DeliveryStatus.PERMISSION_DENIED)
-                NotificationAvailability.DISABLED -> return@synchronized NotificationSubmission(DeliveryStatus.DISABLED)
-                NotificationAvailability.AVAILABLE -> Unit
+    override fun dispatchTracked(candidate: NotificationCandidate): NotificationSubmission = runBlocking { submit(candidate) }
+
+    override suspend fun submit(candidate: NotificationCandidate): NotificationSubmission = withContext(Dispatchers.IO) {
+        dispatchMutex.withLock {
+            val cleanup = mutableSetOf<NotificationAddress>()
+            var postedAddress: NotificationAddress? = null
+            try {
+                when (availability()) {
+                    NotificationAvailability.PERMISSION_REQUIRED ->
+                        return@withLock NotificationSubmission(DeliveryStatus.PERMISSION_DENIED)
+                    NotificationAvailability.DISABLED -> return@withLock NotificationSubmission(DeliveryStatus.DISABLED)
+                    NotificationAvailability.AVAILABLE -> Unit
+                }
+                val now = SystemClock.elapsedRealtime()
+                val active = manager.activeNotifications.mapNotNull(::managedNotification)
+                val removals = retention.makeRoom(active, candidate.important, now)
+                    ?: return@withLock NotificationSubmission(DeliveryStatus.RETENTION_LIMIT)
+                val address = ids.next()
+                val fallback = NotificationDelivery.from(candidate.gameId, address)
+                val delivery = publisher.publish(fallback) { delivery ->
+                    val intent = Intent(app, MainActivity::class.java).apply {
+                        action = ACTION_OPEN_GAME
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                        NotificationEntryIntent.put(this, delivery)
+                        data = Uri.Builder().scheme("clutchalarm").authority("game")
+                            .appendPath(candidate.gameId)
+                            .appendQueryParameter("post", delivery.postId).build()
+                    }
+                    val contentIntent = PendingIntent.getActivity(app, address.id, intent, PendingIntent.FLAG_IMMUTABLE)
+                    val notification = NotificationCompat.Builder(app, CHANNEL_ID)
+                        .setSmallIcon(R.drawable.ic_game_notification)
+                        .setContentTitle(candidate.title)
+                        .setContentText(candidate.body)
+                        .setStyle(NotificationCompat.BigTextStyle().bigText(candidate.body))
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
+                        .setDefaults(Notification.DEFAULT_SOUND or Notification.DEFAULT_VIBRATE)
+                        .setContentIntent(contentIntent)
+                        .setAutoCancel(true)
+                        .addExtras(Bundle().apply {
+                            putString(NotificationEntryIntent.POST_ID, delivery.postId)
+                            putLong(NotificationEntryIntent.SEQUENCE, delivery.sequence)
+                            putString(NotificationEntryIntent.SCOPE_ID, delivery.sequenceScopeId)
+                            putString(NotificationEntryIntent.SCOPE, delivery.sequenceScope.name)
+                            putBoolean(EXTRA_MANAGED, true)
+                            putBoolean(EXTRA_IMPORTANT, candidate.important)
+                        })
+                        .build()
+                    for (old in removals) {
+                        manager.cancel(old.tag, old.id)
+                        retention.cancelled(old, now)
+                        cleanup.add(old)
+                    }
+                    manager.notify(address.tag, address.id, notification)
+                    postedAddress = address
+                }
+                retention.submitted(ActiveGameNotification(address, System.currentTimeMillis(), candidate.important), now)
+                if (BuildConfig.DEBUG) Log.d("ClutchNotificationPost", "post=${delivery.postId} sequence=${delivery.sequence} " +
+                    "scope=${delivery.sequenceScope} installation=${delivery.sequenceScopeId} game=${delivery.gameId}")
+                NotificationSubmission(DeliveryStatus.SENT, address, cleanup, delivery)
+            } catch (error: CancellationException) {
+                postedAddress?.let { manager.cancel(it.tag, it.id) }
+                throw error
+            } catch (error: IOException) {
+                postedAddress?.let { manager.cancel(it.tag, it.id) }
+                Log.w("ClutchNotifications", "Success sequence could not be committed", error)
+                NotificationSubmission(DeliveryStatus.ERROR, cleanupRequested = cleanup)
+            } catch (error: SecurityException) {
+                val status = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+                    app.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
+                ) DeliveryStatus.PERMISSION_DENIED else DeliveryStatus.ERROR
+                NotificationSubmission(status, cleanupRequested = cleanup)
+            } catch (error: RuntimeException) {
+                Log.w("ClutchNotifications", "Notification submission failed", error)
+                NotificationSubmission(DeliveryStatus.ERROR, cleanupRequested = cleanup)
             }
-            val now = SystemClock.elapsedRealtime()
-            val active = manager.activeNotifications.mapNotNull(::managedNotification)
-            val removals = retention.makeRoom(active, candidate.important, now)
-                ?: return@synchronized NotificationSubmission(DeliveryStatus.RETENTION_LIMIT)
-            val address = ids.next()
-            val intent = Intent(app, MainActivity::class.java).apply {
-                action = ACTION_OPEN_GAME
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-                putExtra(EXTRA_GAME_ID, candidate.gameId)
-                data = Uri.Builder().scheme("clutchalarm").authority("game")
-                    .appendPath(candidate.gameId)
-                    .appendQueryParameter("post", "${address.tag}-${address.id}").build()
-            }
-            val contentIntent = PendingIntent.getActivity(app, address.id, intent, PendingIntent.FLAG_IMMUTABLE)
-            val notification = NotificationCompat.Builder(app, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_game_notification)
-                .setContentTitle(candidate.title)
-                .setContentText(candidate.body)
-                .setStyle(NotificationCompat.BigTextStyle().bigText(candidate.body))
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setDefaults(Notification.DEFAULT_SOUND or Notification.DEFAULT_VIBRATE)
-                .setContentIntent(contentIntent)
-                .setAutoCancel(true)
-                .addExtras(Bundle().apply {
-                    putBoolean(EXTRA_MANAGED, true)
-                    putBoolean(EXTRA_IMPORTANT, candidate.important)
-                })
-                .build()
-            for (old in removals) {
-                manager.cancel(old.tag, old.id)
-                retention.cancelled(old, now)
-                cleanup.add(old)
-            }
-            manager.notify(address.tag, address.id, notification)
-            retention.submitted(ActiveGameNotification(address, System.currentTimeMillis(), candidate.important), now)
-            NotificationSubmission(DeliveryStatus.SENT, address, cleanup)
-        } catch (error: SecurityException) {
-            val status = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
-                app.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
-            ) DeliveryStatus.PERMISSION_DENIED else DeliveryStatus.ERROR
-            NotificationSubmission(status, cleanupRequested = cleanup)
-        } catch (error: RuntimeException) {
-            Log.w("ClutchNotifications", "Notification submission failed", error)
-            NotificationSubmission(DeliveryStatus.ERROR, cleanupRequested = cleanup)
         }
     }
 
@@ -150,6 +180,7 @@ class AndroidNotificationDispatcher(context: Context) : NotificationDispatcher {
         const val EXTRA_GAME_ID = "com.clutchalarm.app.GAME_ID"
         private const val EXTRA_MANAGED = "com.clutchalarm.app.MANAGED_NOTIFICATION"
         private const val EXTRA_IMPORTANT = "com.clutchalarm.app.IMPORTANT_NOTIFICATION"
+        private val dispatchMutex = Mutex()
         private val ids = NotificationIds()
         private val retention = NotificationRetention()
         private val legacyTag = Regex("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")

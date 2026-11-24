@@ -1,0 +1,10 @@
+11-24 11:22:38.624 23358 23358 D ClutchBehavior: process=a7a570c7-a5d1-4952-a1f7-911633fb0df0 {"name":"app_open"}
+11-24 11:26:07.484 23358 23358 I ClutchNotificationOpen: source=LIST game=mock-001 post=none sequence=0 scope=null newRead=false status=NOT_APPLICABLE
+11-24 11:26:47.885 23358 28842 D ClutchNotificationPost: post=f5bf256b-b3a7-41e9-9364-fceaaf6882c1:1 sequence=1 scope=INSTALLATION installation=1e2b728f-d376-44ed-b8b4-21fb2fc859ce game=mock-001
+11-24 11:26:50.881 23358 28841 D ClutchNotificationPost: post=f5bf256b-b3a7-41e9-9364-fceaaf6882c1:2 sequence=2 scope=INSTALLATION installation=1e2b728f-d376-44ed-b8b4-21fb2fc859ce game=mock-001
+11-24 11:27:17.032 23358 23358 D ClutchBehavior: process=a7a570c7-a5d1-4952-a1f7-911633fb0df0 {"name":"first_done","notificationId":"f5bf256b-b3a7-41e9-9364-fceaaf6882c1:1","notificationSequence":1,"installationId":"1e2b728f-d376-44ed-b8b4-21fb2fc859ce","gameId":"mock-001"}
+11-24 11:27:17.032 23358 23358 I ClutchNotificationOpen: source=NOTIFICATION game=mock-001 post=f5bf256b-b3a7-41e9-9364-fceaaf6882c1:1 sequence=1 scope=INSTALLATION newRead=true status=NEW
+11-24 11:27:19.842 23358 23358 D ClutchBehavior: process=a7a570c7-a5d1-4952-a1f7-911633fb0df0 {"name":"repeat_done","action":"notification_open","notificationId":"f5bf256b-b3a7-41e9-9364-fceaaf6882c1:2","notificationSequence":2,"installationId":"1e2b728f-d376-44ed-b8b4-21fb2fc859ce","gameId":"mock-001"}
+11-24 11:27:19.843 23358 23358 I ClutchNotificationOpen: source=NOTIFICATION game=mock-001 post=f5bf256b-b3a7-41e9-9364-fceaaf6882c1:2 sequence=2 scope=INSTALLATION newRead=true status=NEW
+11-24 11:27:23.974 23358 23358 D ClutchBehavior: process=a7a570c7-a5d1-4952-a1f7-911633fb0df0 {"name":"repeat_done","action":"settings_resave","flowId":"bd68ac29-443f-4b19-b7a8-cea7e7238cf2"}
+11-24 11:27:58.397 23358 23358 D ClutchBehavior: process=a7a570c7-a5d1-4952-a1f7-911633fb0df0 {"name":"drop","flowId":"1da11605-682a-43dc-933e-9c6338911950"}

@@ -62,7 +62,7 @@ class GameSimulationEngine(
      * reset and play, so session changes cannot race a synchronous side effect. Keep it brief.
      * Use this or [events] as the single consumer of the engine's event queue.
      */
-    suspend fun collectEvents(onEvent: (GameEvent) -> Unit) {
+    suspend fun collectEvents(onEvent: suspend (GameEvent) -> Unit) {
         queuedEvents.collect { queued ->
             mutex.withLock {
                 if (queued.session == session.value) onEvent(queued.event)

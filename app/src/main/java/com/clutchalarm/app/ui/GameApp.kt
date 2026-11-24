@@ -1,43 +1,33 @@
 package com.clutchalarm.app.ui
 
+import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Card
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.clutchalarm.app.R
-import com.clutchalarm.app.domain.model.GameStatus
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import com.clutchalarm.app.notification.NotificationAvailability
+import com.clutchalarm.app.domain.model.KboTeams
 
-private val BroadcastColors = darkColorScheme(
-    primary = Color(0xFF9FE0B3),
-    background = Color(0xFF101713),
-    surface = Color(0xFF19221D),
-    surfaceVariant = Color(0xFF26352D),
-    onSurface = Color(0xFFF0F5F0),
-    onSurfaceVariant = Color(0xFFC2D1C5),
+private val DetailColors = lightColorScheme(
+    primary = Color(0xFFBE1536),
+    onPrimary = Color.White,
+    primaryContainer = Color(0xFFFFE4EA),
+    onPrimaryContainer = Color(0xFF65001D),
+    background = Color(0xFFF7F8FA),
+    surface = Color.White,
+    surfaceVariant = Color(0xFFF0F1F5),
+    onSurface = Color(0xFF172238),
+    onSurfaceVariant = Color(0xFF555E70),
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,127 +37,193 @@ fun GameApp(
     notificationAvailability: NotificationAvailability,
     onRequestPermission: () -> Unit,
     onOpenNotificationSettings: () -> Unit,
+    onAppVisible: () -> Unit = {},
 ) {
+    LifecycleResumeEffect(Unit) {
+        onAppVisible()
+        onPauseOrDispose { }
+    }
     val games by viewModel.games.collectAsStateWithLifecycle()
     val detail by viewModel.detail.collectAsStateWithLifecycle()
+    val entry by viewModel.detailEntry.collectAsStateWithLifecycle()
+    val mainScreen by viewModel.mainScreen.collectAsStateWithLifecycle()
     val showSettings by viewModel.showNotificationSettings.collectAsStateWithLifecycle()
     val settings by viewModel.notificationSettings.collectAsStateWithLifecycle()
+    val editor = settings.editor
+    val ready = settings.preferences != null
+    val editorHasBack = editor != null && (!editor.onboarding || editor.page != SettingsPage.TEAM)
     val isDetail = detail != null
-    BackHandler(enabled = isDetail || showSettings) {
-        if (showSettings) viewModel.showNotificationSettings(false) else viewModel.closeGame()
+    val isHome = ready && !isDetail && !showSettings && mainScreen == MainScreen.HOME
+    val isMyPage = ready && !isDetail && !showSettings && mainScreen == MainScreen.MY_PAGE
+    val redHeader = isHome || isMyPage
+    val returnLabel = when (mainScreen) {
+        MainScreen.HOME -> "홈"
+        MainScreen.GAMES -> "목록"
+        MainScreen.MY_PAGE -> "마이페이지"
+    }
+    BackHandler(enabled = if (showSettings) editorHasBack || settings.busy else ready && (isDetail || mainScreen != MainScreen.HOME)) {
+        viewModel.navigateBack()
+    }
+    val view = LocalView.current
+    SideEffect {
+        view.context.findActivity()?.window?.let { window ->
+            WindowCompat.getInsetsController(window, view).apply {
+                isAppearanceLightStatusBars = !redHeader
+                isAppearanceLightNavigationBars = true
+            }
+        }
     }
 
-    MaterialTheme(colorScheme = BroadcastColors) {
-        Scaffold(topBar = {
-            TopAppBar(
-                title = {
-                    Text(when {
-                        showSettings -> "알림 유형 설정"
-                        isDetail -> "경기 중계"
-                        else -> stringResource(R.string.app_name)
-                    })
-                },
-                navigationIcon = {
-                    when {
-                        showSettings -> TextButton(onClick = { viewModel.showNotificationSettings(false) }) {
-                            Text("뒤로")
+    MaterialTheme(colorScheme = DetailColors) {
+        Scaffold(
+            topBar = {
+                CenterAlignedTopAppBar(
+                    title = { Text(when {
+                        !ready -> "클러치알림"
+                        showSettings && editor?.page == SettingsPage.TEAM -> if (editor.onboarding) "응원팀 선택" else "응원팀 변경"
+                        showSettings && editor?.page == SettingsPage.DETAILS -> "알림 세부 설정"
+                        showSettings -> "알림 선택"
+                        isDetail -> "모의 경기 상세"
+                        mainScreen == MainScreen.GAMES -> "모의 경기 선택"
+                        mainScreen == MainScreen.MY_PAGE -> "마이페이지"
+                        else -> "클러치알림"
+                    }) },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = if (redHeader) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.background,
+                        titleContentColor = if (redHeader) Color.White else MaterialTheme.colorScheme.onSurface,
+                        actionIconContentColor = if (redHeader) Color.White else MaterialTheme.colorScheme.primary,
+                    ),
+                    navigationIcon = {
+                        if (ready && (if (showSettings) editorHasBack else isDetail || mainScreen == MainScreen.GAMES)) {
+                            TextButton(onClick = viewModel::navigateBack, enabled = !settings.busy) {
+                                Text(when {
+                                    showSettings -> "뒤로"
+                                    isDetail -> returnLabel
+                                    else -> "홈"
+                                })
+                            }
                         }
-                        isDetail -> TextButton(onClick = viewModel::closeGame) { Text("목록") }
+                    },
+                    actions = {
+                        if (ready && !showSettings && !isMyPage && (!isDetail || detail is GameDetailState.Loaded)) {
+                            TextButton(onClick = viewModel::showTeamSelection) {
+                                Text("응원팀", color = if (isHome) Color.White else MaterialTheme.colorScheme.primary)
+                            }
+                            TextButton(onClick = { viewModel.showNotificationSettings(true) }) {
+                                Text("알림 유형", color = if (isHome) Color.White else MaterialTheme.colorScheme.primary)
+                            }
+                        }
+                    },
+                )
+            },
+            bottomBar = {
+                if (ready && !isDetail && !showSettings) {
+                    NavigationBar(containerColor = MaterialTheme.colorScheme.surface) {
+                        val itemColors = NavigationBarItemDefaults.colors(
+                            selectedIconColor = MaterialTheme.colorScheme.primary,
+                            selectedTextColor = MaterialTheme.colorScheme.primary,
+                            indicatorColor = MaterialTheme.colorScheme.primaryContainer,
+                        )
+                        NavigationBarItem(
+                            colors = itemColors,
+                            selected = mainScreen == MainScreen.HOME,
+                            onClick = viewModel::showHome,
+                            icon = { NavigationMark(home = true) }, label = { Text("홈") },
+                        )
+                        NavigationBarItem(
+                            colors = itemColors,
+                            selected = mainScreen == MainScreen.GAMES,
+                            onClick = viewModel::showGames,
+                            icon = { NavigationMark(home = false) }, label = { Text("경기") },
+                        )
+                        NavigationBarItem(
+                            colors = itemColors,
+                            selected = mainScreen == MainScreen.MY_PAGE,
+                            onClick = viewModel::showMyPage,
+                            icon = { ProfileMark(Modifier.size(24.dp)) }, label = { Text("마이") },
+                        )
                     }
-                },
-                actions = {
-                    if (!showSettings && (!isDetail || detail is GameDetailState.Loaded)) {
-                        TextButton(onClick = { viewModel.showNotificationSettings(true) }) { Text("알림 유형") }
-                    }
-                },
-            )
-        }) { padding ->
-            val content = Modifier.fillMaxSize().padding(padding).padding(horizontal = 16.dp)
-            if (showSettings) {
-                NotificationSettingsScreen(
+                }
+            },
+        ) { padding ->
+            val content = Modifier.fillMaxSize().padding(padding)
+            val inset = content.padding(horizontal = 16.dp)
+            if (!ready) {
+                CenteredMessage(inset) {
+                    if (settings.error) {
+                        Text("저장된 설정을 불러오지 못했습니다.")
+                        OutlinedButton(onClick = viewModel::loadNotificationPreferences, enabled = !settings.busy) { Text("다시 시도") }
+                    } else CircularProgressIndicator()
+                }
+            } else if (showSettings) {
+                if (editor?.page == SettingsPage.TEAM) {
+                    TeamSelectionScreen(settings, viewModel::chooseTeam, viewModel::teamNext, viewModel::saveSettings,
+                        inset.padding(top = 16.dp))
+                } else NotificationSettingsScreen(
                     state = settings,
                     onToggle = viewModel::setNotificationEnabled,
                     onEnableAll = viewModel::enableAllNotifications,
                     onDisableAll = viewModel::disableAllNotifications,
-                    onRetry = viewModel::loadNotificationPreferences,
-                    modifier = content,
+                    onHideWhenLosing = viewModel::setHideWhenLosing,
+                    onCategory = viewModel::openCategory,
+                    onCategoryEnabled = viewModel::setCategoryEnabled,
+                    onChangeTeam = viewModel::editTeamInSettings,
+                    onSave = viewModel::saveSettings,
+                    modifier = inset,
                 )
             } else when (val selected = detail) {
-                null -> GameList(games, viewModel::selectGame, viewModel::loadGames, content)
-                GameDetailState.Loading -> CenteredMessage(content) { CircularProgressIndicator() }
-                GameDetailState.Error -> CenteredMessage(content) {
-                    Text("경기 데이터를 불러오지 못했습니다.")
-                    OutlinedButton(onClick = viewModel::closeGame) { Text("목록으로") }
+                null -> when (mainScreen) {
+                    MainScreen.HOME -> HomeScreen(games, viewModel::showGames, content, KboTeams.find(settings.preferences?.preferredTeamId)?.name)
+                    MainScreen.GAMES -> GameSelectionScreen(games, viewModel::selectGame, viewModel::loadGames, inset)
+                    MainScreen.MY_PAGE -> MyPageScreen(
+                        preferences = requireNotNull(settings.preferences),
+                        onChangeTeam = viewModel::showTeamSelection,
+                        onNotificationSettings = { viewModel.showNotificationSettings(true) },
+                        modifier = content,
+                    )
                 }
-                is GameDetailState.Loaded -> GameDetailScreen(
-                    detail = selected,
-                    onPlay = viewModel::play,
-                    onPause = viewModel::pause,
-                    onResume = viewModel::resume,
-                    onReset = viewModel::reset,
-                    onSpeedChange = viewModel::setPlaybackSpeed,
-                    notificationAvailability = notificationAvailability,
-                    onSelectTeam = viewModel::selectPreferredTeam,
-                    onRequestPermission = onRequestPermission,
-                    onOpenNotificationSettings = onOpenNotificationSettings,
-                    modifier = content,
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun GameList(
-    state: GameListState,
-    onSelect: (String) -> Unit,
-    onRetry: () -> Unit,
-    modifier: Modifier,
-) {
-    when (state) {
-        GameListState.Loading -> CenteredMessage(modifier) { CircularProgressIndicator() }
-        GameListState.Error -> CenteredMessage(modifier) {
-            Text("경기 목록을 불러오지 못했습니다.")
-            OutlinedButton(onClick = onRetry) { Text("다시 시도") }
-        }
-        is GameListState.Loaded -> LazyColumn(
-            modifier = modifier,
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-        ) {
-            item {
-                Text("모의 경기", style = MaterialTheme.typography.headlineSmall,
-                    modifier = Modifier.padding(vertical = 12.dp))
-            }
-            if (state.games.isEmpty()) item { Text("표시할 경기가 없습니다.") }
-            items(state.games, key = { it.gameId }) { game ->
-                Card(onClick = { onSelect(game.gameId) }, modifier = Modifier.fillMaxWidth()) {
-                    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        state.scenarios[game.gameId]?.let { scenario ->
-                            Text(scenario.name, style = MaterialTheme.typography.titleLarge)
-                            Text(scenario.description, style = MaterialTheme.typography.bodyMedium)
-                        }
-                        Text(game.status.label(), color = MaterialTheme.colorScheme.primary)
-                        Text("원정  ${game.awayTeam.name}", style = MaterialTheme.typography.titleMedium)
-                        Text("홈  ${game.homeTeam.name}", style = MaterialTheme.typography.titleMedium)
+                GameDetailState.Loading -> CenteredMessage(inset) { CircularProgressIndicator() }
+                GameDetailState.Error -> CenteredMessage(inset) {
+                    Text("경기 데이터를 불러오지 못했습니다.")
+                    OutlinedButton(onClick = viewModel::closeGame) {
+                        Text(if (mainScreen == MainScreen.MY_PAGE) "마이페이지로" else "${returnLabel}으로")
                     }
                 }
+                is GameDetailState.Loaded -> {
+                    LifecycleResumeEffect(selected.playback.gameState.gameId, entry?.requestId) {
+                        entry?.let { viewModel.confirmDetailVisible(it.gameId, it.requestId) }
+                        onPauseOrDispose { }
+                    }
+                    GameDetailScreen(
+                        detail = selected,
+                        savedTeamName = KboTeams.find(settings.preferences?.preferredTeamId)?.name,
+                        onPlay = viewModel::play,
+                        onPause = viewModel::pause,
+                        onResume = viewModel::resume,
+                        onReset = viewModel::reset,
+                        onSpeedChange = viewModel::setPlaybackSpeed,
+                        notificationAvailability = notificationAvailability,
+                        onSelectTeam = viewModel::selectPreferredTeam,
+                        onRequestPermission = onRequestPermission,
+                        onOpenNotificationSettings = onOpenNotificationSettings,
+                        modifier = inset,
+                    )
+                }
             }
         }
     }
 }
 
 @Composable
-private fun CenteredMessage(modifier: Modifier, content: @Composable () -> Unit) {
+internal fun CenteredMessage(modifier: Modifier, content: @Composable () -> Unit) {
     Box(modifier, contentAlignment = Alignment.Center) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-        ) { content() }
+        Column(horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(12.dp)) { content() }
     }
 }
 
-private fun GameStatus.label() = when (this) {
-    GameStatus.NOT_STARTED -> "경기 시작 전"
-    GameStatus.IN_PROGRESS -> "경기 진행 중"
-    GameStatus.FINISHED -> "경기 종료"
+private tailrec fun Context.findActivity(): Activity? = when (this) {
+    is Activity -> this
+    is ContextWrapper -> baseContext.findActivity()
+    else -> null
 }

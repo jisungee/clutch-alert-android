@@ -8,6 +8,12 @@ import com.clutchalarm.app.domain.model.GameStatus
 import com.clutchalarm.app.domain.model.InningHalf
 
 enum class NotificationType(val title: String) {
+    OPPONENT_ON_BASE("상대 팀 출루"),
+    GAME_ENDED("경기 종료"),
+    PITCHER_CHANGE("투수 교체"),
+    PITCHER_STAT("투수 기록"),
+    DEFENSE_HIGHLIGHT("호수비"),
+    BENCH_CLEARING("벤치클리어링"),
     GAME_STARTED("⚾ 경기 시작"),
     OFFENSE_STARTED("⚾ 공격 시작"),
     OFFENSE_ENDED("⚾ 공격 종료"),
@@ -16,7 +22,7 @@ enum class NotificationType(val title: String) {
     REACHED_BASE("🏃 출루"),
     RUN_SCORED("🎉 득점"),
     TIED("🔥 동점"),
-    COMEBACK("🚨 역전"),
+    COMEBACK("🚨 역전·동점"),
     HOME_RUN("💥 홈런"),
     RUN_ALLOWED("⚠️ 실점"),
     VIDEO_REVIEW("📺 비디오 판독"),
@@ -31,6 +37,9 @@ data class NotificationCandidate(
     val type: NotificationType,
     val title: String,
     val body: String,
+    val matchingTypes: Set<NotificationType> = setOf(type),
+    val hiddenUntilLead: Boolean = false,
+    val recoveredLead: Boolean = false,
     val important: Boolean = type == NotificationType.COMEBACK || type == NotificationType.HOME_RUN,
 )
 
@@ -40,8 +49,10 @@ data class NotificationDecision(
 )
 
 class NotificationContext internal constructor(
+    internal val trailingTeams: Set<String> = emptySet(),
     internal val scoringHalf: HalfInning? = null,
     internal val runsInHalf: Long = 0,
+    internal val bigInningAnnounced: Boolean = false,
     internal val announcedStart: HalfInning? = null,
 ) {
     companion object {
@@ -70,8 +81,21 @@ class NotificationRuleEngine {
         preferredTeamId: String,
         context: NotificationContext = NotificationContext.Empty,
     ): NotificationDecision {
+        if (event.eventType == EventType.SNAPSHOT) return NotificationDecision(null, context)
         val before = event.before
         val after = event.after
+        val trailingBefore = context.trailingTeams.toMutableSet().apply {
+            if (before.homeScore < before.awayScore) add(before.homeTeam.id)
+            if (before.awayScore < before.homeScore) add(before.awayTeam.id)
+        }
+        val trailingAfter = trailingBefore.toMutableSet().apply {
+            when {
+                after.homeScore > after.awayScore -> { remove(after.homeTeam.id); add(after.awayTeam.id) }
+                after.awayScore > after.homeScore -> { remove(after.awayTeam.id); add(after.homeTeam.id) }
+                // A tie keeps the previous losing streak, including at game end.
+            }
+        }
+        val recoveredLead = preferredTeamId in trailingBefore && preferredTeamId !in trailingAfter
         val half = before.halfInning()
         val preferred = listOf(before.homeTeam, before.awayTeam).find { it.id == preferredTeamId }
         val homeRuns = after.homeScore - before.homeScore
@@ -84,8 +108,12 @@ class NotificationRuleEngine {
         }
         val runs = if (scoringTeam == null) 0 else maxOf(homeRuns, awayRuns)
         val previousRuns = if (context.scoringHalf == half) context.runsInHalf else 0
-        val halfRuns = previousRuns + if (scoringTeam == before.battingTeam()) runs else 0
-        val bigInning = previousRuns < 4 && halfRuns >= 4
+        val correction = if (event.eventType == EventType.OFFICIAL_REVIEW_OVERTURNED) {
+            if (before.half == InningHalf.TOP) awayRuns else homeRuns
+        } else 0
+        val halfRuns = (previousRuns + if (scoringTeam == before.battingTeam()) runs else correction).coerceAtLeast(0)
+        val previouslyAnnounced = context.scoringHalf == half && context.bigInningAnnounced
+        val bigInning = scoringTeam != null && !previouslyAnnounced && previousRuns < 3 && halfRuns >= 3
 
         val ended = event.eventType !in independentEventTypes &&
             before.outs < 3 && after.outs == 3 && half == after.halfInning()
@@ -94,8 +122,10 @@ class NotificationRuleEngine {
                 (event.eventType == EventType.HALF_INNING_CHANGED && half != after.halfInning()))
         val transitionAnnounced = ended && after.status == GameStatus.IN_PROGRESS
         val nextContext = NotificationContext(
+            trailingTeams = trailingAfter,
             scoringHalf = half,
             runsInHalf = halfRuns,
+            bigInningAnnounced = previouslyAnnounced || bigInning,
             announcedStart = when {
                 preferred == null -> context.announcedStart
                 transitionAnnounced -> half.next()
@@ -114,6 +144,11 @@ class NotificationRuleEngine {
             else -> if (transitionAnnounced) "수비 종료 · 공격 전환" else "수비 종료"
         }
         val decision = when (event.eventType) {
+            EventType.GAME_ENDED -> Message(NotificationType.GAME_ENDED, "${preferred.name} 경기 종료")
+            EventType.PITCHER_CHANGE -> Message(NotificationType.PITCHER_CHANGE, event.sourceSummary ?: "투수 교체")
+            EventType.PITCHER_STAT -> Message(NotificationType.PITCHER_STAT, event.sourceSummary ?: "투수 기록")
+            EventType.DEFENSE_HIGHLIGHT -> Message(NotificationType.DEFENSE_HIGHLIGHT, event.sourceSummary ?: "호수비")
+            EventType.BENCH_CLEARING -> Message(NotificationType.BENCH_CLEARING, event.sourceSummary ?: "벤치클리어링")
             EventType.FIRST_PITCH -> Message(NotificationType.GAME_STARTED, "${preferred.name} 경기 시작! 첫 투구")
             EventType.GAME_STARTED -> if (event.details.firstPitchConfirmed &&
                 before.status == GameStatus.NOT_STARTED && after.status == GameStatus.IN_PROGRESS
@@ -134,12 +169,18 @@ class NotificationRuleEngine {
             EventType.INJURY_SUBSTITUTION -> injury(event, "부상으로 교체")
             EventType.BROADCAST_REPLAY -> null
             else -> when {
-                scoringTeam != null -> scoreMessage(event, scoringTeam.name, runs, preference, bigInning)
+                scoringTeam != null -> scoreMessage(event, scoringTeam.name, runs, preference, bigInning, recoveredLead)
                 preferredBatting && (event.teamId == null || event.teamId == preferredTeamId) &&
                     event.eventType.reachLabel() != null && !ended &&
-                    after.bases.canConfirmReach(before.batter?.id) -> Message(
+                    after.bases.canConfirmReach((event.playActor ?: before.batter)?.id) -> Message(
                         NotificationType.REACHED_BASE,
-                        "${actor(preferred.name, before.batter?.name)} ${event.eventType.reachLabel()}! " +
+                        "${actor(preferred.name, (event.playActor ?: before.batter)?.name)} ${event.eventType.reachLabel()}! " +
+                            "${after.outs.outLabel()} ${after.bases.runnerLabel()}",
+                    )
+                !preferredBatting && event.eventType.reachLabel() != null && !ended &&
+                    after.bases.canConfirmReach((event.playActor ?: before.batter)?.id) -> Message(
+                        NotificationType.OPPONENT_ON_BASE,
+                        "${actor(batting.name, (event.playActor ?: before.batter)?.name)} ${event.eventType.reachLabel()}! " +
                             "${after.outs.outLabel()} ${after.bases.runnerLabel()}",
                     )
                 ending != null -> Message(
@@ -173,6 +214,20 @@ class NotificationRuleEngine {
                 type = message.type,
                 title = message.title,
                 body = body,
+                hiddenUntilLead = preferredTeamId in trailingAfter,
+                recoveredLead = recoveredLead && scoringTeam?.id == preferredTeamId,
+                matchingTypes = buildSet {
+                    add(if (message.type == NotificationType.TIED) NotificationType.COMEBACK else message.type)
+                    if (scoringTeam != null) {
+                        add(if (scoringTeam.id == preferredTeamId) NotificationType.RUN_SCORED else NotificationType.RUN_ALLOWED)
+                        if (event.eventType == EventType.HOME_RUN) add(NotificationType.HOME_RUN)
+                        val beforeDiff = preference.beforePreferred - preference.beforeOpponent
+                        val afterDiff = preference.afterPreferred - preference.afterOpponent
+                        if (recoveredLead || (beforeDiff < 0 && afterDiff >= 0) || (beforeDiff > 0 && afterDiff <= 0))
+                            add(NotificationType.COMEBACK)
+                        if (bigInning) add(NotificationType.BIG_INNING)
+                    }
+                },
                 important = message.important,
             )
         }
@@ -185,13 +240,14 @@ class NotificationRuleEngine {
         runs: Int,
         score: ScorePerspective,
         bigInning: Boolean,
+        recoveredLead: Boolean,
     ): Message {
         val preferredScored = score.afterPreferred > score.beforePreferred
         val homer = event.eventType == EventType.HOME_RUN && runs in 1..4
         val walkOff = event.details.walkOff && event.before.half == InningHalf.BOTTOM &&
             event.after.status == GameStatus.FINISHED && event.after.homeScore > event.after.awayScore &&
             event.after.homeScore > event.before.homeScore
-        val comeback = score.beforePreferred < score.beforeOpponent && score.afterPreferred > score.afterOpponent
+        val comeback = recoveredLead || (score.beforePreferred < score.beforeOpponent && score.afterPreferred > score.afterOpponent)
         val leadAllowed = score.beforePreferred > score.beforeOpponent && score.afterPreferred < score.afterOpponent
         val tied = score.afterPreferred == score.afterOpponent
         val hit = when {
@@ -207,7 +263,7 @@ class NotificationRuleEngine {
             event.eventType in hitTypes -> event.eventType.reachLabel()
             else -> null
         }
-        val subject = actor(scoringTeamName, event.before.batter?.name?.takeIf { hit != null })
+        val subject = actor(scoringTeamName, event.playActor?.name ?: event.before.batter?.name?.takeIf { hit != null })
         val play = listOfNotNull(subject, hit).joinToString(" ")
         val leadTaken = score.beforePreferred == score.beforeOpponent && score.afterPreferred > score.afterOpponent
         val result = when {

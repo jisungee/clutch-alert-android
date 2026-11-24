@@ -1,11 +1,13 @@
 package com.clutchalarm.app
 
+import com.clutchalarm.app.behavior.DebugBehaviorEvents
 import android.Manifest
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
@@ -19,11 +21,15 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.core.app.NotificationManagerCompat
 import com.clutchalarm.app.data.MockGameRepository
+import com.clutchalarm.app.data.DataStoreNotificationOpenRepository
+import com.clutchalarm.app.notification.NotificationEntryIntent
+import com.clutchalarm.app.notification.NotificationReadStatus
 import com.clutchalarm.app.data.DataStoreNotificationPreferencesRepository
 import com.clutchalarm.app.notification.AndroidNotificationDispatcher
 import com.clutchalarm.app.notification.NotificationAvailability
 import com.clutchalarm.app.ui.GameApp
 import com.clutchalarm.app.ui.GameViewModel
+import com.clutchalarm.app.ui.MainScreen
 
 class MainActivity : ComponentActivity() {
     private val dispatcher by lazy { AndroidNotificationDispatcher(applicationContext) }
@@ -39,6 +45,14 @@ class MainActivity : ComponentActivity() {
                     MockGameRepository(application.assets),
                     dispatcher = dispatcher,
                     preferencesRepository = DataStoreNotificationPreferencesRepository(applicationContext),
+                    notificationOpens = DataStoreNotificationOpenRepository(applicationContext, DebugBehaviorEvents),
+                    behaviorEvents = DebugBehaviorEvents,
+                    onDetailEntry = { entry ->
+                        Log.i("ClutchNotificationOpen", "source=${entry.source} game=${entry.gameId} " +
+                            "post=${entry.delivery?.postId ?: "none"} sequence=${entry.delivery?.sequence ?: 0} " +
+                            "scope=${entry.delivery?.sequenceScope} newRead=${entry.readStatus == NotificationReadStatus.NEW} " +
+                            "status=${entry.readStatus}")
+                    },
                 )
             }
         }
@@ -46,15 +60,29 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val gameId = if (savedInstanceState == null) notificationGameId(intent)
-            else savedInstanceState.getString(STATE_GAME_ID)
-        gameId?.let(gameViewModel::selectGame)
+        if (savedInstanceState == null) {
+            handleNotificationIntent(intent)
+        } else {
+            MainScreen.entries.firstOrNull { it.name == savedInstanceState.getString(STATE_MAIN_SCREEN) }
+                ?.let(gameViewModel::restoreMainScreen)
+            if (gameViewModel.detailEntry.value == null) {
+                val restored = NotificationEntryIntent.restore(savedInstanceState)
+                val incoming = NotificationEntryIntent.read(intent)
+                val entry = if (incoming != null && incoming.delivery?.postId != restored?.delivery?.postId) incoming
+                    else restored ?: incoming
+                if (entry != null) gameViewModel.restoreDetailEntry(entry)
+                else savedInstanceState.getString(STATE_GAME_ID)?.let(gameViewModel::selectGame)
+            }
+            // Saved entry state, not the old launch Intent, owns subsequent recreation.
+            setIntent(Intent(this, MainActivity::class.java).setAction(Intent.ACTION_MAIN))
+        }
         enableEdgeToEdge(
             statusBarStyle = SystemBarStyle.dark(android.graphics.Color.TRANSPARENT),
             navigationBarStyle = SystemBarStyle.dark(android.graphics.Color.TRANSPARENT),
         )
         setContent {
-            GameApp(gameViewModel, availability, ::requestNotificationPermission, ::openNotificationSettings)
+            GameApp(gameViewModel, availability, ::requestNotificationPermission, ::openNotificationSettings,
+                DebugBehaviorEvents.appOpen::onScreenVisible)
         }
     }
 
@@ -65,19 +93,26 @@ class MainActivity : ComponentActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        setIntent(intent)
-        notificationGameId(intent)?.let(gameViewModel::selectGame)
+        handleNotificationIntent(intent)
+    }
+
+    override fun onDestroy() {
+        if (isFinishing) gameViewModel.onSettingsFlowAbandoned()
+        super.onDestroy()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
+        gameViewModel.detailEntry.value?.let { NotificationEntryIntent.save(outState, it) }
+        outState.putString(STATE_MAIN_SCREEN, gameViewModel.mainScreen.value.name)
         outState.putString(STATE_GAME_ID, gameViewModel.currentGameId)
         super.onSaveInstanceState(outState)
     }
 
-    private fun notificationGameId(intent: Intent): String? =
-        if (intent.action == AndroidNotificationDispatcher.ACTION_OPEN_GAME) {
-            intent.getStringExtra(AndroidNotificationDispatcher.EXTRA_GAME_ID)?.takeIf { it.isNotBlank() }
-        } else null
+    private fun handleNotificationIntent(incoming: Intent) {
+        val entry = NotificationEntryIntent.read(incoming) ?: return
+        entry.delivery?.let(gameViewModel::openNotification) ?: gameViewModel.openNotificationGame(entry.gameId)
+        setIntent(Intent(this, MainActivity::class.java).setAction(Intent.ACTION_MAIN))
+    }
 
     private fun requestNotificationPermission() {
         availability = dispatcher.availability()
@@ -101,6 +136,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private companion object {
+        const val STATE_MAIN_SCREEN = "main_screen"
         const val STATE_GAME_ID = "selected_game_id"
     }
 }

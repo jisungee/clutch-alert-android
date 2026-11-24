@@ -3,7 +3,8 @@ package com.clutchalarm.app.domain.model
 import kotlinx.serialization.Serializable
 
 enum class EventType {
-    GAME_STARTED, SINGLE, DOUBLE, TRIPLE, HOME_RUN, WALK, STRIKEOUT,
+    PITCHER_CHANGE, PITCHER_STAT, DEFENSE_HIGHLIGHT, BENCH_CLEARING,
+    SNAPSHOT, GAME_STARTED, SINGLE, DOUBLE, TRIPLE, HOME_RUN, WALK, STRIKEOUT,
     FOUL, BATTED_OUT, RUN_SCORED, HALF_INNING_CHANGED, GAME_ENDED,
     FIRST_PITCH, HALF_INNING_STARTED, HIT_BY_PITCH, REACHED_ON_ERROR,
     DROPPED_THIRD_STRIKE_REACHED, FIELDERS_CHOICE_REACHED, STOLEN_BASE, WILD_PITCH,
@@ -34,6 +35,9 @@ data class GameEvent(
     val before: GameState,
     val after: GameState,
     val details: PlayDetails = PlayDetails(),
+    val playActor: Player? = null,
+    val sourceLabel: String? = null,
+    val sourceSummary: String? = null,
 ) {
     init {
         require(eventId.isNotBlank())
@@ -41,13 +45,18 @@ data class GameEvent(
         require(gameId == before.gameId && gameId == after.gameId) { "Event game ID mismatch" }
         require(before.homeTeam == after.homeTeam && before.awayTeam == after.awayTeam)
         require(teamId == null || teamId == before.homeTeam.id || teamId == before.awayTeam.id)
-        require(after.homeScore >= before.homeScore && after.awayScore >= before.awayScore) {
+        require(eventType == EventType.OFFICIAL_REVIEW_OVERTURNED ||
+            (after.homeScore >= before.homeScore && after.awayScore >= before.awayScore)) {
             "Scores cannot decrease"
         }
     }
 }
 
-data class GameTimeline(val initialState: GameState, val events: List<GameEvent>) {
+data class GameTimeline(
+    val initialState: GameState,
+    val events: List<GameEvent>,
+    val notificationsEnabled: Boolean = true,
+) {
     init {
         require(events.map { it.eventId }.toSet().size == events.size) { "Duplicate event ID" }
 

@@ -33,5 +33,10 @@
     "file": "mock-special.json",
     "name": "모의 경기 · 판독과 부상",
     "description": "1루 아웃 판정 번복과 투수 부상 의심, 의료진 확인, 교체를 재현."
+  },
+  {
+    "file": "pdf-snapshot-test.json",
+    "name": "PDF 기반 테스트 경기 · 1이닝 완결",
+    "description": "실제 기록이 아닌 모든 플레이가 포함된 1이닝 단축 테스트. 역전 홈런·3득점·득점 취소를 재생합니다."
   }
 ]

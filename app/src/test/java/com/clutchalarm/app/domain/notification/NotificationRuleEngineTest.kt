@@ -56,7 +56,7 @@ class NotificationRuleEngineTest {
         for (type in listOf(EventType.STOLEN_BASE, EventType.WILD_PITCH)) {
             assertNull(engine.evaluate(play(type, before, after), "away").candidate)
         }
-        assertNull(engine.evaluate(play(EventType.SINGLE, before, before.copy(bases = Bases(batter))), "home").candidate)
+        assertEquals(NotificationType.OPPONENT_ON_BASE, engine.evaluate(play(EventType.SINGLE, before, before.copy(bases = Bases(batter))), "home").candidate?.type)
         assertNull(engine.evaluate(play(EventType.SINGLE, before, after), "away").candidate)
     }
 
@@ -112,7 +112,7 @@ class NotificationRuleEngineTest {
     }
 
     @Test
-    fun combinesTheFourthRunWithThePlayAndStartsCountingAgainNextInning() {
+    fun combinesTheThirdRunWithThePlayAndStartsCountingAgainNextInning() {
         val session = NotificationSession()
         val token = session.begin("game")
         val scores = listOf(0, 1, 3, 4, 5)
@@ -120,9 +120,9 @@ class NotificationRuleEngineTest {
             session.onEvent(token, play(EventType.SINGLE, state(before), state(after), "run-$index",
                 PlayDetails(runsBattedIn = after - before)), "away")
         }
-        val fourth = requireNotNull(candidates[2])
+        val fourth = requireNotNull(candidates[1])
         assertEquals(NotificationType.BIG_INNING, fourth.type)
-        assertContains(fourth.body, "김타자", "적시타", "5회초", "4득점 빅이닝", "4 : 0")
+        assertContains(fourth.body, "김타자", "적시타", "5회초", "3득점 빅이닝", "3 : 0")
         assertEquals(NotificationType.RUN_SCORED, candidates[3]?.type)
         assertFalse(requireNotNull(candidates[3]).body.contains("빅이닝"))
         val next = state(5).copy(inning = 6)

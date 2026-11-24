@@ -1,0 +1,3 @@
+11-24 11:47:05.317 31160 31160 D ClutchBehavior: process=f6ce393d-9084-45f5-b834-40a28acee6a1 {"name":"app_open"}
+11-24 11:48:54.674 31160 31160 D ClutchBehavior: process=f6ce393d-9084-45f5-b834-40a28acee6a1 {"name":"drop","flowId":"9cc0df42-8d37-4266-9365-95a3a68b80a9"}
+11-24 11:49:02.979 31160 31160 D ClutchBehavior: process=f6ce393d-9084-45f5-b834-40a28acee6a1 {"name":"repeat_done","action":"settings_resave","flowId":"07f3285b-801a-4e9a-af75-12832730951b"}

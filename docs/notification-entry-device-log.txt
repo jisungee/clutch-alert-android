@@ -1,0 +1,8 @@
+11-24 10:36:30.666 14020 14020 I ClutchNotificationOpen: source=LIST game=mock-001 post=none sequence=0 scope=null newRead=false status=NOT_APPLICABLE
+11-24 10:37:24.686 14020 14020 I ClutchNotificationOpen: source=NOTIFICATION game=mock-001 post=177e2382-b13c-40cc-b4f6-d3288171ae60:1 sequence=1 scope=PROCESS newRead=true status=NEW
+11-24 10:38:48.648 14020 14020 I ClutchNotificationOpen: source=NOTIFICATION game=mock-001 post=177e2382-b13c-40cc-b4f6-d3288171ae60:7 sequence=7 scope=PROCESS newRead=true status=NEW
+11-24 10:39:55.872 14020 14020 I ClutchNotificationOpen: source=NOTIFICATION game=mock-001 post=177e2382-b13c-40cc-b4f6-d3288171ae60:13 sequence=13 scope=PROCESS newRead=true status=NEW
+11-24 10:40:38.717 14020 14020 I ClutchNotificationOpen: source=LIST game=mock-001 post=none sequence=0 scope=null newRead=false status=NOT_APPLICABLE
+11-24 10:42:20.012 15173 15173 I ClutchNotificationOpen: source=NOTIFICATION game=mock-001 post=177e2382-b13c-40cc-b4f6-d3288171ae60:16 sequence=16 scope=PROCESS newRead=true status=NEW
+11-24 10:43:42.883 21376 21376 I ClutchNotificationOpen: source=NOTIFICATION game=mock-001 post=177e2382-b13c-40cc-b4f6-d3288171ae60:17 sequence=17 scope=PROCESS newRead=true status=NEW
+11-24 10:44:39.719 21376 21376 I ClutchNotificationOpen: source=NOTIFICATION game=mock-001 post=177e2382-b13c-40cc-b4f6-d3288171ae60:16 sequence=16 scope=PROCESS newRead=false status=DUPLICATE

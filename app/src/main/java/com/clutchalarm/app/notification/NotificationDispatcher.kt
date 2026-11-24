@@ -17,6 +17,8 @@ fun interface NotificationDispatcher {
     fun dispatchTracked(candidate: NotificationCandidate): NotificationSubmission =
         NotificationSubmission(dispatch(candidate))
 
+    suspend fun submit(candidate: NotificationCandidate): NotificationSubmission = dispatchTracked(candidate)
+
     suspend fun confirm(submission: NotificationSubmission): NotificationConfirmation? = null
 }
 
@@ -24,6 +26,7 @@ data class NotificationSubmission(
     val status: DeliveryStatus,
     val address: NotificationAddress? = null,
     val cleanupRequested: Set<NotificationAddress> = emptySet(),
+    val delivery: NotificationDelivery? = null,
 )
 
 data class NotificationConfirmation(
@@ -41,6 +44,7 @@ data class NotificationRecord(
     val cleanupCount: Int = 0,
     val cleanupRequestedCount: Int = 0,
     val cleanupChecked: Boolean = false,
+    val delivery: NotificationDelivery? = null,
 )
 
 data class NotificationAddress(val tag: String, val id: Int)

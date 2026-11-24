@@ -37,12 +37,117 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class MockScenarioIntegrationTest {
     @Test
+    fun comebackHomerToggleMatrixDispatchesAtMostOnePerPlay() = runTest {
+        val three = listOf(HOME_RUN, RUN_SCORED, COMEBACK)
+        for (mask in 0..7) {
+            val enabled = three.filterIndexed { index, _ -> mask and (1 shl index) != 0 }.toSet()
+            val settings = com.clutchalarm.app.domain.notification.InMemoryNotificationPreferencesRepository()
+            settings.update { NotificationPreferences(NotificationType.entries.toSet() - enabled, onboardingCompleted = true) }
+            withViewModel(preferencesRepository = settings) { viewModel, dispatches ->
+                viewModel.selectGame("pdf-snapshot-test")
+                runCurrent()
+                viewModel.selectPreferredTeam("KIA")
+                viewModel.play()
+                step(30_000)
+                val homer = dispatches.filter { it.eventId == "8" }
+                assertEquals("mask=$mask", if (mask == 0) 0 else 1, homer.size)
+                homer.singleOrNull()?.let {
+                    assertTrue(it.body.contains("김도영"))
+                    assertFalse(it.body.contains("최형우"))
+                    assertEquals(setOf(HOME_RUN, RUN_SCORED, COMEBACK), it.matchingTypes)
+                    val expectedType = when {
+                        COMEBACK in enabled -> COMEBACK
+                        HOME_RUN in enabled -> HOME_RUN
+                        else -> RUN_SCORED
+                    }
+                    val expectedTitle = when {
+                        COMEBACK in enabled && HOME_RUN in enabled -> "🚨 역전 홈런"
+                        COMEBACK in enabled -> "🚨 역전"
+                        else -> expectedType.title
+                    }
+                    assertEquals(expectedType, it.type)
+                    assertEquals(expectedTitle, it.title)
+                }
+                assertEquals(dispatches.size, dispatches.map { it.eventId }.distinct().size)
+                assertEquals(PlaybackStatus.COMPLETED, viewModel.loaded().playback.status)
+            }
+        }
+        val settings = com.clutchalarm.app.domain.notification.InMemoryNotificationPreferencesRepository()
+        settings.update { NotificationPreferences(emptySet(), onboardingCompleted = true) }
+        withViewModel(preferencesRepository = settings) { viewModel, dispatches ->
+            viewModel.selectGame("pdf-snapshot-test")
+            runCurrent()
+            viewModel.selectPreferredTeam("KIA")
+            viewModel.play()
+            step(30_000)
+            assertEquals(1, dispatches.count { it.eventId == "8" })
+            assertEquals(dispatches.size, dispatches.map { it.eventId }.distinct().size)
+        }
+    }
+
+    @Test
+    fun opponentOnBaseHasOneIndependentDefaultOffToggle() = runTest {
+        withViewModel { viewModel, dispatches ->
+            viewModel.disableAllNotifications()
+            viewModel.saveSettings()
+            runCurrent()
+            viewModel.setNotificationEnabled(REACHED_BASE, true)
+            viewModel.saveSettings()
+            runCurrent()
+            viewModel.selectGame("mock-001")
+            runCurrent()
+            viewModel.selectPreferredTeam("seoul")
+            viewModel.play()
+            step(3_001)
+            assertFalse(dispatches.any { it.eventId == "play-2" })
+            viewModel.setNotificationEnabled(REACHED_BASE, false)
+            viewModel.saveSettings()
+            runCurrent()
+            viewModel.setNotificationEnabled(OPPONENT_ON_BASE, true)
+            viewModel.saveSettings()
+            runCurrent()
+            viewModel.play()
+            step(3_001)
+            assertEquals(1, dispatches.count { it.eventId == "play-2" })
+        }
+    }
+
+    @Test
+    fun completeSourceGameAndAllLegacyGamesOpenAndFinish() = runTest {
+        withViewModel { viewModel, dispatches ->
+            val games = viewModel.games.value as GameListState.Loaded
+            assertEquals(8, games.games.size)
+            for (game in games.games) {
+                viewModel.selectGame(game.gameId)
+                runCurrent()
+                assertTrue(viewModel.loaded().notificationsEnabled)
+                viewModel.selectPreferredTeam(game.homeTeam.id)
+                viewModel.play()
+                step(60_001)
+                assertEquals(game.gameId, PlaybackStatus.COMPLETED, viewModel.loaded().playback.status)
+                if (game.gameId == "pdf-snapshot-test") {
+                    assertEquals(GameStatus.FINISHED, viewModel.loaded().playback.gameState.status)
+                    assertEquals(2, viewModel.loaded().playback.gameState.homeScore)
+                    assertEquals(13, viewModel.loaded().playback.processedEventCount)
+                    assertNull(viewModel.loaded().playback.gameState.balls)
+                    assertTrue(dispatches.any { it.gameId == game.gameId && it.type == GAME_ENDED })
+                }
+                viewModel.reset()
+                runCurrent()
+                assertEquals(PlaybackStatus.IDLE, viewModel.loaded().playback.status)
+                viewModel.closeGame()
+            }
+        }
+    }
+
+    @Test
     fun settingsReturnsToItsOriginAndAllDisabledDoesNotStopPlayback() = runTest {
         withViewModel { viewModel, dispatches ->
             viewModel.showNotificationSettings(true)
             assertTrue(viewModel.showNotificationSettings.value)
             assertNull(viewModel.detail.value)
             viewModel.disableAllNotifications()
+            viewModel.saveSettings()
             runCurrent()
             assertEquals(0, viewModel.notificationSettings.value.preferences?.enabledCount)
             viewModel.showNotificationSettings(false)
@@ -71,11 +176,14 @@ class MockScenarioIntegrationTest {
             assertTrue(dispatches.isEmpty())
 
             viewModel.setNotificationEnabled(VIDEO_REVIEW, true)
+
+            viewModel.saveSettings()
             runCurrent()
             assertEquals(1, viewModel.notificationSettings.value.preferences?.enabledCount)
             viewModel.enableAllNotifications()
+            viewModel.saveSettings()
             runCurrent()
-            assertEquals(14, viewModel.notificationSettings.value.preferences?.enabledCount)
+            assertEquals(16, viewModel.notificationSettings.value.preferences?.enabledCount)
             assertTrue(dispatches.isEmpty())
         }
     }
@@ -91,6 +199,8 @@ class MockScenarioIntegrationTest {
             assertEquals(listOf("review-start"), dispatches.map { it.eventId })
 
             viewModel.setNotificationEnabled(VIDEO_REVIEW, false)
+
+            viewModel.saveSettings()
             viewModel.pause()
             step(10_000)
             viewModel.resume()
@@ -100,6 +210,8 @@ class MockScenarioIntegrationTest {
             assertEquals(DeliveryStatus.FILTERED, skipped.status)
 
             viewModel.setNotificationEnabled(VIDEO_REVIEW, true)
+
+            viewModel.saveSettings()
             step(9_000)
             assertEquals(listOf("review-start", "injury-suspected", "medical-check",
                 "injury-substitution"), dispatches.map { it.eventId })
@@ -108,9 +220,10 @@ class MockScenarioIntegrationTest {
     }
 
     @Test
-    fun combinedAlertsUseOnlyTheWinningTypeAndSettingsFollowGameChanges() = runTest {
+    fun combinedAlertsMatchAnyEnabledCodeAndSettingsFollowGameChanges() = runTest {
         withViewModel { viewModel, dispatches ->
             viewModel.setNotificationEnabled(HOME_RUN, false)
+            viewModel.saveSettings()
             runCurrent()
             viewModel.selectGame("mock-close")
             runCurrent()
@@ -122,24 +235,27 @@ class MockScenarioIntegrationTest {
             assertTrue("2점 홈런" in comeback.body)
 
             viewModel.setNotificationEnabled(COMEBACK, false)
+
+            viewModel.saveSettings()
             runCurrent()
             viewModel.setNotificationEnabled(HOME_RUN, true)
+            viewModel.saveSettings()
             runCurrent()
             viewModel.selectGame("mock-home-runs")
             runCurrent()
             viewModel.selectPreferredTeam("busan")
             viewModel.play()
             step(3_000)
-            assertFalse(dispatches.any { it.eventId == "two-run" })
+            assertEquals(1, dispatches.count { it.eventId == "two-run" })
             assertEquals(HOME_RUN, dispatches.single { it.eventId == "solo" }.type)
-            assertEquals(DeliveryStatus.FILTERED,
+            assertEquals(DeliveryStatus.SENT,
                 viewModel.loaded().notifications.single { it.candidate.eventId == "two-run" }.status)
         }
     }
 
     @Test
     fun failedSaveKeepsTheLastCommittedPreference() = runTest {
-        val disabled = NotificationPreferences(setOf(VIDEO_REVIEW))
+        val disabled = NotificationPreferences(setOf(VIDEO_REVIEW), onboardingCompleted = true)
         val repository = object : NotificationPreferencesRepository {
             override suspend fun load() = disabled
             override suspend fun update(
@@ -148,6 +264,7 @@ class MockScenarioIntegrationTest {
         }
         withViewModel(preferencesRepository = repository) { viewModel, dispatches ->
             viewModel.setNotificationEnabled(VIDEO_REVIEW, true)
+            viewModel.saveSettings()
             runCurrent()
             assertEquals(disabled, viewModel.notificationSettings.value.preferences)
             assertTrue(viewModel.notificationSettings.value.error)
@@ -192,6 +309,8 @@ class MockScenarioIntegrationTest {
             assertEquals(12, active.size)
 
             viewModel.setNotificationEnabled(VIDEO_REVIEW, false)
+
+            viewModel.saveSettings()
             runCurrent()
             repeat(2) {
                 viewModel.play()
@@ -228,7 +347,7 @@ class MockScenarioIntegrationTest {
     @Test
     fun catalogAndAllSevenTimelinesAreConsistent() = runTest {
         val repository = repository()
-        val listings = repository.listScenarios()
+        val listings = repository.listScenarios().filter { it.state.gameId != "pdf-snapshot-test" }
         assertEquals(
             listOf("mock-001", "mock-close", "mock-home-runs", "mock-big-inning",
                 "mock-walkoff-hit", "mock-walkoff-homer", "mock-special"),
@@ -273,8 +392,8 @@ class MockScenarioIntegrationTest {
         withViewModel { viewModel, dispatches ->
             val verified = mutableSetOf<NotificationType>()
             val games = viewModel.games.value as GameListState.Loaded
-            assertEquals(7, games.games.size)
-            assertEquals(7, games.scenarios.size)
+            assertEquals(8, games.games.size)
+            assertEquals(8, games.scenarios.size)
             for ((scenario, cases) in expected.groupBy { it.gameId to it.team }) {
                 val (gameId, team) = scenario
                 val startIndex = dispatches.size
@@ -287,8 +406,8 @@ class MockScenarioIntegrationTest {
                 val actual = dispatches.drop(startIndex)
                 val detail = viewModel.loaded()
                 assertEquals(PlaybackStatus.COMPLETED, detail.playback.status)
-                assertEquals(actual, detail.notifications.map { it.candidate })
-                assertTrue(detail.notifications.all { it.status == DeliveryStatus.SENT })
+                assertEquals(actual, detail.notifications.filter { it.status == DeliveryStatus.SENT }.map { it.candidate })
+                assertTrue(detail.notifications.filter { it.status != DeliveryStatus.SENT }.all { it.candidate.type == OPPONENT_ON_BASE })
                 assertTrue(actual.all { it.gameId == gameId })
                 assertEquals(actual.size, actual.map { it.eventId }.distinct().size)
                 for (case in cases) {
@@ -311,7 +430,7 @@ class MockScenarioIntegrationTest {
                 }
                 if (gameId.startsWith("mock-walkoff")) assertEquals(GameStatus.FINISHED, detail.playback.gameState.status)
             }
-            assertEquals(NotificationType.entries.toSet(), verified)
+            assertEquals(setOf(GAME_STARTED, OFFENSE_STARTED, OFFENSE_ENDED, DEFENSE_STARTED, DEFENSE_ENDED, REACHED_BASE, RUN_SCORED, TIED, COMEBACK, HOME_RUN, RUN_ALLOWED, VIDEO_REVIEW, INJURY, BIG_INNING), verified)
         }
     }
 
@@ -412,12 +531,12 @@ class MockScenarioIntegrationTest {
             "seoul", "🚨 역전 허용"),
         Expected("mock-home-runs", "two-run", COMEBACK, "4회초 · 부산 웨이브스 김도윤 2점 홈런! 역전 · 2 : 1",
             title = "🚨 역전 홈런"),
-        Expected("mock-home-runs", "solo", HOME_RUN, "4회초 · 부산 웨이브스 이준서 솔로 홈런! 1점 득점 · 3 : 1"),
+        Expected("mock-home-runs", "solo", HOME_RUN, "4회초 · 부산 웨이브스 이준서 솔로 홈런! 1점 득점 · 부산 웨이브스 3득점 빅이닝 · 3 : 1"),
         Expected("mock-home-runs", "three-run", HOME_RUN,
-            "4회초 · 부산 웨이브스 정지훈 3점 홈런! 3점 득점 · 부산 웨이브스 6득점 빅이닝 · 6 : 1"),
+            "4회초 · 부산 웨이브스 정지훈 3점 홈런! 3점 득점 · 6 : 1"),
         Expected("mock-home-runs", "grand-slam", HOME_RUN, "4회초 · 부산 웨이브스 장현우 만루 홈런! 4점 득점 · 10 : 1"),
-        Expected("mock-big-inning", "fourth-run", BIG_INNING,
-            "5회초 · 부산 웨이브스 최현우 적시타! 1점 득점 · 부산 웨이브스 4득점 빅이닝 · 6 : 1"),
+        Expected("mock-big-inning", "two-more", BIG_INNING,
+            "5회초 · 부산 웨이브스 박민재 2타점 적시타! 2점 득점 · 부산 웨이브스 3득점 빅이닝 · 5 : 1"),
         Expected("mock-big-inning", "fifth-run", RUN_SCORED, "5회초 · 부산 웨이브스 정지훈 적시타! 1점 득점 · 7 : 1"),
         Expected("mock-walkoff-hit", "walkoff-hit", RUN_SCORED, "9회말 · 서울 팔콘스 윤지호 적시타! 끝내기 승리 · 5 : 4",
             "seoul", "🚨 끝내기 승리"),

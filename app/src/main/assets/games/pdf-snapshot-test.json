@@ -1,0 +1,487 @@
+{
+  "game_info": {
+    "game_id": "pdf-snapshot-test",
+    "away_team": "SSG",
+    "home_team": "KIA",
+    "test_data": true
+  },
+  "initial_state": {
+    "inning": {
+      "number": 1,
+      "half": "TOP"
+    },
+    "score": {
+      "away": 0,
+      "home": 0
+    },
+    "outs": 0,
+    "bases": {
+      "first": null,
+      "second": null,
+      "third": null
+    },
+    "current_batter": {
+      "team": "SSG",
+      "name": "최지훈"
+    },
+    "current_pitcher": {
+      "team": "KIA",
+      "name": "양현종"
+    },
+    "status": "NOT_STARTED"
+  },
+  "events": [
+    {
+      "inning": {
+        "number": 1,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_batter": {
+        "team": "SSG",
+        "name": "최지훈"
+      },
+      "current_pitcher": {
+        "team": "KIA",
+        "name": "양현종"
+      },
+      "status": "IN_PROGRESS",
+      "event_id": 1,
+      "delay_sec": 0,
+      "event_type": "GAME_START",
+      "actor_team": "ALL",
+      "details": {
+        "summary": "PDF 양식 기반 완결 재생 테스트입니다. 실제 경기 기록이 아닌 1이닝 단축 경기입니다."
+      }
+    },
+    {
+      "inning": {
+        "number": 1,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 1,
+        "home": 0
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_batter": {
+        "team": "SSG",
+        "name": "추신수"
+      },
+      "current_pitcher": {
+        "team": "KIA",
+        "name": "양현종"
+      },
+      "status": "IN_PROGRESS",
+      "event_id": 2,
+      "delay_sec": 1,
+      "event_type": "HOME_RUN",
+      "actor_team": "SSG",
+      "details": {
+        "summary": "최지훈 솔로 홈런."
+      },
+      "play_actor": {
+        "team": "SSG",
+        "name": "최지훈"
+      }
+    },
+    {
+      "inning": {
+        "number": 1,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 1,
+        "home": 0
+      },
+      "outs": 1,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_batter": {
+        "team": "SSG",
+        "name": "최정"
+      },
+      "current_pitcher": {
+        "team": "KIA",
+        "name": "양현종"
+      },
+      "status": "IN_PROGRESS",
+      "event_id": 3,
+      "delay_sec": 1,
+      "event_type": "BATTED_OUT",
+      "actor_team": "SSG",
+      "details": {
+        "summary": "추신수 아웃."
+      },
+      "play_actor": {
+        "team": "SSG",
+        "name": "추신수"
+      }
+    },
+    {
+      "inning": {
+        "number": 1,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 1,
+        "home": 0
+      },
+      "outs": 2,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_batter": {
+        "team": "SSG",
+        "name": "에레디아"
+      },
+      "current_pitcher": {
+        "team": "KIA",
+        "name": "양현종"
+      },
+      "status": "IN_PROGRESS",
+      "event_id": 4,
+      "delay_sec": 1,
+      "event_type": "BATTED_OUT",
+      "actor_team": "SSG",
+      "details": {
+        "summary": "최정 아웃."
+      },
+      "play_actor": {
+        "team": "SSG",
+        "name": "최정"
+      }
+    },
+    {
+      "inning": {
+        "number": 1,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 1,
+        "home": 0
+      },
+      "outs": 3,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_batter": null,
+      "current_pitcher": {
+        "team": "KIA",
+        "name": "양현종"
+      },
+      "status": "IN_PROGRESS",
+      "event_id": 5,
+      "delay_sec": 1,
+      "event_type": "BATTED_OUT",
+      "actor_team": "SSG",
+      "details": {
+        "summary": "에레디아 아웃."
+      },
+      "play_actor": {
+        "team": "SSG",
+        "name": "에레디아"
+      }
+    },
+    {
+      "inning": {
+        "number": 1,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 1,
+        "home": 0
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_batter": {
+        "team": "KIA",
+        "name": "박찬호"
+      },
+      "current_pitcher": {
+        "team": "SSG",
+        "name": "김광현"
+      },
+      "status": "IN_PROGRESS",
+      "event_id": 6,
+      "delay_sec": 1,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "details": {
+        "summary": "1회말 KIA 공격 시작."
+      }
+    },
+    {
+      "inning": {
+        "number": 1,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 1,
+        "home": 0
+      },
+      "outs": 0,
+      "bases": {
+        "first": "박찬호",
+        "second": null,
+        "third": null
+      },
+      "current_batter": {
+        "team": "KIA",
+        "name": "김도영"
+      },
+      "current_pitcher": {
+        "team": "SSG",
+        "name": "김광현"
+      },
+      "status": "IN_PROGRESS",
+      "event_id": 7,
+      "delay_sec": 1,
+      "event_type": "ON_BASE",
+      "actor_team": "KIA",
+      "details": {
+        "summary": "박찬호 안타로 출루.",
+        "reach_type": "SINGLE"
+      },
+      "play_actor": {
+        "team": "KIA",
+        "name": "박찬호"
+      }
+    },
+    {
+      "inning": {
+        "number": 1,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 1,
+        "home": 2
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_batter": {
+        "team": "KIA",
+        "name": "최형우"
+      },
+      "current_pitcher": {
+        "team": "SSG",
+        "name": "김광현"
+      },
+      "status": "IN_PROGRESS",
+      "event_id": 8,
+      "delay_sec": 1,
+      "event_type": "HOME_RUN",
+      "actor_team": "KIA",
+      "details": {
+        "summary": "김도영 역전 투런 홈런.",
+        "runs_batted_in": 2
+      },
+      "play_actor": {
+        "team": "KIA",
+        "name": "김도영"
+      },
+      "sub_types": [
+        "SCORE",
+        "LEAD_CHANGE"
+      ]
+    },
+    {
+      "inning": {
+        "number": 1,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 1,
+        "home": 3
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_batter": {
+        "team": "KIA",
+        "name": "나성범"
+      },
+      "current_pitcher": {
+        "team": "SSG",
+        "name": "김광현"
+      },
+      "status": "IN_PROGRESS",
+      "event_id": 9,
+      "delay_sec": 1,
+      "event_type": "HOME_RUN",
+      "actor_team": "KIA",
+      "details": {
+        "summary": "최형우 솔로 홈런. 이닝 누적 3득점."
+      },
+      "play_actor": {
+        "team": "KIA",
+        "name": "최형우"
+      }
+    },
+    {
+      "inning": {
+        "number": 1,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 1,
+        "home": 2
+      },
+      "outs": 1,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_batter": {
+        "team": "KIA",
+        "name": "나성범"
+      },
+      "current_pitcher": {
+        "team": "SSG",
+        "name": "김광현"
+      },
+      "status": "IN_PROGRESS",
+      "event_id": 10,
+      "delay_sec": 1,
+      "event_type": "VIDEO_REVIEW",
+      "actor_team": "KIA",
+      "details": {
+        "summary": "확정 판독: 직전 홈런 취소, 타자 아웃. 구조화된 점수와 아웃을 반영합니다.",
+        "review_result": "OVERTURNED",
+        "review_target": "홈런 여부",
+        "revised_call": "아웃"
+      }
+    },
+    {
+      "inning": {
+        "number": 1,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 1,
+        "home": 2
+      },
+      "outs": 2,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_batter": {
+        "team": "KIA",
+        "name": "김선빈"
+      },
+      "current_pitcher": {
+        "team": "SSG",
+        "name": "김광현"
+      },
+      "status": "IN_PROGRESS",
+      "event_id": 11,
+      "delay_sec": 1,
+      "event_type": "BATTED_OUT",
+      "actor_team": "KIA",
+      "details": {
+        "summary": "나성범 아웃."
+      },
+      "play_actor": {
+        "team": "KIA",
+        "name": "나성범"
+      }
+    },
+    {
+      "inning": {
+        "number": 1,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 1,
+        "home": 2
+      },
+      "outs": 3,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_batter": null,
+      "current_pitcher": {
+        "team": "SSG",
+        "name": "김광현"
+      },
+      "status": "IN_PROGRESS",
+      "event_id": 12,
+      "delay_sec": 1,
+      "event_type": "BATTED_OUT",
+      "actor_team": "KIA",
+      "details": {
+        "summary": "김선빈 아웃."
+      },
+      "play_actor": {
+        "team": "KIA",
+        "name": "김선빈"
+      }
+    },
+    {
+      "inning": {
+        "number": 1,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 1,
+        "home": 2
+      },
+      "outs": 3,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_batter": null,
+      "current_pitcher": {
+        "team": "SSG",
+        "name": "김광현"
+      },
+      "status": "FINISHED",
+      "event_id": 13,
+      "delay_sec": 1,
+      "event_type": "GAME_END",
+      "actor_team": "ALL",
+      "details": {
+        "summary": "1이닝 단축 테스트 경기 종료. KIA 2 : 1 SSG."
+      }
+    }
+  ]
+}
