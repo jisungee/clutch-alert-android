@@ -1,0 +1,8 @@
+<resources>
+    <style name="Theme.ClutchAlarm" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:windowSplashScreenBackground">@color/brand_light</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="android:colorAccent">@color/brand_red</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>

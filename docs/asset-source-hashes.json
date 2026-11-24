@@ -1,0 +1,54 @@
+[
+  {
+    "path": "design-assets/branding/app_icon.png",
+    "sha256": "dc7bc8095d216ecce8c8d88b9422d751fffd559883ee5fc1dab288285e0ecc3a"
+  },
+  {
+    "path": "design-assets/branding/app_logo.png",
+    "sha256": "8efe0a5150b5198f3a09ba4e97289fe592a37319fd7e52d3424326ce37c8bb83"
+  },
+  {
+    "path": "design-assets/branding/splash_logo.png",
+    "sha256": "02370598735ce47c0b405c0d7de701c0b64a8ab71a9d6f925dc4f80958305700"
+  },
+  {
+    "path": "design-assets/teams/team_logo_doosan.svg",
+    "sha256": "0fb476706891ed4d0af156b711e5872ae29b47a2781a4cfb3a1ba56918d2c982"
+  },
+  {
+    "path": "design-assets/teams/team_logo_hanwha.svg",
+    "sha256": "5f7e29a4cbd83240e9158a51fb4e4a6fd301709cd347d4486abd8752af167637"
+  },
+  {
+    "path": "design-assets/teams/team_logo_kia.svg",
+    "sha256": "f04844c14fcaeb4545b4400d91fea86399e5a40848482b3f15fe754ff47707c6"
+  },
+  {
+    "path": "design-assets/teams/team_logo_kiwoom.svg",
+    "sha256": "13f9c32a38d3cace3dc62d9558eeb2ca2a1e025ef06d72bdc2d77e4543ae951f"
+  },
+  {
+    "path": "design-assets/teams/team_logo_kt.svg",
+    "sha256": "5b940beb4265a45a5d543216ac84fad816d7768385a466f985a80061f9377c79"
+  },
+  {
+    "path": "design-assets/teams/team_logo_lg.svg",
+    "sha256": "e073ac10a38003170f9c278d1ec39cb6166cafa15a6d15cf6fd9bd2704dd1ba7"
+  },
+  {
+    "path": "design-assets/teams/team_logo_lotte.svg",
+    "sha256": "31ab54ca863d9faf3c4d3ac3c795e91a36eafeb25da3f1f123e9499e1b8da067"
+  },
+  {
+    "path": "design-assets/teams/team_logo_nc.svg",
+    "sha256": "5e96831f96c298bebed3b419f0a3a5025d8d329d00db8e6a0ce7049f8a5abcd0"
+  },
+  {
+    "path": "design-assets/teams/team_logo_samsung.svg",
+    "sha256": "6c83f406027af32e534b7f296a37c65cdd0d284af74185e6fad085136c97afd0"
+  },
+  {
+    "path": "design-assets/teams/team_logo_ssg.svg",
+    "sha256": "4d4fe269ad131a6f7accd1100306742e885c731d3efa1bdef7af48f204b59585"
+  }
+]

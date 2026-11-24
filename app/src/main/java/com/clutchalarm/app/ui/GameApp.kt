@@ -18,18 +18,6 @@ import androidx.lifecycle.compose.LifecycleResumeEffect
 import com.clutchalarm.app.notification.NotificationAvailability
 import com.clutchalarm.app.domain.model.KboTeams
 
-private val DetailColors = lightColorScheme(
-    primary = Color(0xFFBE1536),
-    onPrimary = Color.White,
-    primaryContainer = Color(0xFFFFE4EA),
-    onPrimaryContainer = Color(0xFF65001D),
-    background = Color(0xFFF7F8FA),
-    surface = Color.White,
-    surfaceVariant = Color(0xFFF0F1F5),
-    onSurface = Color(0xFF172238),
-    onSurfaceVariant = Color(0xFF555E70),
-)
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GameApp(
@@ -48,7 +36,7 @@ fun GameApp(
     if (login.sessionPhase != SessionPhase.IDLE) {
         BackHandler(enabled = login.sessionPhase in setOf(SessionPhase.LOGGING_OUT, SessionPhase.LOGOUT_FAILED,
             SessionPhase.DELETING, SessionPhase.DELETE_CLEANUP_FAILED)) { }
-        MaterialTheme(colorScheme = DetailColors) {
+        ClutchTheme() {
             SessionScreen(login, { loginViewModel.restoreSession() }, loginViewModel::confirmLogout, loginViewModel::retryDeletionCleanup)
         }
         return
@@ -66,7 +54,7 @@ fun GameApp(
         val showSignUp by loginViewModel.showSignUp.collectAsStateWithLifecycle()
         val signUp by loginViewModel.signUpState.collectAsStateWithLifecycle()
         BackHandler(enabled = showSignUp) { loginViewModel.closeSignUp() }
-        MaterialTheme(colorScheme = DetailColors) {
+        ClutchTheme() {
             if (showSignUp) SignUpScreen(signUp, loginViewModel.qaLoginAvailable, loginViewModel::setSignUpEmail,
                 loginViewModel::setSignUpPassword, loginViewModel::setSignUpConfirmation, loginViewModel::signUp,
                 loginViewModel::closeSignUp)
@@ -88,6 +76,8 @@ fun GameApp(
     val isHome = ready && !isDetail && !showSettings && mainScreen == MainScreen.HOME
     val isMyPage = ready && !isDetail && !showSettings && mainScreen == MainScreen.MY_PAGE
     val redHeader = isHome || isMyPage
+    val homeGradient = if (isHome) com.clutchalarm.app.domain.model.HomeGradients.find(settings.preferences?.preferredTeamId) else null
+    val homeHeaderInk = if (homeGradient != null) Color.White else teamPalette(settings.preferences?.preferredTeamId).onPrimaryContainer
     val returnLabel = when (mainScreen) {
         MainScreen.HOME -> "홈"
         MainScreen.GAMES -> "목록"
@@ -100,13 +90,13 @@ fun GameApp(
     SideEffect {
         view.context.findActivity()?.window?.let { window ->
             WindowCompat.getInsetsController(window, view).apply {
-                isAppearanceLightStatusBars = !redHeader
+                isAppearanceLightStatusBars = homeGradient == null
                 isAppearanceLightNavigationBars = true
             }
         }
     }
 
-    MaterialTheme(colorScheme = DetailColors) {
+    ClutchTheme(settings.preferences?.preferredTeamId) {
         if (login.logoutConfirmation) AlertDialog(
             onDismissRequest = loginViewModel::cancelLogout,
             title = { Text("로그아웃하시겠어요?") },
@@ -123,7 +113,7 @@ fun GameApp(
                     else "현재 로그인한 계정의 탈퇴를 요청합니다. 완료 후 로그인 화면으로 이동합니다.")
                 Text("이 기기에 저장한 응원팀과 알림 설정은 유지됩니다.")
             } },
-            confirmButton = { TextButton(onClick = loginViewModel::confirmDeletion) { Text("탈퇴하기") } },
+            confirmButton = { TextButton(onClick = loginViewModel::confirmDeletion) { Text("탈퇴하기", color = MaterialTheme.colorScheme.error) } },
             dismissButton = { TextButton(onClick = loginViewModel::cancelDeletion) { Text("취소") } },
         )
         Scaffold(
@@ -132,17 +122,17 @@ fun GameApp(
                     title = { Text(when {
                         !ready -> "클러치알림"
                         showSettings && editor?.page == SettingsPage.TEAM -> if (editor.onboarding) "응원팀 선택" else "응원팀 변경"
-                        showSettings && editor?.page == SettingsPage.DETAILS -> "알림 세부 설정"
-                        showSettings -> "알림 선택"
+                        showSettings && editor?.page == SettingsPage.DETAILS -> "알림 설정"
+                        showSettings -> if (editor?.onboarding == true) "알림 선택" else "알림 설정"
                         isDetail -> "모의 경기 상세"
                         mainScreen == MainScreen.GAMES -> "모의 경기 선택"
                         mainScreen == MainScreen.MY_PAGE -> "마이페이지"
                         else -> "클러치알림"
                     }) },
                     colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = if (redHeader) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.background,
-                        titleContentColor = if (redHeader) Color.White else MaterialTheme.colorScheme.onSurface,
-                        actionIconContentColor = if (redHeader) Color.White else MaterialTheme.colorScheme.primary,
+                        containerColor = if (homeGradient != null) Color(0xFF000000L or homeGradient.top.toLong()) else if (redHeader) LocalTeamPalette.current.primaryContainer else MaterialTheme.colorScheme.background,
+                        titleContentColor = if (redHeader) homeHeaderInk else MaterialTheme.colorScheme.onSurface,
+                        actionIconContentColor = if (redHeader) homeHeaderInk else MaterialTheme.colorScheme.primary,
                     ),
                     navigationIcon = {
                         if (ready && (if (showSettings) editorHasBack else isDetail || mainScreen == MainScreen.GAMES)) {
@@ -158,10 +148,10 @@ fun GameApp(
                     actions = {
                         if (ready && !showSettings && !isMyPage && (!isDetail || detail is GameDetailState.Loaded)) {
                             TextButton(onClick = viewModel::showTeamSelection) {
-                                Text("응원팀", color = if (isHome) Color.White else MaterialTheme.colorScheme.primary)
+                                Text("응원팀", color = if (isHome) homeHeaderInk else MaterialTheme.colorScheme.primary)
                             }
                             TextButton(onClick = { viewModel.showNotificationSettings(true) }) {
-                                Text("알림 유형", color = if (isHome) Color.White else MaterialTheme.colorScheme.primary)
+                                Text("알림 설정", color = if (isHome) homeHeaderInk else MaterialTheme.colorScheme.primary)
                             }
                         }
                     },
@@ -202,8 +192,8 @@ fun GameApp(
             if (!ready) {
                 CenteredMessage(inset) {
                     if (settings.error) {
-                        Text("저장된 설정을 불러오지 못했습니다.")
-                        OutlinedButton(onClick = viewModel::loadNotificationPreferences, enabled = !settings.busy) { Text("다시 시도") }
+                        Text("저장된 설정을 불러오지 못했습니다.", color = MaterialTheme.colorScheme.error)
+                        ClutchOutlinedButton(onClick = viewModel::loadNotificationPreferences, enabled = !settings.busy) { Text("다시 시도") }
                     } else CircularProgressIndicator()
                 }
             } else if (showSettings) {
@@ -244,8 +234,8 @@ fun GameApp(
                 }
                 GameDetailState.Loading -> CenteredMessage(inset) { CircularProgressIndicator() }
                 GameDetailState.Error -> CenteredMessage(inset) {
-                    Text("경기 데이터를 불러오지 못했습니다.")
-                    OutlinedButton(onClick = viewModel::closeGame) {
+                    Text("경기 데이터를 불러오지 못했습니다.", color = MaterialTheme.colorScheme.error)
+                    ClutchOutlinedButton(onClick = viewModel::closeGame) {
                         Text(if (mainScreen == MainScreen.MY_PAGE) "마이페이지로" else "${returnLabel}으로")
                     }
                 }

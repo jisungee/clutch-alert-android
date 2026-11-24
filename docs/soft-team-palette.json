@@ -1,0 +1,112 @@
+[
+  {
+    "team": "KIWOOM",
+    "brandColor": "#570514",
+    "primaryColor": "#572534",
+    "onPrimaryColor": "#FFFFFF",
+    "primaryContainer": "#F4F0F0",
+    "onPrimaryContainer": "#572534",
+    "controlContrast": 12.213,
+    "containerContrast": 10.799,
+    "minimumTextContrast": 10.799
+  },
+  {
+    "team": "SAMSUNG",
+    "brandColor": "#074CA1",
+    "primaryColor": "#23538F",
+    "onPrimaryColor": "#FFFFFF",
+    "primaryContainer": "#F0F4F9",
+    "onPrimaryContainer": "#23538F",
+    "controlContrast": 7.762,
+    "containerContrast": 7.028,
+    "minimumTextContrast": 6.877
+  },
+  {
+    "team": "KT",
+    "brandColor": "#000000",
+    "primaryColor": "#1E2127",
+    "onPrimaryColor": "#FFFFFF",
+    "primaryContainer": "#EFEFEF",
+    "onPrimaryContainer": "#1E2127",
+    "controlContrast": 16.128,
+    "containerContrast": 14.027,
+    "minimumTextContrast": 14.027
+  },
+  {
+    "team": "LG",
+    "brandColor": "#C40037",
+    "primaryColor": "#9E214A",
+    "onPrimaryColor": "#FFFFFF",
+    "primaryContainer": "#FBEFF3",
+    "onPrimaryContainer": "#9E214A",
+    "controlContrast": 7.581,
+    "containerContrast": 6.766,
+    "minimumTextContrast": 6.716
+  },
+  {
+    "team": "KIA",
+    "brandColor": "#EA0029",
+    "primaryColor": "#B62141",
+    "onPrimaryColor": "#FFFFFF",
+    "primaryContainer": "#FDEFF2",
+    "onPrimaryContainer": "#B62141",
+    "controlContrast": 6.397,
+    "containerContrast": 5.728,
+    "minimumTextContrast": 5.667
+  },
+  {
+    "team": "DOOSAN",
+    "brandColor": "#1A1748",
+    "primaryColor": "#2F3056",
+    "onPrimaryColor": "#FFFFFF",
+    "primaryContainer": "#F1F1F4",
+    "onPrimaryContainer": "#2F3056",
+    "controlContrast": 12.515,
+    "containerContrast": 11.102,
+    "minimumTextContrast": 11.088
+  },
+  {
+    "team": "SSG",
+    "brandColor": "#CE0E2D",
+    "primaryColor": "#A42B44",
+    "onPrimaryColor": "#FFFFFF",
+    "primaryContainer": "#FCF0F2",
+    "onPrimaryContainer": "#A42B44",
+    "controlContrast": 6.982,
+    "containerContrast": 6.279,
+    "minimumTextContrast": 6.186
+  },
+  {
+    "team": "LOTTE",
+    "brandColor": "#041E42",
+    "primaryColor": "#213552",
+    "onPrimaryColor": "#FFFFFF",
+    "primaryContainer": "#EFF1F3",
+    "onPrimaryContainer": "#213552",
+    "controlContrast": 12.384,
+    "containerContrast": 10.937,
+    "minimumTextContrast": 10.937
+  },
+  {
+    "team": "NC",
+    "brandColor": "#315288",
+    "primaryColor": "#3E577F",
+    "onPrimaryColor": "#FFFFFF",
+    "primaryContainer": "#F2F4F7",
+    "onPrimaryContainer": "#3E577F",
+    "controlContrast": 7.305,
+    "containerContrast": 6.63,
+    "minimumTextContrast": 6.473
+  },
+  {
+    "team": "HANWHA",
+    "brandColor": "#FC4E00",
+    "primaryColor": "#B24C23",
+    "onPrimaryColor": "#FFFFFF",
+    "primaryContainer": "#FEF4EF",
+    "onPrimaryContainer": "#B24C23",
+    "controlContrast": 5.315,
+    "containerContrast": 4.91,
+    "minimumTextContrast": 4.709
+  }
+]

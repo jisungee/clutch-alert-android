@@ -1,0 +1,82 @@
+[
+  {
+    "team": "HANWHA",
+    "draftTop": "#C04B1D",
+    "top": "#B04319",
+    "bottom": "#763019",
+    "whiteOnTop": 5.733,
+    "whiteOnGuideWorst": 4.624
+  },
+  {
+    "team": "SAMSUNG",
+    "draftTop": "#1556A0",
+    "top": "#1556A0",
+    "bottom": "#082D60",
+    "whiteOnTop": 7.316,
+    "whiteOnGuideWorst": 5.555
+  },
+  {
+    "team": "KIA",
+    "draftTop": "#CE1936",
+    "top": "#CE1936",
+    "bottom": "#800D25",
+    "whiteOnTop": 5.502,
+    "whiteOnGuideWorst": 4.804
+  },
+  {
+    "team": "KT",
+    "draftTop": "#3A3A3A",
+    "top": "#3A3A3A",
+    "bottom": "#141414",
+    "whiteOnTop": 11.375,
+    "whiteOnGuideWorst": 7.938
+  },
+  {
+    "team": "KIWOOM",
+    "draftTop": "#831E38",
+    "top": "#831E38",
+    "bottom": "#430B19",
+    "whiteOnTop": 9.511,
+    "whiteOnGuideWorst": 7.236
+  },
+  {
+    "team": "LG",
+    "draftTop": "#BD1646",
+    "top": "#BD1646",
+    "bottom": "#710B2C",
+    "whiteOnTop": 6.237,
+    "whiteOnGuideWorst": 5.329
+  },
+  {
+    "team": "DOOSAN",
+    "draftTop": "#363365",
+    "top": "#363365",
+    "bottom": "#15132F",
+    "whiteOnTop": 11.549,
+    "whiteOnGuideWorst": 8.087
+  },
+  {
+    "team": "SSG",
+    "draftTop": "#C31936",
+    "top": "#C31936",
+    "bottom": "#790E23",
+    "whiteOnTop": 5.978,
+    "whiteOnGuideWorst": 5.106
+  },
+  {
+    "team": "LOTTE",
+    "draftTop": "#203E65",
+    "top": "#203E65",
+    "bottom": "#071A34",
+    "whiteOnTop": 10.834,
+    "whiteOnGuideWorst": 7.648
+  },
+  {
+    "team": "NC",
+    "draftTop": "#365B91",
+    "top": "#365B91",
+    "bottom": "#1B3459",
+    "whiteOnTop": 6.858,
+    "whiteOnGuideWorst": 5.188
+  }
+]

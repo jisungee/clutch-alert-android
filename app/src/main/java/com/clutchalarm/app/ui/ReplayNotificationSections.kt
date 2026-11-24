@@ -1,5 +1,6 @@
 package com.clutchalarm.app.ui
 
+import com.clutchalarm.app.BuildConfig
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -33,7 +34,7 @@ internal fun ReplayNotificationSections(detail: GameDetailState.Loaded) {
             if (sent.isEmpty()) {
                 Text("이번 재생에서 발송된 알림이 없어요")
             } else {
-                Text("시스템 발송 요청이 성공한 알림입니다.", style = MaterialTheme.typography.bodySmall)
+                if (BuildConfig.QA_DIAGNOSTICS) Text("시스템 발송 요청이 성공한 알림입니다.", style = MaterialTheme.typography.bodySmall)
                 RecentRecords(sent) { record ->
                     var showBody by rememberSaveable { mutableStateOf(false) }
                     Column {
@@ -50,7 +51,7 @@ internal fun ReplayNotificationSections(detail: GameDetailState.Loaded) {
             }
         }
 
-        NotificationSection("알림 판정 상세", initiallyExpanded = false) {
+        if (BuildConfig.QA_DIAGNOSTICS) NotificationSection("알림 판정 상세", initiallyExpanded = false) {
             if (detail.notifications.isEmpty()) Text("이번 재생에서 생성된 알림 후보가 없어요")
             RecentRecords(detail.notifications.asReversed()) { record ->
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {

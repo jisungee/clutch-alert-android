@@ -37,14 +37,9 @@ internal fun LoginScreen(
     val focus = LocalFocusManager.current
     Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)
         .statusBarsPadding().navigationBarsPadding().imePadding().verticalScroll(rememberScrollState())) {
-        Column(Modifier.fillMaxWidth().background(Brush.verticalGradient(listOf(Color(0xFFBE1536), Color(0xFF800F2C))))
-            .padding(28.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-            BaseballMark(Modifier.size(52.dp), Color.White)
-            Text("클러치알림", color = Color.White, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
-            Text("내 팀의 중요한 순간을 함께하세요", color = Color(0xFFFFDCE4), style = MaterialTheme.typography.bodyLarge)
-        }
-        Column(Modifier.fillMaxWidth().widthIn(max = 520.dp).align(Alignment.CenterHorizontally).padding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(18.dp)) {
+        AuthBrandHeader()
+        Column(Modifier.fillMaxWidth().widthIn(max = 520.dp).align(Alignment.CenterHorizontally).padding(ClutchStyle.page),
+            verticalArrangement = Arrangement.spacedBy(16.dp)) {
             Text("로그인", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
             Text("이메일과 비밀번호를 입력해주세요.", color = MaterialTheme.colorScheme.onSurfaceVariant)
             if (state.invalidSession != null) Text(
@@ -73,7 +68,7 @@ internal fun LoginScreen(
                     AuthenticationFailure.STORAGE -> "로그인 정보를 저장하지 못했습니다. 다시 시도해주세요."
                 }, color = MaterialTheme.colorScheme.error)
             }
-            Button(onClick = { focus.clearFocus(); onLogin() }, enabled = state.canSubmit,
+            ClutchButton(onClick = { focus.clearFocus(); onLogin() }, enabled = state.canSubmit,
                 modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp), shape = RoundedCornerShape(16.dp)) {
                 if (state.busy) {
                     CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
@@ -81,7 +76,7 @@ internal fun LoginScreen(
                 }
                 Text(if (state.busy) "로그인 중…" else if (qaLoginAvailable) "QA 검증용 로그인" else "로그인")
             }
-            OutlinedButton(onClick = onSignUp, enabled = !state.busy, modifier = Modifier.fillMaxWidth(),
+            ClutchOutlinedButton(onClick = onSignUp, enabled = !state.busy, modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(16.dp)) { Text("회원가입") }
             if (qaLoginAvailable) {
                 Surface(shape = RoundedCornerShape(16.dp), color = MaterialTheme.colorScheme.primaryContainer) {

@@ -33,6 +33,13 @@ android {
     )
     sourceSets.getByName("release").java.srcDir("src/productionAuth/java")
 
+    buildTypes {
+        getByName("debug") {
+            buildConfigField("boolean", "QA_DIAGNOSTICS", (providers.gradleProperty("behaviorQa").orNull == "true").toString())
+        }
+        getByName("release") { buildConfigField("boolean", "QA_DIAGNOSTICS", "false") }
+    }
+
     buildFeatures {
         compose = true
         buildConfig = true

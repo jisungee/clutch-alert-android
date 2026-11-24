@@ -1,0 +1,82 @@
+[
+  {
+    "screen": "home-HANWHA.png",
+    "comparisonCrop": [
+      0,
+      70,
+      1080,
+      2080
+    ],
+    "pixelIdentical": true
+  },
+  {
+    "screen": "home-large-HANWHA.png",
+    "comparisonCrop": [
+      0,
+      70,
+      1080,
+      2080
+    ],
+    "pixelIdentical": true
+  },
+  {
+    "screen": "home-SAMSUNG.png",
+    "comparisonCrop": [
+      0,
+      70,
+      1080,
+      2080
+    ],
+    "pixelIdentical": true
+  },
+  {
+    "screen": "home-large-SAMSUNG.png",
+    "comparisonCrop": [
+      0,
+      70,
+      1080,
+      2080
+    ],
+    "pixelIdentical": true
+  },
+  {
+    "screen": "home-KIA.png",
+    "comparisonCrop": [
+      0,
+      70,
+      1080,
+      2080
+    ],
+    "pixelIdentical": true
+  },
+  {
+    "screen": "home-large-KIA.png",
+    "comparisonCrop": [
+      0,
+      70,
+      1080,
+      2080
+    ],
+    "pixelIdentical": true
+  },
+  {
+    "screen": "home-KT.png",
+    "comparisonCrop": [
+      0,
+      70,
+      1080,
+      2080
+    ],
+    "pixelIdentical": true
+  },
+  {
+    "screen": "home-large-KT.png",
+    "comparisonCrop": [
+      0,
+      70,
+      1080,
+      2080
+    ],
+    "pixelIdentical": true
+  }
+]

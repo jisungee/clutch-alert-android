@@ -26,13 +26,13 @@ internal fun GameSelectionScreen(
             Text("모의 경기를 불러오는 중입니다.")
         }
         GameListState.Error -> CenteredMessage(modifier) {
-            Text("경기 목록을 불러오지 못했습니다.")
-            OutlinedButton(onClick = onRetry) { Text("다시 시도") }
+            Text("경기 목록을 불러오지 못했습니다.", color = MaterialTheme.colorScheme.error)
+            ClutchOutlinedButton(onClick = onRetry) { Text("다시 시도") }
         }
         is GameListState.Loaded -> LazyColumn(
             modifier = modifier,
             contentPadding = PaddingValues(top = 12.dp, bottom = 24.dp),
-            verticalArrangement = Arrangement.spacedBy(14.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             item {
                 Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = RoundedCornerShape(16.dp)) {
@@ -48,22 +48,28 @@ internal fun GameSelectionScreen(
                 val scenario = state.scenarios[game.gameId]
                 Card(
                     onClick = { onSelect(game.gameId) }, modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(20.dp),
+                    shape = ClutchStyle.card,
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
                 ) {
-                    Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                             Text("모의 경기 · ${(index + 1).toString().padStart(2, '0')}",
                                 Modifier.weight(1f), style = MaterialTheme.typography.labelMedium,
                                 color = MaterialTheme.colorScheme.primary)
-                            Text("›", style = MaterialTheme.typography.titleLarge)
+                            ChevronMark()
                         }
                         Text(scenario?.name ?: "경기 시나리오", style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold)
                         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                                Text("원정  ${game.awayTeam.name}")
-                                Text("홈     ${game.homeTeam.name}")
+                                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                    TeamCrest(game.awayTeam.id, Modifier.size(28.dp))
+                                    Text(game.awayTeam.name, style = MaterialTheme.typography.bodyMedium, color = teamPalette(game.awayTeam.id).primaryColor)
+                                }
+                                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                    TeamCrest(game.homeTeam.id, Modifier.size(28.dp))
+                                    Text(game.homeTeam.name, style = MaterialTheme.typography.bodyMedium, color = teamPalette(game.homeTeam.id).primaryColor)
+                                }
                             }
                             Column(horizontalAlignment = Alignment.End) {
                                 Text("${game.awayScore} : ${game.homeScore}", style = MaterialTheme.typography.titleLarge,
@@ -72,11 +78,10 @@ internal fun GameSelectionScreen(
                                     color = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
                         }
-                        HorizontalDivider()
                         Text(game.startLabel(), style = MaterialTheme.typography.labelLarge,
                             color = MaterialTheme.colorScheme.primary)
                         scenario?.let { Text(it.description, style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant) }
+                            color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis) }
                     }
                 }
             }

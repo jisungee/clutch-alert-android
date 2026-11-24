@@ -1,0 +1,50 @@
+[
+  {
+    "screen": "home-HANWHA",
+    "guideWhiteTextContrastMin": 5.534,
+    "maximumCompositeChannelError": 0.56,
+    "sampling": "blank guide interior x70, text vertical span; gradient x20 same row"
+  },
+  {
+    "screen": "home-large-HANWHA",
+    "guideWhiteTextContrastMin": 5.565,
+    "maximumCompositeChannelError": 0.56,
+    "sampling": "blank guide interior x70, text vertical span; gradient x20 same row"
+  },
+  {
+    "screen": "home-SAMSUNG",
+    "guideWhiteTextContrastMin": 7.036,
+    "maximumCompositeChannelError": 0.64,
+    "sampling": "blank guide interior x70, text vertical span; gradient x20 same row"
+  },
+  {
+    "screen": "home-large-SAMSUNG",
+    "guideWhiteTextContrastMin": 7.146,
+    "maximumCompositeChannelError": 0.72,
+    "sampling": "blank guide interior x70, text vertical span; gradient x20 same row"
+  },
+  {
+    "screen": "home-KIA",
+    "guideWhiteTextContrastMin": 6.079,
+    "maximumCompositeChannelError": 0.8,
+    "sampling": "blank guide interior x70, text vertical span; gradient x20 same row"
+  },
+  {
+    "screen": "home-large-KIA",
+    "guideWhiteTextContrastMin": 6.122,
+    "maximumCompositeChannelError": 0.8,
+    "sampling": "blank guide interior x70, text vertical span; gradient x20 same row"
+  },
+  {
+    "screen": "home-KT",
+    "guideWhiteTextContrastMin": 9.894,
+    "maximumCompositeChannelError": 0.84,
+    "sampling": "blank guide interior x70, text vertical span; gradient x20 same row"
+  },
+  {
+    "screen": "home-large-KT",
+    "guideWhiteTextContrastMin": 10.05,
+    "maximumCompositeChannelError": 0.84,
+    "sampling": "blank guide interior x70, text vertical span; gradient x20 same row"
+  }
+]

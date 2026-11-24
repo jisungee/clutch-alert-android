@@ -1,0 +1,17 @@
+--------- beginning of main
+11-24 16:40:52.965 18800 18800 I ClutchSession: restore state=CHECKING
+11-24 16:40:53.115 18800 18800 D ClutchBehavior: process=5443f28d-e225-4a26-80aa-5f69b5c17e20 {"name":"app_open"}
+11-24 16:40:53.620 18800 18800 I ClutchSession: restore result=AUTHENTICATED
+11-24 16:41:30.241 18800 18800 I ClutchNotificationOpen: source=LIST game=pdf-snapshot-test post=none sequence=0 scope=null newRead=false status=NOT_APPLICABLE
+11-24 16:43:54.556 18800 18800 D ClutchBehavior: process=5443f28d-e225-4a26-80aa-5f69b5c17e20 {"name":"drop","flowId":"7e127579-d93f-4fb8-8036-c38fd91f4ae6"}
+11-24 16:43:59.034 18800 18800 D ClutchBehavior: process=5443f28d-e225-4a26-80aa-5f69b5c17e20 {"name":"repeat_done","action":"settings_resave","flowId":"7aaa58b6-3a2c-4f2a-a32d-9a32f136be14"}
+11-24 16:44:37.499 18800 18800 I ClutchNotificationOpen: source=LIST game=mock-001 post=none sequence=0 scope=null newRead=false status=NOT_APPLICABLE
+11-24 16:44:45.369 18800 19567 D ClutchNotificationPost: post=df5357ab-9e0a-4883-93fb-c22d752adc33:1 sequence=14 scope=INSTALLATION installation=395b8b93-090a-44b6-8a98-04df17679a45 game=mock-001
+11-24 16:44:46.852 18800 19568 D ClutchNotificationPost: post=df5357ab-9e0a-4883-93fb-c22d752adc33:2 sequence=15 scope=INSTALLATION installation=395b8b93-090a-44b6-8a98-04df17679a45 game=mock-001
+11-24 16:44:48.318 18800 19568 D ClutchNotificationPost: post=df5357ab-9e0a-4883-93fb-c22d752adc33:3 sequence=16 scope=INSTALLATION installation=395b8b93-090a-44b6-8a98-04df17679a45 game=mock-001
+11-24 16:46:39.399 18800 18800 D ClutchBehavior: process=5443f28d-e225-4a26-80aa-5f69b5c17e20 {"name":"repeat_done","action":"notification_open","notificationId":"df5357ab-9e0a-4883-93fb-c22d752adc33:3","notificationSequence":16,"installationId":"395b8b93-090a-44b6-8a98-04df17679a45","gameId":"mock-001"}
+11-24 16:46:39.399 18800 18800 I ClutchNotificationOpen: source=NOTIFICATION game=mock-001 post=df5357ab-9e0a-4883-93fb-c22d752adc33:3 sequence=16 scope=INSTALLATION newRead=true status=NEW
+11-24 16:46:55.373 18800 18800 I ClutchSession: logout local=CLEARED
+11-24 16:49:42.113 18800 18800 I ClutchSession: authenticated source=login
+11-24 16:54:46.745 18800 18800 I ClutchSession: logout local=CLEARED
+11-24 16:55:09.128 18800 18800 I ClutchSession: authenticated source=login

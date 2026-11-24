@@ -1,0 +1,12 @@
+11-24 15:12:56.763   300   300 D ClutchBehavior: process=32a2ef2e-263c-41b4-9bff-45b826c388af {"name":"app_open"}
+11-24 15:13:23.908   300   300 D ClutchBehavior: process=32a2ef2e-263c-41b4-9bff-45b826c388af {"name":"drop","flowId":"b08ba34e-85c7-4dd6-a713-91e3be60e605"}
+11-24 15:13:48.622   300   300 D ClutchBehavior: process=32a2ef2e-263c-41b4-9bff-45b826c388af {"name":"repeat_done","action":"settings_resave","flowId":"c6477f29-da0e-4ac5-996b-d96dc98b85af"}
+11-24 15:13:54.998   300   300 I ClutchNotificationOpen: source=LIST game=mock-001 post=none sequence=0 scope=null newRead=false status=NOT_APPLICABLE
+11-24 15:14:48.279   300  3635 D ClutchNotificationPost: post=c7611f79-6c75-429d-90aa-5ccc4f60318c:1 sequence=5 scope=INSTALLATION installation=395b8b93-090a-44b6-8a98-04df17679a45 game=mock-001
+11-24 15:14:51.285   300  3636 D ClutchNotificationPost: post=c7611f79-6c75-429d-90aa-5ccc4f60318c:2 sequence=6 scope=INSTALLATION installation=395b8b93-090a-44b6-8a98-04df17679a45 game=mock-001
+11-24 15:15:09.877   300  3636 D ClutchNotificationPost: post=c7611f79-6c75-429d-90aa-5ccc4f60318c:3 sequence=7 scope=INSTALLATION installation=395b8b93-090a-44b6-8a98-04df17679a45 game=mock-001
+11-24 15:15:14.397   300  4645 D ClutchNotificationPost: post=c7611f79-6c75-429d-90aa-5ccc4f60318c:4 sequence=8 scope=INSTALLATION installation=395b8b93-090a-44b6-8a98-04df17679a45 game=mock-001
+11-24 15:15:17.394   300  3635 D ClutchNotificationPost: post=c7611f79-6c75-429d-90aa-5ccc4f60318c:5 sequence=9 scope=INSTALLATION installation=395b8b93-090a-44b6-8a98-04df17679a45 game=mock-001
+11-24 15:15:18.887   300  3635 D ClutchNotificationPost: post=c7611f79-6c75-429d-90aa-5ccc4f60318c:6 sequence=10 scope=INSTALLATION installation=395b8b93-090a-44b6-8a98-04df17679a45 game=mock-001
+11-24 15:16:03.588   300   300 D ClutchBehavior: process=32a2ef2e-263c-41b4-9bff-45b826c388af {"name":"repeat_done","action":"notification_open","notificationId":"c7611f79-6c75-429d-90aa-5ccc4f60318c:3","notificationSequence":7,"installationId":"395b8b93-090a-44b6-8a98-04df17679a45","gameId":"mock-001"}
+11-24 15:16:03.588   300   300 I ClutchNotificationOpen: source=NOTIFICATION game=mock-001 post=c7611f79-6c75-429d-90aa-5ccc4f60318c:3 sequence=7 scope=INSTALLATION newRead=true status=NEW

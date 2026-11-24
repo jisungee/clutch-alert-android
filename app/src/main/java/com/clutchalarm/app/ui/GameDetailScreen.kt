@@ -8,10 +8,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.padding
@@ -39,6 +42,7 @@ import com.clutchalarm.app.domain.simulation.PlaybackStatus
 import com.clutchalarm.app.domain.simulation.PlaybackSpeed
 import com.clutchalarm.app.notification.NotificationAvailability
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun GameDetailScreen(
     detail: GameDetailState.Loaded,
@@ -61,16 +65,16 @@ fun GameDetailScreen(
         modifier.verticalScroll(rememberScrollState()).padding(vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        Surface(shape = RoundedCornerShape(24.dp), color = MaterialTheme.colorScheme.surface) {
-            Column(Modifier.fillMaxWidth().padding(20.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
+        Surface(shape = ClutchStyle.card, color = MaterialTheme.colorScheme.surface) {
+            Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text(if (detail.notificationsEnabled) "모의 경기" else "PDF 기반 테스트 경기 · 알림 발송 보류", color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.labelLarge)
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                    TeamName("원정", game.awayTeam.name, Modifier.weight(1f))
+                    TeamName("원정", game.awayTeam.name, game.awayTeam.id, Modifier.weight(1f))
                     Text("${game.awayScore} : ${game.homeScore}",
                         style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(horizontal = 8.dp))
-                    TeamName("홈", game.homeTeam.name, Modifier.weight(1f))
+                    TeamName("홈", game.homeTeam.name, game.homeTeam.id, Modifier.weight(1f))
                 }
                 Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = RoundedCornerShape(16.dp)) {
                     Row(Modifier.fillMaxWidth().padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -79,7 +83,7 @@ fun GameDetailScreen(
                                 style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
                             Text("${game.outs} OUT", style = MaterialTheme.typography.labelLarge)
                         }
-                        BaseballDiamond(game.bases, Modifier.weight(1f).height(76.dp))
+                        BaseballDiamond(game.bases, Modifier.weight(1f).height(56.dp))
                     }
                 }
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
@@ -96,63 +100,9 @@ fun GameDetailScreen(
             }
         }
 
-        val teams = listOf(game.awayTeam, game.homeTeam)
-        val selectedTeam = teams.firstOrNull { it.id == detail.preferredTeamId }
-        if (selectedTeam == null) {
-            Text("알림을 받을 팀을 먼저 선택해주세요. 이번 모의 경기에서만 사용하며 저장된 응원팀은 바뀌지 않아요.",
-                style = MaterialTheme.typography.bodyMedium)
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                for (team in teams) {
-                    FilterChip(selected = false, onClick = { onSelectTeam(team.id) }, label = { Text(team.name) })
-                }
-            }
-        } else {
-            Text("이번 경기 알림 팀 · ${selectedTeam.name}", style = MaterialTheme.typography.labelLarge)
-        }
-        when (notificationAvailability) {
-            NotificationAvailability.AVAILABLE -> Text(
-                "재생 후 화면 위에서 알림창을 내려 클러치알림의 알림을 눌러보세요. 같은 경기의 재생 상태는 유지돼요.",
-                style = MaterialTheme.typography.bodySmall)
-            NotificationAvailability.PERMISSION_REQUIRED -> {
-                Text("알림 권한이 꺼져 있어요. 경기 재생은 가능하지만 시스템 알림은 오지 않아요. 알림을 받으려면 권한을 허용해주세요.")
-                OutlinedButton(onClick = onRequestPermission, modifier = Modifier.fillMaxWidth()) { Text("알림 권한 허용하기") }
-                OutlinedButton(onClick = onOpenNotificationSettings, modifier = Modifier.fillMaxWidth()) { Text("시스템 알림 설정 열기") }
-            }
-            NotificationAvailability.DISABLED -> {
-                Text("시스템 알림이 꺼져 있어요. 경기 재생은 가능하지만 시스템 알림은 오지 않아요. 설정에서 앱 알림과 ‘모의 경기 알림 (팝업)’을 켜주세요.")
-                OutlinedButton(onClick = onOpenNotificationSettings, modifier = Modifier.fillMaxWidth()) { Text("시스템 알림 설정 열기") }
-            }
-        }
-        Text(playback.status.label(), style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.primary)
-        val (buttonLabel, action) = when (playback.status) {
-            PlaybackStatus.IDLE -> "모의 경기 재생하기" to onPlay
-            PlaybackStatus.PLAYING -> "일시정지" to onPause
-            PlaybackStatus.PAUSED -> "재개" to onResume
-            PlaybackStatus.COMPLETED -> "처음부터 다시 재생" to onPlay
-        }
-        Button(onClick = action, modifier = Modifier.fillMaxWidth()) { Text(buttonLabel) }
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            for (speed in PlaybackSpeed.entries) {
-                FilterChip(
-                    selected = playback.speed == speed,
-                    onClick = { onSpeedChange(speed) },
-                    label = { Text("${speed.multiplier}x") },
-                )
-            }
-        }
-        if (playback.status == PlaybackStatus.PLAYING || playback.status == PlaybackStatus.PAUSED) {
-            OutlinedButton(onClick = onPlay, modifier = Modifier.fillMaxWidth()) {
-                Text("처음부터 다시 재생")
-            }
-        }
-        if (playback.status != PlaybackStatus.IDLE) {
-            OutlinedButton(onClick = onReset, modifier = Modifier.fillMaxWidth()) { Text("초기화") }
-        }
-
-        Surface(shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.surface) {
-            Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                Text("경기상황", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
+        Surface(shape = ClutchStyle.card, color = MaterialTheme.colorScheme.surface) {
+            Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text("최신 경기 상황", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                 HorizontalDivider(color = MaterialTheme.colorScheme.primary, thickness = 2.dp)
                 Text("타자  ${game.batter?.name ?: "미제공"}   ·   투수  ${game.pitcher?.name ?: "미제공"}",
                     style = MaterialTheme.typography.bodyMedium)
@@ -164,54 +114,78 @@ fun GameDetailScreen(
                         fontWeight = FontWeight.Bold)
                     Text(event.sourceSummary ?: event.description())
                 }
-                HorizontalDivider()
-                Text("이닝별 득점 · H/E · 라인업 · 선수 기록은 제공하지 않습니다.",
-                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
 
-        Card(Modifier.fillMaxWidth()) {
-            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text("응원팀 · ${savedTeamName ?: "미선택"}", style = MaterialTheme.typography.titleMedium)
-                Text("이번 모의 경기 알림 관점 (임시)", style = MaterialTheme.typography.labelLarge)
-                Text("아래 선택은 저장된 응원팀을 바꾸지 않습니다.", style = MaterialTheme.typography.bodySmall)
-                for (team in listOf(game.awayTeam, game.homeTeam)) {
-                    FilterChip(
-                        selected = detail.preferredTeamId == team.id,
-                        onClick = { onSelectTeam(team.id) },
-                        label = { Text(team.name) },
-                    )
-                }
-                if (selectedTeam == null) {
-                    Text("위 두 팀 중 한 팀을 선택한 뒤 재생하면 해당 팀의 알림을 받을 수 있어요.")
-                } else {
-                    when (notificationAvailability) {
-                        NotificationAvailability.AVAILABLE -> Text("경기 알림 사용 가능")
-                        NotificationAvailability.PERMISSION_REQUIRED -> {
-                            Text("알림 권한이 허용되지 않았습니다. 재생은 계속할 수 있습니다.")
-                            OutlinedButton(onClick = onRequestPermission) { Text("알림 권한 요청") }
-                        }
-                        NotificationAvailability.DISABLED -> {
-                            Text("시스템 알림이 꺼져 있어요. 경기 재생은 가능하며 설정에서 알림을 켤 수 있어요.")
-                        }
-                    }
-                    OutlinedButton(onClick = onOpenNotificationSettings) { Text("알림 설정 열기") }
-                }
+        val teams = listOf(game.awayTeam, game.homeTeam)
+        val selectedTeam = teams.firstOrNull { it.id == detail.preferredTeamId }
+        if (selectedTeam == null) {
+            Text("이번 경기의 알림 팀을 선택하세요. 저장된 응원팀은 바뀌지 않아요.",
+                style = MaterialTheme.typography.bodyMedium)
+        }
+        Text("저장한 응원팀 · ${savedTeamName ?: "미선택"}", style = MaterialTheme.typography.bodySmall)
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            for (team in teams) {
+                FilterChip(selected = team.id == detail.preferredTeamId, onClick = { onSelectTeam(team.id) }, label = { Text(team.name) })
             }
         }
+        when (notificationAvailability) {
+            NotificationAvailability.AVAILABLE -> Text(
+                "시스템 알림을 누르면 이 경기 상세로 돌아옵니다.",
+                style = MaterialTheme.typography.bodySmall)
+            NotificationAvailability.PERMISSION_REQUIRED -> {
+                Text("알림 권한이 꺼져 있어요. 경기 재생은 가능하지만 시스템 알림은 오지 않아요. 알림을 받으려면 권한을 허용해주세요.")
+                ClutchOutlinedButton(onClick = onRequestPermission, modifier = Modifier.fillMaxWidth()) { Text("알림 권한 허용하기") }
+                ClutchOutlinedButton(onClick = onOpenNotificationSettings, modifier = Modifier.fillMaxWidth()) { Text("시스템 알림 설정 열기") }
+            }
+            NotificationAvailability.DISABLED -> {
+                Text("시스템 알림이 꺼져 있어요. 경기 재생은 가능하지만 시스템 알림은 오지 않아요. 설정에서 앱 알림과 ‘모의 경기 알림 (팝업)’을 켜주세요.")
+                ClutchOutlinedButton(onClick = onOpenNotificationSettings, modifier = Modifier.fillMaxWidth()) { Text("시스템 알림 설정 열기") }
+            }
+        }
+        Text(playback.status.label(), style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.primary)
+        val (buttonLabel, action) = when (playback.status) {
+            PlaybackStatus.IDLE -> "모의 경기 재생하기" to onPlay
+            PlaybackStatus.PLAYING -> "일시정지" to onPause
+            PlaybackStatus.PAUSED -> "재개" to onResume
+            PlaybackStatus.COMPLETED -> "처음부터 다시 재생" to onPlay
+        }
+        ClutchButton(onClick = action, modifier = Modifier.fillMaxWidth()) { Text(buttonLabel) }
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            for (speed in PlaybackSpeed.entries) {
+                FilterChip(
+                    selected = playback.speed == speed,
+                    onClick = { onSpeedChange(speed) },
+                    label = { Text("${speed.multiplier}x") },
+                )
+            }
+        }
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            if (playback.status == PlaybackStatus.PLAYING || playback.status == PlaybackStatus.PAUSED) {
+                ClutchOutlinedButton(onClick = onPlay, modifier = Modifier.weight(1f)) { Text("처음부터 재생") }
+            }
+            if (playback.status != PlaybackStatus.IDLE) {
+                ClutchOutlinedButton(onClick = onReset, modifier = Modifier.weight(1f)) { Text("초기화") }
+            }
+        }
+
+        Text("이닝별 득점 · H/E · 라인업 · 선수 기록은 제공하지 않습니다.",
+            style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
 
         ReplayNotificationSections(detail)
     }
 }
 
 @Composable
-private fun TeamName(side: String, name: String, modifier: Modifier) {
+private fun TeamName(side: String, name: String, teamId: String, modifier: Modifier) {
     Column(modifier, horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(side, style = MaterialTheme.typography.labelMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant)
+        if (com.clutchalarm.app.domain.model.KboTeams.find(teamId) != null) TeamCrest(teamId, Modifier.size(28.dp))
         Text(name, style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
+            fontWeight = FontWeight.Bold, textAlign = TextAlign.Center, color = teamPalette(teamId).primaryColor)
     }
 }
 

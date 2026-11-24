@@ -1,0 +1,4 @@
+--------- beginning of main
+11-24 17:30:32.069 30428 30428 I ClutchSession: restore state=CHECKING
+11-24 17:30:32.264 30428 30428 D ClutchBehavior: process=292fb1f0-bdf5-439c-89cd-2073caec3329 {"name":"app_open"}
+11-24 17:30:32.892 30428 30428 I ClutchSession: restore result=AUTHENTICATED

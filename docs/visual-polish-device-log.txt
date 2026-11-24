@@ -1,0 +1,15 @@
+11-24 15:40:33.443  3677  3677 I ClutchSession: restore state=CHECKING
+11-24 15:40:33.601  3677  3677 D ClutchBehavior: process=75576f81-fa5e-4697-8b07-006b91f989e3 {"name":"app_open"}
+11-24 15:40:34.151  3677  3677 I ClutchSession: restore result=AUTHENTICATED
+11-24 15:41:51.403  3677  3677 I ClutchNotificationOpen: source=LIST game=mock-001 post=none sequence=0 scope=null newRead=false status=NOT_APPLICABLE
+11-24 15:42:22.147  3677 10622 D ClutchNotificationPost: post=fdc5762b-6363-4382-ab3a-910d46547ddb:1 sequence=11 scope=INSTALLATION installation=395b8b93-090a-44b6-8a98-04df17679a45 game=mock-001
+11-24 15:42:23.633  3677 10624 D ClutchNotificationPost: post=fdc5762b-6363-4382-ab3a-910d46547ddb:2 sequence=12 scope=INSTALLATION installation=395b8b93-090a-44b6-8a98-04df17679a45 game=mock-001
+11-24 15:42:25.124  3677 10622 D ClutchNotificationPost: post=fdc5762b-6363-4382-ab3a-910d46547ddb:3 sequence=13 scope=INSTALLATION installation=395b8b93-090a-44b6-8a98-04df17679a45 game=mock-001
+11-24 15:43:14.882  3677  3677 D ClutchBehavior: process=75576f81-fa5e-4697-8b07-006b91f989e3 {"name":"repeat_done","action":"notification_open","notificationId":"fdc5762b-6363-4382-ab3a-910d46547ddb:3","notificationSequence":13,"installationId":"395b8b93-090a-44b6-8a98-04df17679a45","gameId":"mock-001"}
+11-24 15:43:14.882  3677  3677 I ClutchNotificationOpen: source=NOTIFICATION game=mock-001 post=fdc5762b-6363-4382-ab3a-910d46547ddb:3 sequence=13 scope=INSTALLATION newRead=true status=NEW
+11-24 15:43:24.396  3677  3677 D ClutchBehavior: process=75576f81-fa5e-4697-8b07-006b91f989e3 {"name":"drop","flowId":"24c8675b-2c4c-434b-b7d4-daf32ae9dbee"}
+11-24 15:43:28.935  3677  3677 D ClutchBehavior: process=75576f81-fa5e-4697-8b07-006b91f989e3 {"name":"repeat_done","action":"settings_resave","flowId":"f0d8fd08-2ce7-4296-bcb3-7b9def3568ba"}
+11-24 15:43:42.365  3677  3677 I ClutchSession: logout local=CLEARED
+11-24 15:44:57.363  3677  3677 I ClutchSession: authenticated source=login
+11-24 15:45:52.621  3677  3677 I ClutchSession: logout local=CLEARED
+11-24 15:47:29.147  3677  3677 I ClutchSession: authenticated source=login

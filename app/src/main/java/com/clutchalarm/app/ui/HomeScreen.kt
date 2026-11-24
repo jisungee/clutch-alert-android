@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
@@ -20,53 +21,51 @@ import androidx.compose.ui.unit.dp
 @Composable
 internal fun HomeScreen(state: GameListState, onShowGames: () -> Unit, modifier: Modifier = Modifier,
     teamName: String? = null, onQaReturnToLogin: (() -> Unit)? = null) {
-    Column(
-        modifier.background(Brush.verticalGradient(listOf(Color(0xFFBE1536), Color(0xFF800F2C))))
-            .verticalScroll(rememberScrollState()).padding(24.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp),
-    ) {
-        Text("BASEBALL · CLUTCH ALARM", color = Color(0xFFFFDCE4), style = MaterialTheme.typography.labelLarge)
-        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            BaseballMark(Modifier.size(76.dp), Color.White)
-            Column(Modifier.weight(1f).padding(start = 16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(if (teamName == null) "야구의 중요한 순간,\n클러치알림과 함께" else "$teamName\n응원하고 있어요!", color = Color.White,
-                    style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
-                Text("오늘은 모의 경기로 만나보세요", color = Color(0xFFFFDCE4),
-                    style = MaterialTheme.typography.bodyMedium)
+    val palette = LocalTeamPalette.current
+    val team = com.clutchalarm.app.domain.model.KboTeams.all.firstOrNull { it.name == teamName }
+    val gradient = com.clutchalarm.app.domain.model.HomeGradients.find(team?.id)
+    val ink = if (gradient != null) Color.White else palette.onPrimaryContainer
+    fun opaque(rgb: Int) = Color(0xFF000000L or rgb.toLong())
+    val backdrop = if (gradient != null) Modifier.background(Brush.verticalGradient(listOf(opaque(gradient.top), opaque(gradient.bottom))))
+        else Modifier.background(MaterialTheme.colorScheme.background)
+    Column(modifier.then(backdrop)
+        .verticalScroll(rememberScrollState()).padding(ClutchStyle.page),
+        verticalArrangement = Arrangement.spacedBy(20.dp)) {
+        Text("내 팀의 중요한 순간", color = ink, style = MaterialTheme.typography.labelLarge)
+        Row(Modifier.fillMaxWidth().padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+            TeamCrest(team?.id, Modifier.size(72.dp))
+            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(teamName ?: "클러치알림", color = ink, style = MaterialTheme.typography.headlineSmall)
+                Text(if (teamName != null) "응원하고 있어요!" else "야구의 중요한 순간을 함께해요",
+                    color = ink, style = MaterialTheme.typography.bodyMedium)
             }
         }
-        Surface(color = Color(0x33FFFFFF), shape = RoundedCornerShape(16.dp)) {
-            Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                Text("모의 경기", color = Color.White, fontWeight = FontWeight.Bold)
-                Text("아래에서 경기를 고른 뒤, 상세에서 이번 경기의 알림 팀을 선택하고 재생하세요.",
-                    color = Color.White, style = MaterialTheme.typography.bodyMedium)
-            }
-        }
-        Card(
-            onClick = onShowGames, modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(24.dp), colors = CardDefaults.cardColors(containerColor = Color.White),
-        ) {
-            Column(Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Card(onClick = onShowGames, modifier = Modifier.fillMaxWidth(), shape = ClutchStyle.card,
+            colors = CardDefaults.cardColors(containerColor = Color.White)) {
+            Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                    Text("모의 경기 보러가기", Modifier.weight(1f), style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Bold, color = Color(0xFF172238))
-                    Text("›", color = Color(0xFFBE1536), style = MaterialTheme.typography.headlineMedium)
+                    Text("모의 경기 보러가기", Modifier.weight(1f), style = MaterialTheme.typography.titleLarge)
+                    ChevronMark()
                 }
                 Text(when (state) {
-                    is GameListState.Loaded -> "${state.games.size}개 시나리오 중 원하는 경기를 선택하세요."
+                    is GameListState.Loaded -> "${state.games.size}개 시나리오 · 출루부터 역전 홈런까지"
                     GameListState.Loading -> "경기 목록을 준비하고 있어요."
-                    GameListState.Error -> "경기 선택 화면에서 목록을 다시 불러올 수 있어요."
-                }, color = Color(0xFF555E70), style = MaterialTheme.typography.bodyMedium)
+                    GameListState.Error -> "경기 선택 화면에서 다시 불러와주세요."
+                }, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
-        Text("첫 투구부터 출루, 역전 홈런까지", color = Color.White,
-            style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-        Text("알림이 오면 화면 위에서 알림창을 내려 클러치알림의 알림을 눌러보세요. 해당 경기 상세로 돌아올 수 있어요. 알림이 꺼져 있어도 경기 재생은 가능합니다.",
-            color = Color(0xFFFFDCE4), style = MaterialTheme.typography.bodyMedium)
-        if (onQaReturnToLogin != null) TextButton(onClick = onQaReturnToLogin) {
-            Text("QA 로그인 화면으로", color = Color.White)
+        Surface(color = if (gradient != null) Color.White.copy(alpha = com.clutchalarm.app.domain.model.HomeGradient.GUIDE_ALPHA.toFloat()) else palette.primaryContainer, shape = ClutchStyle.card) {
+            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text("모의 경기, 이렇게 시작해요", color = ink, style = MaterialTheme.typography.titleMedium)
+                Text("경기 선택 → 이번 경기 알림 팀 선택 → 재생", color = ink, style = MaterialTheme.typography.bodyMedium)
+                Text("알림창에서 클러치알림을 누르면 해당 상세로 돌아옵니다. 알림이 꺼져 있어도 경기 재생은 가능해요.",
+                    color = ink, style = MaterialTheme.typography.bodySmall)
+            }
         }
-        Spacer(Modifier.height(12.dp))
+        if (onQaReturnToLogin != null) TextButton(onClick = onQaReturnToLogin) {
+            Text("QA 로그인 화면으로", color = ink)
+        }
     }
 }
 

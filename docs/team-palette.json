@@ -1,0 +1,72 @@
+[
+  {
+    "team": "KIWOOM",
+    "brand": "#570514",
+    "ink": "#FFFFFF",
+    "accent": "#570514",
+    "minimumContrast": 11.9
+  },
+  {
+    "team": "SAMSUNG",
+    "brand": "#074CA1",
+    "ink": "#FFFFFF",
+    "accent": "#074CA1",
+    "minimumContrast": 6.96
+  },
+  {
+    "team": "KT",
+    "brand": "#000000",
+    "ink": "#FFFFFF",
+    "accent": "#000000",
+    "minimumContrast": 16.67
+  },
+  {
+    "team": "LG",
+    "brand": "#C40037",
+    "ink": "#FFFFFF",
+    "accent": "#C40037",
+    "minimumContrast": 5.12
+  },
+  {
+    "team": "KIA",
+    "brand": "#EA0029",
+    "ink": "#FFFFFF",
+    "accent": "#CD0023",
+    "minimumContrast": 4.84
+  },
+  {
+    "team": "DOOSAN",
+    "brand": "#1A1748",
+    "ink": "#FFFFFF",
+    "accent": "#1A1748",
+    "minimumContrast": 13.55
+  },
+  {
+    "team": "SSG",
+    "brand": "#CE0E2D",
+    "ink": "#FFFFFF",
+    "accent": "#CE0E2D",
+    "minimumContrast": 4.72
+  },
+  {
+    "team": "LOTTE",
+    "brand": "#041E42",
+    "ink": "#FFFFFF",
+    "accent": "#041E42",
+    "minimumContrast": 13.46
+  },
+  {
+    "team": "NC",
+    "brand": "#315288",
+    "ink": "#FFFFFF",
+    "accent": "#315288",
+    "minimumContrast": 6.65
+  },
+  {
+    "team": "HANWHA",
+    "brand": "#FC4E00",
+    "ink": "#000000",
+    "accent": "#C23B00",
+    "minimumContrast": 4.71
+  }
+]

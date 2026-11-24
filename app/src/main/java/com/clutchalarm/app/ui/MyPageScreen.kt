@@ -36,15 +36,15 @@ internal fun MyPageScreen(
     modifier: Modifier = Modifier,
 ) {
     Box(modifier.background(MaterialTheme.colorScheme.background)) {
-        Box(Modifier.fillMaxWidth().height(104.dp).background(MaterialTheme.colorScheme.primary))
+        Box(Modifier.fillMaxWidth().height(72.dp).background(LocalTeamPalette.current.primaryContainer))
         Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(24.dp)) {
-            Surface(shape = RoundedCornerShape(24.dp), color = MaterialTheme.colorScheme.surface) {
+            verticalArrangement = Arrangement.spacedBy(16.dp)) {
+            Surface(shape = ClutchStyle.card, color = MaterialTheme.colorScheme.surface) {
                 Column(Modifier.fillMaxWidth()) {
-                    Row(Modifier.fillMaxWidth().padding(24.dp), verticalAlignment = Alignment.CenterVertically,
+                    Row(Modifier.fillMaxWidth().padding(20.dp), verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                         Surface(shape = CircleShape, color = MaterialTheme.colorScheme.surfaceVariant) {
-                            ProfileMark(Modifier.padding(14.dp).size(32.dp))
+                            ProfileMark(Modifier.padding(12.dp).size(28.dp))
                         }
                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                             Text("로그인한 계정", style = MaterialTheme.typography.labelMedium,
@@ -72,7 +72,7 @@ internal fun MyPageScreen(
                         MyPageIcon.NOTIFICATION, onNotificationSettings)
                 }
             }
-            Surface(shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.surface) {
+            Surface(shape = ClutchStyle.card, color = MaterialTheme.colorScheme.surface) {
                 Column {
                     MyPageSettingRow("회원 탈퇴", null, MyPageIcon.DELETE, onDeleteAccount,
                         enabled = email != null && !accountLoading)
@@ -88,7 +88,7 @@ internal fun MyPageScreen(
                     AccountFailure.STORAGE -> "탈퇴 처리 정보를 저장하지 못했어요. 다시 시도해주세요."
                     AccountFailure.UNKNOWN -> "회원 탈퇴를 완료하지 못했어요. 다시 시도해주세요."
                 }, color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodyMedium)
-                TextButton(onClick = onDeleteAccount, enabled = email != null) { Text("회원 탈퇴 다시 시도") }
+                TextButton(onClick = onDeleteAccount, enabled = email != null) { Text("회원 탈퇴 다시 시도", color = MaterialTheme.colorScheme.error) }
             }
         }
     }
@@ -99,10 +99,10 @@ private enum class MyPageIcon { TEAM, NOTIFICATION, DELETE, LOGOUT }
 @Composable
 private fun MyPageSettingRow(title: String, value: String?, icon: MyPageIcon, onClick: () -> Unit, enabled: Boolean = true) {
     Surface(onClick = onClick, enabled = enabled, color = MaterialTheme.colorScheme.surface) {
-        Row(Modifier.fillMaxWidth().heightIn(min = 72.dp).padding(20.dp),
+        Row(Modifier.fillMaxWidth().heightIn(min = 64.dp).padding(horizontal = 16.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            val color = if (!enabled) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.primary
-            if (icon == MyPageIcon.TEAM) BaseballMark(Modifier.size(24.dp), color)
+            val color = if (!enabled) MaterialTheme.colorScheme.onSurfaceVariant else if (icon == MyPageIcon.DELETE) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
+            if (icon == MyPageIcon.TEAM) TeamCrest(KboTeams.all.firstOrNull { it.name == value }?.id, Modifier.size(32.dp))
             else Canvas(Modifier.size(24.dp)) {
                 val stroke = Stroke(2.dp.toPx())
                 when (icon) {
@@ -131,7 +131,7 @@ private fun MyPageSettingRow(title: String, value: String?, icon: MyPageIcon, on
                     color = if (icon == MyPageIcon.DELETE) color else MaterialTheme.colorScheme.onSurface)
                 if (value != null) Text(value, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
-            Text("›", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.headlineSmall)
+            ChevronMark()
         }
     }
 }

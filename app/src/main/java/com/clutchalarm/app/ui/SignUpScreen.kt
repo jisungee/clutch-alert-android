@@ -37,12 +37,9 @@ internal fun SignUpScreen(
     var confirmationVisible by remember { mutableStateOf(false) }
     Column(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background).statusBarsPadding()
         .navigationBarsPadding().imePadding().verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        Column(Modifier.fillMaxWidth().background(Brush.verticalGradient(listOf(Color(0xFFBE1536), Color(0xFF800F2C))))
-            .padding(24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text("클러치알림", color = Color.White, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
-            Text("회원가입", color = Color.White, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
-        }
-        Column(Modifier.padding(horizontal = 24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        AuthBrandHeader()
+        Column(Modifier.padding(horizontal = ClutchStyle.page), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Text("회원가입", style = MaterialTheme.typography.headlineMedium)
             Text("가입을 마치면 로그인 화면으로 돌아갑니다.", color = MaterialTheme.colorScheme.onSurfaceVariant)
             if (qa) Text("QA 전용 가입 체험 · 가입한 계정은 앱 프로세스가 종료되면 초기화돼요.",
                 color = MaterialTheme.colorScheme.primary, style = MaterialTheme.typography.bodySmall)
@@ -78,7 +75,7 @@ internal fun SignUpScreen(
                     RegistrationFailure.UNKNOWN -> "가입하지 못했습니다. 다시 시도해주세요."
                 }, color = MaterialTheme.colorScheme.error)
             }
-            Button(onClick = { focus.clearFocus(); onSubmit() }, enabled = state.canSubmit,
+            ClutchButton(onClick = { focus.clearFocus(); onSubmit() }, enabled = state.canSubmit,
                 modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp), shape = RoundedCornerShape(16.dp)) {
                 if (state.busy) {
                     CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
@@ -86,7 +83,7 @@ internal fun SignUpScreen(
                 }
                 Text(if (state.busy) "가입 중…" else "가입하기")
             }
-            OutlinedButton(onClick = onBack, enabled = !state.busy, modifier = Modifier.fillMaxWidth(),
+            ClutchOutlinedButton(onClick = onBack, enabled = !state.busy, modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(16.dp)) { Text("로그인으로 돌아가기") }
             Spacer(Modifier.height(16.dp))
         }

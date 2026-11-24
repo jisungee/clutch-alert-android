@@ -9,6 +9,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.state.ToggleableState
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import com.clutchalarm.app.domain.model.KboTeams
 import com.clutchalarm.app.domain.notification.NotificationType
 import com.clutchalarm.app.domain.notification.configurableNotificationTypes
@@ -32,8 +35,6 @@ internal fun NotificationSettingsScreen(
         LazyColumn(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(12.dp),
             contentPadding = PaddingValues(top = 12.dp, bottom = 20.dp)) {
             item {
-                Text(if (editor.onboarding) "받고 싶은 알림을 선택해주세요!" else "알림 설정",
-                    style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
                 if (editor.onboarding) Text("2 / 2 · 알림 선택", color = MaterialTheme.colorScheme.primary)
                 Text("저장하기 전까지 기존 설정이 유지됩니다.", style = MaterialTheme.typography.bodyMedium)
             }
@@ -47,8 +48,8 @@ internal fun NotificationSettingsScreen(
             if (editor.page == SettingsPage.DETAILS) {
                 val category = editor.category ?: return@LazyColumn
                 item {
-                    Text(category.title, style = MaterialTheme.typography.titleLarge)
-                    SettingSwitch("이 카테고리 알림 받기", category.types.any(preferences::isEnabled), !state.busy) {
+                    Text(category.title, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+                    GroupSelection("이 카테고리 알림", category.types.count(preferences::isEnabled), category.types.size, !state.busy) {
                         onCategoryEnabled(category, it)
                     }
                 }
@@ -58,7 +59,7 @@ internal fun NotificationSettingsScreen(
                 } }
             } else {
                 item {
-                    SettingSwitch("전체 알림", preferences.enabledCount == configurableNotificationTypes.size, !state.busy) {
+                    GroupSelection("전체 알림", preferences.enabledCount, configurableNotificationTypes.size, !state.busy) {
                         if (it) onEnableAll() else onDisableAll()
                     }
                 }
@@ -68,12 +69,12 @@ internal fun NotificationSettingsScreen(
                             Column(Modifier.weight(1f).clickable(enabled = category.types.isNotEmpty() && !state.busy) { onCategory(category) }) {
                                 Text(category.title, fontWeight = FontWeight.Bold)
                                 Text(if (category.types.isEmpty()) "현재 제공되는 알림이 없습니다" else
-                                    "${category.types.count(preferences::isEnabled)}/${category.types.size}개 선택 · 세부 항목 보기 ›",
+                                    "${selectionLabel(category.types.count(preferences::isEnabled), category.types.size)} · 세부 항목 보기 ›",
                                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
-                            Switch(checked = category.types.any(preferences::isEnabled),
-                                onCheckedChange = { onCategoryEnabled(category, it) },
-                                enabled = category.types.isNotEmpty() && !state.busy)
+                            GroupCheckbox(category.title, category.types.count(preferences::isEnabled), category.types.size, !state.busy) {
+                                onCategoryEnabled(category, it)
+                            }
                         }
                     }
                 } }
@@ -86,7 +87,7 @@ internal fun NotificationSettingsScreen(
             }
         }
         if (state.error) Text("저장하지 못했습니다. 편집한 값은 유지됩니다. 다시 저장해주세요.", color = MaterialTheme.colorScheme.error)
-        Button(onClick = onSave, enabled = !state.busy,
+        ClutchButton(onClick = onSave, enabled = !state.busy,
             modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp)) {
             Text(if (state.busy) "저장 중…" else "선택한 설정 저장하기")
         }
@@ -99,4 +100,31 @@ private fun SettingSwitch(title: String, checked: Boolean, enabled: Boolean, onC
         Text(title, Modifier.weight(1f))
         Switch(checked = checked, onCheckedChange = onChange, enabled = enabled)
     }
+}
+
+private fun selectionLabel(selected: Int, total: Int): String = when {
+    selected == 0 -> "모두 꺼짐"
+    selected == total -> "모두 켜짐"
+    else -> "일부 켜짐"
+} + " ($selected/$total)"
+
+@Composable
+private fun GroupSelection(title: String, selected: Int, total: Int, enabled: Boolean, onChange: (Boolean) -> Unit) {
+    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        Column(Modifier.weight(1f)) {
+            Text(title, fontWeight = FontWeight.Bold)
+            Text(selectionLabel(selected, total), style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+        GroupCheckbox(title, selected, total, enabled, onChange)
+    }
+}
+
+@Composable
+private fun GroupCheckbox(title: String, selected: Int, total: Int, enabled: Boolean, onChange: (Boolean) -> Unit) {
+    TriStateCheckbox(modifier = Modifier.semantics { contentDescription = "$title: ${selectionLabel(selected, total)}" }, state = when {
+        selected == 0 -> ToggleableState.Off
+        selected == total -> ToggleableState.On
+        else -> ToggleableState.Indeterminate
+    }, onClick = { onChange(selected != total) }, enabled = enabled && total > 0)
 }
