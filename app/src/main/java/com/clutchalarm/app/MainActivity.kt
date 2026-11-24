@@ -51,7 +51,7 @@ class MainActivity : ComponentActivity() {
                     notificationOpens = DataStoreNotificationOpenRepository(applicationContext, DebugBehaviorEvents),
                     behaviorEvents = DebugBehaviorEvents,
                     onDetailEntry = { entry ->
-                        Log.i("ClutchNotificationOpen", "source=${entry.source} game=${entry.gameId} " +
+                        if (BuildConfig.DEBUG) Log.i("ClutchNotificationOpen", "source=${entry.source} game=${entry.gameId} " +
                             "post=${entry.delivery?.postId ?: "none"} sequence=${entry.delivery?.sequence ?: 0} " +
                             "scope=${entry.delivery?.sequenceScope} newRead=${entry.readStatus == NotificationReadStatus.NEW} " +
                             "status=${entry.readStatus}")
@@ -66,7 +66,7 @@ class MainActivity : ComponentActivity() {
             initializer {
                 LoginViewModel(AuthenticationProvider.create(AndroidSessionStore(applicationContext)), AuthenticationProvider.qaLoginAvailable,
                     gameViewModel::onLoginCompleted, gameViewModel::onSessionUnavailable, gameViewModel::onLoggedOut,
-                    sessionEvent = { Log.i("ClutchSession", it) })
+                    sessionEvent = { if (BuildConfig.DEBUG) Log.i("ClutchSession", it) })
             }
         }
     }

@@ -1,0 +1,9 @@
+--------- beginning of main
+11-24 09:45:35.212 12392 12392 D ClutchBehavior: process=01de1656-c04c-4a8c-982a-9d7162b5023f {"name":"app_open"}
+11-24 09:46:48.385 12392 12392 I ClutchNotificationOpen: source=LIST game=mock-001 post=none sequence=0 scope=null newRead=false status=NOT_APPLICABLE
+11-24 09:49:47.286 12392 12482 D ClutchNotificationPost: post=4e6b0dff-0897-40b6-bbb0-894c113f8702:1 sequence=1 scope=INSTALLATION installation=73deee83-53d8-4c29-97e6-238a416f42f2 game=mock-001
+11-24 09:49:47.613 12392 12483 D ClutchNotificationPost: post=4e6b0dff-0897-40b6-bbb0-894c113f8702:2 sequence=2 scope=INSTALLATION installation=73deee83-53d8-4c29-97e6-238a416f42f2 game=mock-001
+11-24 09:49:47.977 12392 12483 D ClutchNotificationPost: post=4e6b0dff-0897-40b6-bbb0-894c113f8702:3 sequence=3 scope=INSTALLATION installation=73deee83-53d8-4c29-97e6-238a416f42f2 game=mock-001
+11-24 09:49:48.772 12392 12483 D ClutchNotificationPost: post=4e6b0dff-0897-40b6-bbb0-894c113f8702:4 sequence=4 scope=INSTALLATION installation=73deee83-53d8-4c29-97e6-238a416f42f2 game=mock-001
+11-24 09:49:49.367 12392 12483 D ClutchNotificationPost: post=4e6b0dff-0897-40b6-bbb0-894c113f8702:5 sequence=5 scope=INSTALLATION installation=73deee83-53d8-4c29-97e6-238a416f42f2 game=mock-001
+11-24 09:49:49.670 12392 12483 D ClutchNotificationPost: post=4e6b0dff-0897-40b6-bbb0-894c113f8702:6 sequence=6 scope=INSTALLATION installation=73deee83-53d8-4c29-97e6-238a416f42f2 game=mock-001

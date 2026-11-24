@@ -118,7 +118,7 @@ class AndroidNotificationDispatcher(context: Context,
                 throw error
             } catch (error: IOException) {
                 postedAddress?.let { manager.cancel(it.tag, it.id) }
-                Log.w("ClutchNotifications", "Success sequence could not be committed", error)
+                if (BuildConfig.DEBUG) Log.w("ClutchNotifications", "Success sequence could not be committed", error)
                 NotificationSubmission(DeliveryStatus.ERROR, cleanupRequested = cleanup)
             } catch (error: SecurityException) {
                 val status = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
@@ -126,7 +126,7 @@ class AndroidNotificationDispatcher(context: Context,
                 ) DeliveryStatus.PERMISSION_DENIED else DeliveryStatus.ERROR
                 NotificationSubmission(status, cleanupRequested = cleanup)
             } catch (error: RuntimeException) {
-                Log.w("ClutchNotifications", "Notification submission failed", error)
+                if (BuildConfig.DEBUG) Log.w("ClutchNotifications", "Notification submission failed", error)
                 NotificationSubmission(DeliveryStatus.ERROR, cleanupRequested = cleanup)
             }
         }
@@ -141,7 +141,7 @@ class AndroidNotificationDispatcher(context: Context,
                         it.tag?.let { tag -> NotificationAddress(tag, it.id) }
                     }
                 } catch (error: RuntimeException) {
-                    Log.w("ClutchNotifications", "Unable to inspect active notifications", error)
+                    if (BuildConfig.DEBUG) Log.w("ClutchNotifications", "Unable to inspect active notifications", error)
                     null
                 }
             }

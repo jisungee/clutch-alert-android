@@ -1,0 +1,30 @@
+{
+  "apk": "build\\handoff\\ClutchAlarm-Handoff-QA.apk",
+  "sha256": "4b87c67cd5f7fe1254d55c634748b49b05ad84dfd891fc896263898a64745b12",
+  "expected": "qa",
+  "dex_files": 10,
+  "entries_checked": 199,
+  "markers_present": {
+    "qa_package": true,
+    "qa_app_label": true,
+    "fixture_email": true,
+    "fixture_password": true,
+    "fixture_session": true,
+    "qa_auth_class": true,
+    "qa_login_label": true,
+    "qa_login_hint": true,
+    "qa_registration_hint": true,
+    "qa_deletion_hint": true,
+    "qa_home_action": true,
+    "notification_diagnostics": true,
+    "publication_diagnostics": true
+  },
+  "diagnostic_tags_present": {
+    "ClutchSession": true,
+    "ClutchNotificationOpen": true,
+    "ClutchNotificationPost": true,
+    "ClutchNotifications": true,
+    "ClutchBehavior": true
+  },
+  "passed": true
+}

@@ -1,127 +1,101 @@
-# ClutchAlarm
+# 클러치알림 Android
 
-모의 야구 경기 데이터를 바탕으로 중요한 플레이를 알려주는 Android 앱입니다. 로그인 성공 후 첫 이용에서는 응원팀·알림을 선택해 저장하고, 설정을 완료한 사용자는 홈에서 로컬 시나리오 8개 중 하나를 골라 재생합니다. 실제 인증 API는 미연결이며 일반 빌드는 가입·로그인에 성공하지 않습니다. 화면 체험은 아래 QA 빌드를 사용합니다. QA에서는 회원가입 후 새 계정으로 로그인할 수도 있습니다.
+최종 클라이언트 인계 버전 **MVP-20261127**, 브랜치 `codex/handoff-20261127`. 이 문서를 포함한 브랜치 HEAD가 확정 커밋이며, 별도 체크아웃 빌드의 SHA·테스트·APK 해시는 [최종 버전 안내](docs/mvp-20261127.md)의 검증 영수증 경로를 따른다.
 
-## 개발 환경
+야구 모의 경기의 중요한 순간을 Android 로컬 알림으로 알려주는 Compose Material 3 앱입니다. **실제 인증·이벤트 수집 API는 아직 연결하지 않았습니다.** 일반 디버그와 모든 릴리스는 인증 성공을 가장하지 않으며, 앱 체험은 별도 QA 디버그를 사용합니다.
 
-- Android Studio에서 저장소 최상위 폴더를 엽니다.
-- Gradle JDK는 JDK 17을 사용합니다. Gradle 버전은 저장소의 Wrapper가 관리합니다.
-- Android Studio의 **Tools → SDK Manager**에서 Android SDK Platform 36, Android SDK Build-Tools 35.0.0, Android SDK Platform-Tools를 설치합니다.
-- **Sync Project with Gradle Files**를 실행합니다. 처음 동기화할 때는 Gradle 및 의존성 다운로드를 위해 인터넷 연결이 필요합니다.
-- 설치할 휴대폰은 Android 6.0(API 23) 이상이어야 합니다.
+## 현재 기능
 
-## 실제 스마트폰에서 실행
+- 회원가입 입력 검증·중복 이메일·로딩·오류·재시도, 가입 후 이메일이 채워진 로그인으로 복귀.
+- 로그인·암호화 세션 저장/복원, 일시 오류와 확정 만료 구분, 로그아웃 및 마이페이지 계정 이메일 표시.
+- 첫 이용: 응원팀 선택 → 알림 선택 → 명시적 저장 → 홈. 이후 실행은 세션 확인 후 완료 여부에 따라 홈/응원팀 선택.
+- 10개 구단 로고·저장 응원팀 테마·홈 그라데이션, 홈/경기 목록/상세/마이페이지 이동.
+- 로컬 시나리오 8개(기존 7개＋PDF 양식 기반 합성 1개), 재생·일시정지·재개·초기화·1/2/5/10배속.
+- 16개 알림 설정, 전체/부분/꺼짐 표시, 저장 전 편집값 분리·미저장 이탈·실패 재시도. 경기의 임시 알림 팀은 저장 응원팀과 분리.
+- 로컬 알림의 발송별 ID·설치 단위 성공 순번·상세 진입·중복 열람 방지. 같은 경기 알림 복귀 시 재생 상태 유지.
+- 회원 탈퇴 확인·로딩·성공·실패·재시도와 저장소 계약. 실제 삭제는 서버 연결 후 가능.
+- `app_open`, `first_done`, `repeat_done`, `drop`은 공통 기록기로 DEBUG 로그 검증. 서버 전송은 없음.
 
-1. 휴대폰 설정에서 **빌드 번호**를 일곱 번 눌러 개발자 옵션을 활성화하고 **USB 디버깅**을 켭니다.
-2. 데이터 전송이 가능한 USB 케이블로 연결한 뒤 휴대폰의 디버깅 승인 창을 확인합니다.
-3. 화면 체험은 `./gradlew.bat -PbehaviorQa=true :app:assembleDebug`로 별도 QA APK를 빌드해 설치합니다. 로그인에 `qa@example.com` / `clutch-qa`를 입력하고, 최초 설정 후 모의 경기를 선택해 재생합니다. 일반 Run 빌드는 실제 인증 API 연결 전까지 로그인 실패 상태만 제공합니다.
-4. 기기가 목록에 없으면 SDK의 `platform-tools` 폴더에서 `adb devices`를 실행합니다. `unauthorized`가 나오면 휴대폰 잠금을 풀고 승인 창을 확인합니다. Windows에서는 기기에 따라 제조사 USB 드라이버가 필요합니다.
+미제공: 실제 경기 API, 전체 이닝별 득점·H/E·라인업·선수 기록·실제 플레이 시각, 0.5배속·공유. 경기·응원팀·알림 설정은 로컬이며 FCM/푸시 토큰 서버 등록은 현재 범위가 아닙니다.
 
-[Android Developers 실기기 연결 가이드](https://developer.android.com/studio/run/device.html)
+## 개발·빌드
 
-Windows PowerShell에서 빌드와 JVM 단위 테스트를 실행할 수도 있습니다.
+단일 `app` 모듈, Kotlin/Compose Material 3/ViewModel/StateFlow/코루틴/DataStore. JDK 17, Android SDK Platform 36, SDK Platform-Tools가 필요합니다. Gradle 8.13·AGP 8.13.2·Kotlin 2.2.21은 저장소 설정을 사용합니다. 최소 Android API 23, target/compile API 36입니다. SDK 경로는 로컬 `local.properties`에만 둡니다.
+
+Windows PowerShell, 저장소 루트:
 
 ```powershell
+# 일반 디버그: 서버 미연결이므로 로그인 성공 불가
 .\gradlew.bat :app:assembleDebug :app:testDebugUnitTest
+
+# 별도 QA 디버그: 화면·로컬 기능 체험
+.\gradlew.bat -PbehaviorQa=true :app:assembleDebug :app:testDebugUnitTest
+
+# 일반 릴리스: QA 인증/안내 제외, 현재 unsigned
+.\gradlew.bat :app:assembleRelease :app:testReleaseUnitTest
 ```
 
-macOS와 Linux에서는 `sh ./gradlew :app:assembleDebug :app:testDebugUnitTest`를 사용합니다. 빌드가 완료되면 디버그 APK는 `app/build/outputs/apk/debug/app-debug.apk`에 생성됩니다.
+기본 APK 경로는 디버그 `app/build/outputs/apk/debug/app-debug.apk`, 릴리스 `app/build/outputs/apk/release/app-release-unsigned.apk`입니다. 일반/QA 디버그가 같은 출력 경로를 사용하므로 QA 빌드 직후 별도 복사해 보관합니다. macOS/Linux는 `sh ./gradlew`로 실행합니다. 최초 의존성 설치에는 네트워크가 필요합니다.
 
-## 코드 구조
+## QA 실행
 
-`MainActivity`가 `MockGameRepository`를 `GameViewModel`에 주입합니다. `GameApp`은 `mainScreen`과 상세 상태에 따라 홈, 경기 선택 또는 `GameDetailScreen`을 표시합니다. Kotlin 패키지는 `app/src/main/java/com/clutchalarm/app/` 아래에 있습니다.
+```powershell
+.\gradlew.bat -PbehaviorQa=true :app:assembleDebug :app:testDebugUnitTest
+New-Item -ItemType Directory -Force build/handoff | Out-Null
+Copy-Item app/build/outputs/apk/debug/app-debug.apk build/handoff/ClutchAlarm-Handoff-QA.apk
+adb devices -l
+adb install -r build/handoff/ClutchAlarm-Handoff-QA.apk
+adb shell am start -n com.clutchalarm.app.behaviorqa/com.clutchalarm.app.MainActivity
+```
 
-| 위치 | 맡을 역할 |
-| --- | --- |
-| `ui/` | 경기 목록, 상세 화면, `GameViewModel` |
-| `domain/model/` | 현재 상태 `GameState`와 플레이 기록 `GameEvent` |
-| `domain/repository/`, `data/` | `GameRepository` 계약과 JSON을 읽는 `MockGameRepository` |
-| `domain/simulation/` | 이벤트를 시간순으로 재생하는 `GameSimulationEngine` |
-| `domain/notification/`, `notification/` | 순수 Kotlin 알림 판정과 중복 방지, Android 알림 발송 |
-| `app/src/main/assets/games/`, `app/src/test/` | 모의 경기 JSON, JVM 단위 테스트 |
+QA는 `ClutchAlarm QA` / `com.clutchalarm.app.behaviorqa`로 일반 앱과 분리됩니다. 기본 테스트 로그인은 `qa@example.com` / `clutch-qa`입니다. 회원가입으로 만든 계정 목록은 현재 프로세스에만 존재하지만 로그인한 QA 세션은 암호화 저장되어 새 프로세스에서도 복원됩니다. 실제 서버 인증·계정 삭제를 대신하지 않습니다.
 
-저장소가 모의 경기를 공급하면 재생 엔진이 시간순으로 상태를 갱신하고, ViewModel이 StateFlow로 화면에 전달합니다.
+1. 로그인 또는 가입 → 로그인 → 응원팀/알림 최초 저장 → 홈으로 진입합니다.
+2. **모의 경기 보러가기 → 모의 경기 · 일반**을 열고, 저장 팀이 해당 경기에 없으면 **이번 모의 경기 알림 관점 (임시)**을 선택합니다.
+3. 알림 권한·앱/채널 알림을 켜고 1배속으로 재생합니다. OFF 상태에서도 재생은 가능하지만 알림 발송·열람 이벤트는 발생하지 않습니다.
+4. 시스템 알림창의 실제 알림을 눌러 상세로 돌아옵니다. 앱 안의 본문 보기나 목록 진입은 알림 열람이 아닙니다.
+5. 마이페이지에서 응원팀·알림 변경의 저장/미저장, 로그아웃을 확인합니다.
 
-## 모의 경기 데이터
+새 설치 검사는 기존 QA 데이터를 초기화하므로 일반 실행과 구분해야 합니다. 데이터 보존·이벤트 전체 재현·프로세스 종료 검사는 [통합 인계 문서](docs/server-handoff.md)에 정리했습니다.
 
-`MockGameRepository(assets)`는 `app/src/main/assets/games/catalog.json`에서 시나리오 이름, 설명, 경기 파일을 읽습니다. `listScenarios()`는 목록에 표시할 메타데이터와 초기 상태를, `getGame(gameId)`는 선택한 경기의 `GameTimeline`을 반환합니다. JSON에는 초기 상태와 플레이 직후 상태를 기록합니다. 로더가 직전 상태를 각 플레이의 `before`로 연결합니다. `offsetMs`가 같으면 파일 순서로 재생합니다.
+## QA 분리·로그 정책
 
-기존 일반 경기와 접전, 홈런, 빅이닝, 끝내기 안타, 끝내기 홈런, 판독과 부상까지 7개 장면을 선택할 수 있습니다. 각 파일은 검증에 필요한 경기 구간을 담습니다. [알림 통합 테스트 보고서](docs/notification-test-report.md)에서 재현 조건과 결과를 확인할 수 있습니다.
+`-PbehaviorQa=true`의 디버그만 `src/behaviorQa` 인증 및 UI 문구를 사용합니다. 일반 디버그와 모든 릴리스는 `src/productionAuth`를 사용합니다. QA 계정·비밀번호·가입/탈퇴/홈 안내는 QA 소스에만 둡니다. QA 플래그로 릴리스를 빌드해도 인증/안내·패키지명·앱 이름은 운영 구성을 유지합니다. 실제 배포 명령에는 혼동을 피하도록 해당 플래그를 사용하지 않습니다.
 
-## 모의 경기 재생
+세션/알림 진입·발송·오류 진단과 `ClutchBehavior`는 DEBUG에서만 출력합니다. 비밀번호·credential은 로그에 남기지 않습니다. QA 후보·게시 확인 UI는 QA 디버그에서만 표시합니다. 릴리스에는 이벤트 전송기가 아직 없으며, 향후 `BehaviorEventRecorder` 구현을 주입해야 합니다.
 
-`GameSimulationEngine(timeline, scope)`는 타임라인의 절대 재생 시각에 각 이벤트의 `after` 상태를 적용합니다. `play()`는 처음부터 시작하고, `pause()`는 현재 시각을 저장하며, `resume()`은 다음 이벤트까지 남은 시간부터 이어갑니다. `reset()`은 재생을 중단하고 초기 상태로 돌아갑니다. 마지막 이벤트를 처리하면 모의 데이터의 실제 경기 상태와 별개로 재생 상태가 `COMPLETED`가 됩니다.
+APK 경계 검사는 Python 3 표준 라이브러리만 사용합니다.
 
-ViewModel은 `viewModelScope` 아래에 상세 화면의 재생 작업을 만들고, Compose는 `collectAsStateWithLifecycle`로 화면 상태를 읽습니다. 상세에서 **목록**이나 시스템 뒤로 가기를 누르면 해당 작업을 취소합니다. 같은 경기를 다시 열면 초기 상태부터 시작합니다.
+```powershell
+python tools/audit_apk.py build/handoff/ClutchAlarm-Handoff-QA.apk --expect-qa
+python tools/audit_apk.py app/build/outputs/apk/debug/app-debug.apk
+python tools/audit_apk.py app/build/outputs/apk/release/app-release-unsigned.apk --release
+```
 
-ViewModel의 단일 `collectEvents` 소비자는 동일한 시각의 플레이도 순서대로 처리합니다. 초기화나 처음부터 재생을 요청하면 엔진이 이전 세션의 대기 이벤트를 폐기합니다. `NotificationRuleEngine`은 각 이벤트의 `before`와 `after`로 후보를 만들고, Android 발송기는 결과를 시스템 알림에 그대로 표시합니다.
+두 번째 명령은 일반 디버그를 마지막으로 빌드한 상태에서 사용합니다. QA APK는 검사 표식이 존재하는 양성 대조, 일반·릴리스는 표식 0개가 통과 조건입니다. APK 전체 엔트리의 UTF-8/UTF-16LE를 검사하고 릴리스는 진단 로그 태그도 없어야 합니다.
 
-## 스마트폰에서 알림 테스트
+## 구조·데이터·정책
 
-첫 이용에서 응원팀과 알림을 선택하고 **선택한 설정 저장하기**를 누릅니다. 이후 경기 상세에서 **재생**을 누릅니다. 저장한 팀이 없는 모의 경기에서는 **이번 모의 경기 알림 관점 (임시)**을 선택할 수 있으며 저장된 응원팀은 바뀌지 않습니다. Android 13 이상에서 권한이 없다면 **알림 권한 요청**을 누르고 허용합니다. 앱이나 채널이 차단되어 있으면 **알림 설정 열기**를 사용합니다. 상세 하단 **이번 재생 알림**에는 현재 회차의 발송 요청 성공 건이 표시됩니다. 후보별 처리 상태는 **알림 판정 상세**를 펼쳐 확인합니다. 시스템 알림을 누르면 해당 경기 상세가 열립니다. 같은 경기를 보고 있었다면 현재 재생 위치가 유지됩니다.
+| 경로 (`app/src/main/java/com/clutchalarm/app/` 기준) | 역할 |
+|---|---|
+| `MainActivity.kt`, `ui/` | 저장소 주입·인증/화면 상태·입력·이동 |
+| `auth/` | 인증 계약·Keystore 세션 저장·결과 구분 |
+| `data/`, `domain/repository/` | JSON 어댑터·경기·설정·발송 순번·열람 저장 |
+| `domain/simulation/` | 시간순 모의 재생 |
+| `domain/notification/`, `notification/` | 순수 Kotlin 판정과 Android 발송·진입 분리 |
+| `behavior/` | 공통 이벤트 계약·디버그 기록기 |
+| `domain/model/TeamBrand.kt`, `HomeGradient.kt` | 공식 원색·컨트롤 팔레트·홈 배경 분리 |
 
-홈·상세 상단의 **알림 유형**에서 카테고리와 세부 알림을 편집한 뒤 **선택한 설정 저장하기**를 눌러 반영합니다. 토글·전체 설정·지는 중 숨기기는 저장 전까지 발송에 영향을 주지 않습니다. 저장 없이 나가면 이전 값으로 돌아가며 저장 실패 시 편집값을 유지합니다. **응원팀** 메뉴에서는 10개 구단 중 선택해 별도로 저장할 수 있습니다.
+경기는 `app/src/main/assets/games/catalog.json`으로 공급합니다. PDF 기반 경기는 팀 원본이 아닌 1이닝 단축 합성 데이터입니다. `delay_sec`를 누적하고, 직전 확정 상태를 다음 before로 사용하며, 알림 행위자는 `play_actor`로 분리합니다. B/S 누락은 `—`, 판독은 구조화 결과로 처리하며 설명 문장으로 점수를 보정하지 않습니다. 원본 JSON 수령 후 상태 연속성·선수 ID·판독 대상·시간 단위를 재확인해야 합니다.
 
-켜 둔 유형은 모두 **모의 경기 알림 (팝업)** 채널로 헤드업 표시를 요청합니다. 유형 설정은 발송 대상을 정하며, 팝업·소리·진동은 Android 시스템 설정을 따릅니다. 팝업이 보이지 않으면 상세 화면의 **알림 설정 열기**에서 새 채널의 팝업 표시와 소리를 확인하고, 기기의 방해 금지 상태도 확인합니다. 이전 **모의 경기 알림** 채널의 설정과 게시된 알림은 유지되며 두 채널의 개별 알림에 동일한 보존 상한을 적용합니다.
+알림의 현재 기준은 `docx/클러치 알람 리스트 및 모의데이터 양식.pdf`와 [확정 정책](docx/notification-policy-review.md)입니다. 빅이닝 3점, 한 플레이 최대 1건, 상대 출루 기본 OFF 독립 설정, 지는 중 숨김은 동점에서도 유지하고 다시 앞서는 플레이부터 해제합니다. 옛 v1.0 및 이전 보고서는 역사 자료입니다.
 
-**일시정지 → 재개**와 배속 변경은 현재 회차를 유지합니다. **초기화**와 **처음부터 다시 재생**은 화면의 회차별 기록을 비웁니다. 알림을 눌러 앱이 새로 시작되면 경기 상세를 초기 상태로 엽니다. 시스템 알림의 보존 상한과 발송·게시 상태의 의미는 [Android 알림 보존 정책](docs/notification-retention.md)에 정리했습니다.
+## 인계·검증 문서
 
-## GitHub 협업
+- [최종 통합 QA](docs/final-qa-report.md): 동일 프로세스 1/1/2/1, API36 권한 허용/거부, 기존 설정 보존.
+- [최신 통합 서버 인계](docs/server-handoff.md): 인증·이벤트 인터페이스, QA 재현, 서버 확인 질문, 미검증 범위.
+- [전달 파일 분류](docs/handoff-files.md)와 [정확한 전달 파일 목록](docs/handoff-files.txt): 원본·소스·테스트 포함, hprof/캐시/옛 APK 제외.
+- [이번 QA 분리·검증 결과](docs/release-readiness.md).
+- [최종 10구단 홈](docs/home-gradients-final.md): 기본/1.3배 20장·대비·기존 4팀 보존.
 
-- `main`에서 작업 브랜치를 만들고 PR에는 변경 범위, 확인 방법, 테스트 결과를 적습니다.
-- [AGENTS.md](AGENTS.md)에 프로젝트 규칙을 기록합니다. 알림 구현에 앞서 [알림 가이드라인](docx/클러치%20알림%20발송%20가이드라인%20v1.0.docx)을 확인합니다.
-- `NotificationRuleEngine`은 알림 후보를 생성합니다. [알림 판정 정책과 검토 항목](docx/notification-policy-review.md)에 지원 데이터와 후속 연결 지점을 기록했습니다.
-
-## 새 형식 테스트 경기와 현재 알림 정책
-
-목록의 **PDF 기반 테스트 경기 · 1이닝 완결**은 실제 경기 원본이 아닌 PDF 양식 기반 1이닝 단축 테스트 경기입니다. 기존 7개 시나리오는 유지합니다. 현재 알림 기준은 `docx/클러치 알람 리스트 및 모의데이터 양식.pdf`와 [확정 정책](docx/notification-policy-review.md)이며 기존 v1.0은 과거 자료입니다.
-
-`pdf-snapshot-test.json`은 필수 `initial_state`와 시간순 `events`를 갖습니다. 각 이벤트의 `score/outs/bases/inning/current_batter`는 플레이 직후 상태이고 직전 결과가 다음 `before`입니다. `play_actor: {team, name}`는 방금 플레이한 선수로 알림에 사용합니다. `current_batter`는 다음 타자이므로 알림 행위자로 추론하지 않습니다. 기존 7개 데이터는 이전 `before.batter` 방식과 호환됩니다. 선수 이름 기반 임시 ID는 팀 원본의 고유 ID 제공 시 재검토합니다.
-
-`delay_sec`는 음수가 아닌 정수 초이며 누적 밀리초로 변환합니다. B/S 누락은 `null`로 유지하여 `—`로 표시합니다. 판독은 `details.review_result`의 `STARTED/UPHELD/OVERTURNED`와 확정된 구조화 상태를 사용하며, 번복 이벤트에 한해 점수 감소를 허용합니다. 설명 문장으로 상태를 보정하지 않습니다. 새 데이터의 출루에는 `details.reach_type`, 타격 플레이에는 `play_actor`, 부상에는 `details.injury_stage`를 요구합니다. 미지원 코드나 불완전 상태는 로드 오류로 표시합니다.
-
-원본 도착 후에는 초기 상태, 모든 플레이의 연속성, 선수 고유 ID, 정확한 상태·행위자 의미, 판독 정정이 가리키는 반이닝, 시작/종료 상태, 지연 단위·소수 허용, B/S 제공 여부를 확인해야 합니다. 재생 완료와 실제 경기 종료는 별개입니다. 자유 문구를 수치 달성 조건으로 해석하지 않으며 투수 기록·호수비 등은 공급자가 구조화 코드로 확정한 이벤트만 알립니다.
-
-## 홈·경기 선택 이동 검증 (이전 단계)
-
-홈의 **모의 경기 보러가기** 또는 하단 **경기** 탭에서 로컬 시나리오 목록을 엽니다. 카드에는 모의 경기 표시, 시작 점수, 재생 시작 이닝과 시나리오 설명이 있습니다. 날짜별 실제 경기나 실시간 점수로 표시하지 않습니다.
-
-- 기본 이동: 홈 → 경기 선택 → 상세. 뒤로 가기는 상세 → 경기 선택 → 홈입니다.
-- 알림 진입: 기존 MainActivity Intent 경로로 해당 상세를 엽니다. 홈에서 바로 진입했다면 홈으로, 경기 선택 위에서 진입했다면 경기 선택으로 돌아갑니다.
-- 같은 경기 알림 진입은 현재 재생·배속을 유지하고 알림 설정 화면이 열려 있으면 상세를 다시 표시합니다. 다른 경기 알림은 이전 재생을 종료하고 해당 경기를 엽니다.
-- 상단 뒤로와 시스템 뒤로는 같은 ViewModel 이동 함수를 사용합니다. 상세를 닫으면 재생 작업을 취소합니다. Activity는 복귀할 홈/목록 상태와 선택 경기 ID를 저장합니다.
-- 이 단계의 화면 이동과 기존 상세 UI·재생·알림 정책을 유지하면서, 후속 설정 단계에서 첫 이용 흐름·명시적 저장을 추가했습니다. 행동 이벤트는 구현하지 않았습니다.
-
-검증: `./gradlew.bat :app:assembleDebug :app:testDebugUnitTest` 성공, 단위 테스트 69개 통과(실패·오류·스킵 0). 마지막 실행에서 단위 테스트를 새로 실행했습니다. `GameNavigationTest`는 홈부터 상세까지, 설정 복귀, 상세 닫기 후 재생 종료, 알림 진입의 복귀 대상, 같은 경기 재생 유지, 복원 상태, 없는 경기 오류 복귀를 검증합니다. 기존 8개 재생과 배속·알림 판정 회귀 테스트도 통과했습니다.
-
-실기기는 ADB에 연결되어 있지만 USB 디버깅 승인이 없어 `unauthorized` 상태였습니다. 실제 카드 탭·시스템 뒤로·화면 회전/프로세스 재생성·시스템 알림창 탭의 콜드/웜 진입, 화면 잘림·글자 확대는 기기 확인이 남아 있습니다. JVM 테스트는 ViewModel 이동과 Activity에 연결한 진입 함수까지 확인하며 Android Intent/PendingIntent 실제 실행을 대신하지 않습니다.
-
-## 응원팀·명시적 설정 저장
-
-로그인 성공 후 첫 이용: 응원팀 선택 → 알림 카테고리/세부 항목 편집 → **선택한 설정 저장하기** → 홈입니다. 팀·알림·첫 이용 완료를 같은 DataStore 트랜잭션으로 저장합니다. 이후 로그인 또는 세션 복원 성공 시 기존 완료 상태를 읽어 홈으로 진입합니다. 미완료자는 응원팀 선택으로 이동합니다. 첫 이용 중단은 완료로 기록하지 않으며 기존 사용자 설정을 유지합니다. 세션은 비밀번호 없이 Keystore 키로 암호화 저장하고 재실행 때 확인합니다.
-
-카테고리 매핑과 저장·이탈·실패·이관 검증은 [설정 흐름 보고서](docs/settings-flow-report.md)를 참고하세요.
-
-하단 **마이** 탭에서 인증 저장소가 확인한 현재 계정 이메일, 저장된 응원팀과 알림 사용 수를 확인하고 기존 **응원팀 변경**, **알림 설정** 화면을 열 수 있습니다. 저장하면 변경값을 즉시 표시하고 저장 없이 나가면 이전 값을 유지합니다. **로그아웃** 확인창을 유지하며 **회원 탈퇴** 확인·로딩·실패 재시도·성공 화면과 인증 저장소 연결 지점을 추가했습니다. 실제 서버 삭제는 미연결이고 일반·릴리스에서 성공을 가장하지 않습니다. 로그아웃·탈퇴 후에도 응원팀·알림 설정은 유지합니다. 현재 구현·검증 결과와 회원가입부터 인증·행동 이벤트 수집까지의 연결 위치는 [통합 서버 인계 문서](docs/server-handoff.md)를 참고하세요. [이전 마이페이지 보고서](docs/mypage-report.md)는 최초 구현 단계의 기록입니다.
-
-시안 ② 로그인 화면, QA 전용 성공 코드 분리, 일반/QA/릴리스별 104개 테스트 및 서버 담당자의 연결 지점은 [로그인 구현·검증](docs/login-report.md)을 참고하세요. 실제 인증 서비스와 로그인 유지 정책은 팀 명세 확정 후 연결합니다.
-
-로그인의 **회원가입** 버튼에서 이메일·비밀번호·비밀번호 확인을 입력합니다. 가입 성공 후 이메일이 채워진 로그인으로 돌아오며 자동 로그인하지 않습니다. QA 가입 목록은 프로세스 안에만 있지만, 로그인한 QA 세션은 새 프로세스에서도 복원됩니다. [회원가입 1단계 보고서](docs/signup-report.md)에 가입 흐름의 검증을 기록했습니다.
-
-세션 확인 중 로딩, 연결 오류 재시도와 확정 만료·폐기 구분, 로그아웃, 인증 전 알림 대기 및 인증 후 상세 재개를 구현했습니다. 일반·QA·릴리스의 각 121개 테스트와 실기기 신규 가입→첫 저장→프로세스 종료→복원→로그아웃→재실행 결과, 서버 담당자의 복원·갱신·폐기 연결 지점은 [세션 2단계 보고서](docs/session-report.md)에 정리했습니다. 서버 인증은 미연결이며 일반·릴리스는 QA 토큰으로 인증되지 않습니다.
-
-## 발송 건별 알림 진입
-
-새 로컬 알림은 경기 ID와 발송 건별 POST_ID를 전달합니다. 최초 알림 설정 저장 이후 성공 발송에는 설치 단위 영속 순번을 부여하며, 기존 PROCESS 범위 알림을 설치 1번으로 취급하지 않습니다. 상세가 실제 표시되면 로컬 저장소로 최초/중복 열람을 구분하며 목록 진입·화면 회전은 새 알림 열람이 아닙니다. [알림 진입 계약](docs/notification-entry-report.md)을 참고하세요.
-
-`app_open`, `first_done`, `repeat_done`, `drop`은 공통 기록기를 사용해 DEBUG 빌드의 `ClutchBehavior` 태그에 JSON으로 기록합니다. 서버 전송은 없습니다. 이벤트 기준과 별도 QA 앱의 실제 기기 검증 건수는 [행동 이벤트 보고서](docs/behavior-events-report.md)에 정리했습니다. 기존 설치를 보존하는 별도 앱은 `./gradlew.bat -PbehaviorQa=true :app:assembleDebug`로 빌드합니다.
-
-최종 디자인 검토의 필수 수정 5개(전체/부분/꺼짐 표시, 제목, 확대 팀 카드, 최신 경기 상황 우선 배치, QA 진단 분리)와 각 128개 회귀 테스트·실기기 전후 비교는 [디자인 수정 검증](docs/design-fixes-report.md)에 정리했습니다. 개발용 알림 판정 상세는 QA 디버그에서만 보이며 일반 디버그와 모든 릴리스에서는 숨깁니다.
-
-후속 [전체 시각 정리·키보드 실기기 검증](docs/visual-polish-report.md)에서 공통 테마·버튼·카드·배속 강조색과 기본/1.3배 화면을 정리했습니다. 이후 제공된 구단 로고 10개·서비스 로고·설치/시작 이미지와 저장 응원팀별 테마를 적용했습니다. [구단별 적용·130개 회귀 테스트·실기기 검증](docs/team-assets-report.md)을 확인해주세요.
-
-이전 [구단 테마 가독성 개선](docs/soft-palette-review.md)은 공식 원색과 UI 강조색·컨테이너를 분리하고 넓은 고채도 배경을 제거합니다. 일반 텍스트 4.5:1·큰 텍스트 3:1 대비 목표와 10개 구단 실기기 전후 비교를 기록했습니다.
-
-11/27 인계용 브랜치·커밋 기준, QA APK, 새 설치에서 첫 시스템 알림 열람까지의 실제 결과, 알림 OFF 재생 및 재현 명령은 [인계 점검서](docs/handoff-20261127.md)에 정리했습니다. 최종 빌드와 96개 단위 테스트가 통과했습니다.
-
-최종 홈 디자인은 10개 구단 모두 그라데이션·흰색 메인 카드·반투명 안내 카드로 확정했습니다. [최종 홈 검증](docs/home-gradients-final.md)에 기본/1.3배 20장, 기존 4팀 보존 비교, 4.5:1 대비 및 구성별 133개 테스트 결과를 기록했습니다.
+개별 기능·과거 테스트 보고서는 당시 기록입니다. 특히 `docs/handoff-20261127.md`는 로그인 도입 전 기록이며 현재 재현 절차는 통합 문서를 따릅니다. 이전 단계 보고서의 미커밋·푸시 미수행 문구는 당시 기록입니다. 현재 인계 대상은 MVP-20261127 확정 브랜치이며 실제 서버 구현·배포 서명은 후속 작업입니다.

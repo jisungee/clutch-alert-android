@@ -1,0 +1,19 @@
+--------- beginning of main
+11-24 09:38:33.223 10646 10646 I ClutchSession: restore state=CHECKING
+11-24 09:38:33.855 10646 10646 D ClutchBehavior: process=52e5b348-075d-4d13-93f0-d8e3497e439d {"name":"app_open"}
+11-24 09:38:34.667 10646 10646 I ClutchSession: restore result=AUTHENTICATED
+11-24 09:39:57.573 10646 10646 I ClutchSession: logout local=CLEARED
+
+--------- beginning of main
+11-24 09:40:57.689 11310 11310 I ClutchSession: restore state=CHECKING
+11-24 09:40:58.222 11310 11310 D ClutchBehavior: process=cb406971-a503-4032-8f51-f6bca2b6ace1 {"name":"app_open"}
+11-24 09:40:59.006 11310 11310 I ClutchSession: restore result=SIGNED_OUT
+11-24 09:42:19.546 11310 11310 I ClutchSession: authenticated source=login
+11-24 09:42:42.040 11310 11310 I ClutchSession: account-delete result=CONFIRMED
+11-24 09:42:42.098 11310 11310 I ClutchSession: account-delete local=CLEARED
+
+--------- beginning of main
+11-24 09:44:16.317 12134 12134 I ClutchSession: restore state=CHECKING
+11-24 09:44:16.862 12134 12134 D ClutchBehavior: process=bc86bf5d-0f29-4bac-975e-3b555d02d41c {"name":"app_open"}
+11-24 09:44:17.531 12134 12134 I ClutchSession: restore result=SIGNED_OUT
+11-24 09:44:35.512 12134 12134 I ClutchSession: authenticated source=login

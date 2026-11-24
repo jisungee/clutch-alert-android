@@ -1,0 +1,30 @@
+{
+  "apk": "app\\build\\outputs\\apk\\release\\app-release-unsigned.apk",
+  "sha256": "802d2d48ad16f7a45565b6bad5135a64107deb3849c6df2241f086ebbc416117",
+  "expected": "release",
+  "dex_files": 3,
+  "entries_checked": 193,
+  "markers_present": {
+    "qa_package": false,
+    "qa_app_label": false,
+    "fixture_email": false,
+    "fixture_password": false,
+    "fixture_session": false,
+    "qa_auth_class": false,
+    "qa_login_label": false,
+    "qa_login_hint": false,
+    "qa_registration_hint": false,
+    "qa_deletion_hint": false,
+    "qa_home_action": false,
+    "notification_diagnostics": false,
+    "publication_diagnostics": false
+  },
+  "diagnostic_tags_present": {
+    "ClutchSession": false,
+    "ClutchNotificationOpen": false,
+    "ClutchNotificationPost": false,
+    "ClutchNotifications": false,
+    "ClutchBehavior": false
+  },
+  "passed": true
+}

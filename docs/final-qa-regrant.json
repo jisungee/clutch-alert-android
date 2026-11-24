@@ -1,0 +1,12 @@
+{
+  "pid": "12392",
+  "firstSuccessfulSequence": 1,
+  "successfulSequences": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ]
+}

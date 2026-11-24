@@ -1,0 +1,6 @@
+--------- beginning of main
+11-24 09:45:34.693 12392 12392 I ClutchSession: restore state=CHECKING
+11-24 09:45:35.212 12392 12392 D ClutchBehavior: process=01de1656-c04c-4a8c-982a-9d7162b5023f {"name":"app_open"}
+11-24 09:45:35.988 12392 12392 I ClutchSession: restore result=SIGNED_OUT
+11-24 09:46:35.135 12392 12392 I ClutchSession: authenticated source=login
+11-24 09:46:48.385 12392 12392 I ClutchNotificationOpen: source=LIST game=mock-001 post=none sequence=0 scope=null newRead=false status=NOT_APPLICABLE

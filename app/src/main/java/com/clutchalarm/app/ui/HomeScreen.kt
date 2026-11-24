@@ -63,8 +63,8 @@ internal fun HomeScreen(state: GameListState, onShowGames: () -> Unit, modifier:
                     color = ink, style = MaterialTheme.typography.bodySmall)
             }
         }
-        if (onQaReturnToLogin != null) TextButton(onClick = onQaReturnToLogin) {
-            Text("QA 로그인 화면으로", color = ink)
+        if (onQaReturnToLogin != null) BuildUiContent.homeLoginLabel?.let { label ->
+            TextButton(onClick = onQaReturnToLogin) { Text(label, color = ink) }
         }
     }
 }

@@ -1,0 +1,26 @@
+{
+  "cold-restore": {
+    "oldPid": "8420",
+    "newPid": "10646",
+    "method": "HOME then am kill",
+    "absenceConfirmed": true,
+    "team": "HANWHA",
+    "settings": "14/16",
+    "sessionRestored": true
+  },
+  "logout-restart": {
+    "oldPid": "10646",
+    "newPid": "11310",
+    "absenceConfirmed": true,
+    "method": "HOME/am kill then launcher icon",
+    "result": "login"
+  },
+  "delete-restart": {
+    "oldPid": "11310",
+    "newPid": "12134",
+    "absenceConfirmed": true,
+    "deletedLoginRejectedInSameProcess": true,
+    "result": "login",
+    "settingsPreserved": "SAMSUNG 14/16"
+  }
+}

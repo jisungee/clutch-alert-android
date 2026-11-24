@@ -20,13 +20,6 @@ android {
         manifestPlaceholders["appLabel"] = "@string/app_name"
     }
 
-    // Opt-in validation package keeps the installed user's app and all of its data intact.
-    if (providers.gradleProperty("behaviorQa").orNull == "true") {
-        defaultConfig.applicationId = "com.clutchalarm.app.behaviorqa"
-        defaultConfig.versionNameSuffix = "-behaviorqa"
-        defaultConfig.manifestPlaceholders["appLabel"] = "ClutchAlarm QA"
-    }
-
     // QA success code is absent from ordinary debug AND all release builds.
     sourceSets.getByName("debug").java.srcDir(
         if (providers.gradleProperty("behaviorQa").orNull == "true") "src/behaviorQa/java" else "src/productionAuth/java",
@@ -35,6 +28,12 @@ android {
 
     buildTypes {
         getByName("debug") {
+            // QA identity is debug-only; even an opt-in release keeps production identity.
+            if (providers.gradleProperty("behaviorQa").orNull == "true") {
+                applicationIdSuffix = ".behaviorqa"
+                versionNameSuffix = "-behaviorqa"
+                manifestPlaceholders["appLabel"] = "ClutchAlarm QA"
+            }
             buildConfigField("boolean", "QA_DIAGNOSTICS", (providers.gradleProperty("behaviorQa").orNull == "true").toString())
         }
         getByName("release") { buildConfigField("boolean", "QA_DIAGNOSTICS", "false") }

@@ -109,8 +109,7 @@ fun GameApp(
             title = { Text("회원 탈퇴를 진행할까요?") },
             text = { Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text(login.accountEmail.orEmpty())
-                Text(if (loginViewModel.qaLoginAvailable) "QA 검증용 계정의 탈퇴를 진행합니다. 실제 서버 계정은 삭제되지 않습니다."
-                    else "현재 로그인한 계정의 탈퇴를 요청합니다. 완료 후 로그인 화면으로 이동합니다.")
+                Text(BuildUiContent.deletionMessage)
                 Text("이 기기에 저장한 응원팀과 알림 설정은 유지됩니다.")
             } },
             confirmButton = { TextButton(onClick = loginViewModel::confirmDeletion) { Text("탈퇴하기", color = MaterialTheme.colorScheme.error) } },

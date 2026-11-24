@@ -1,0 +1,38 @@
+{
+  "pid": 8420,
+  "counts": {
+    "app_open": 1,
+    "first_done": 1,
+    "repeat_done": 2,
+    "drop": 1
+  },
+  "events": [
+    {
+      "name": "app_open"
+    },
+    {
+      "name": "first_done",
+      "notificationId": "4b47eeb0-93ca-4e6f-bc6c-5e157e9b508c:1",
+      "notificationSequence": 1,
+      "installationId": "01f14787-0281-4578-b10c-0b76292fd615",
+      "gameId": "mock-001"
+    },
+    {
+      "name": "repeat_done",
+      "action": "notification_open",
+      "notificationId": "4b47eeb0-93ca-4e6f-bc6c-5e157e9b508c:2",
+      "notificationSequence": 2,
+      "installationId": "01f14787-0281-4578-b10c-0b76292fd615",
+      "gameId": "mock-001"
+    },
+    {
+      "name": "repeat_done",
+      "action": "settings_resave",
+      "flowId": "86ab6602-6c27-4379-b4dd-ae69d15b17ea"
+    },
+    {
+      "name": "drop",
+      "flowId": "ac62356e-2a23-41fc-8d1d-3249c3b6c3ca"
+    }
+  ]
+}

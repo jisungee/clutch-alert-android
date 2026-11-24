@@ -74,14 +74,13 @@ internal fun LoginScreen(
                     CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
                     Spacer(Modifier.width(12.dp))
                 }
-                Text(if (state.busy) "로그인 중…" else if (qaLoginAvailable) "QA 검증용 로그인" else "로그인")
+                Text(if (state.busy) "로그인 중…" else BuildUiContent.loginLabel)
             }
             ClutchOutlinedButton(onClick = onSignUp, enabled = !state.busy, modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(16.dp)) { Text("회원가입") }
-            if (qaLoginAvailable) {
+            if (qaLoginAvailable) BuildUiContent.loginHint?.let { hint ->
                 Surface(shape = RoundedCornerShape(16.dp), color = MaterialTheme.colorScheme.primaryContainer) {
-                    Text("QA 전용 인증 체험\n이메일: qa@example.com\n비밀번호: clutch-qa\n실제 계정 인증이 아닌 화면 검증용입니다.",
-                        Modifier.fillMaxWidth().padding(16.dp), style = MaterialTheme.typography.bodySmall)
+                    Text(hint, Modifier.fillMaxWidth().padding(16.dp), style = MaterialTheme.typography.bodySmall)
                 }
             }
         }

@@ -1,0 +1,62 @@
+{
+  "28c5d648ad3f7ece": {
+    "ro.product.model": "SM-N960N",
+    "ro.build.version.sdk": "29",
+    "ro.build.version.release": "10",
+    "persist.sys.timezone": "Asia/Seoul",
+    "installed_apk_sha256": "c617fa4fd63942f10a1eed004e73b721d7cb9ab960db883265eae282d4a25285"
+  },
+  "emulator-5556": {
+    "ro.product.model": "sdk_gphone64_x86_64",
+    "ro.build.version.sdk": "36",
+    "ro.build.version.release": "16",
+    "persist.sys.timezone": "GMT",
+    "installed_apk_sha256": "c617fa4fd63942f10a1eed004e73b721d7cb9ab960db883265eae282d4a25285"
+  },
+  "phone_update_preservation": {
+    "before": {
+      "files/datastore/notification_preferences.preferences_pb": "830f1803f99052559e50d715cb4dc167716c75fad4771daed50d4eaca0bff058",
+      "files/datastore/notification_open_receipts.preferences_pb": "33c7d7254e0dff11d1555243ce0488bf385fca1ec737afd545ea69fb651aa7e9",
+      "no_backup/auth-session.bin": "8494337b32fab9646139c0fa97e5e76ae4f7ad10a4060458c018629fcce1fbae"
+    },
+    "after": {
+      "files/datastore/notification_preferences.preferences_pb": "830f1803f99052559e50d715cb4dc167716c75fad4771daed50d4eaca0bff058",
+      "files/datastore/notification_open_receipts.preferences_pb": "33c7d7254e0dff11d1555243ce0488bf385fca1ec737afd545ea69fb651aa7e9",
+      "no_backup/auth-session.bin": "8494337b32fab9646139c0fa97e5e76ae4f7ad10a4060458c018629fcce1fbae"
+    }
+  },
+  "theme_pixel_checks": {
+    "main-home-saved": {
+      "headerColor": "#B04319",
+      "pixel": [
+        176,
+        67,
+        25
+      ]
+    },
+    "cold-restored-home": {
+      "headerColor": "#B04319",
+      "pixel": [
+        176,
+        67,
+        25
+      ]
+    },
+    "samsung-home": {
+      "headerColor": "#1556A0",
+      "pixel": [
+        21,
+        86,
+        160
+      ]
+    },
+    "phone-updated-unlocked": {
+      "headerColor": "#831E38",
+      "pixel": [
+        131,
+        30,
+        56
+      ]
+    }
+  }
+}

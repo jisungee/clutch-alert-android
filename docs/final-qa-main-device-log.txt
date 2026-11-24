@@ -1,0 +1,14 @@
+--------- beginning of main
+11-24 09:32:26.415  8420  8420 I ClutchSession: restore state=CHECKING
+11-24 09:32:27.400  8420  8420 D ClutchBehavior: process=3f3aedd0-25fa-49fd-b763-500ed7d4fc98 {"name":"app_open"}
+11-24 09:32:28.660  8420  8420 I ClutchSession: restore result=SIGNED_OUT
+11-24 09:33:45.429  8420  8420 I ClutchSession: authenticated source=login
+11-24 09:34:49.972  8420  8420 I ClutchNotificationOpen: source=LIST game=mock-001 post=none sequence=0 scope=null newRead=false status=NOT_APPLICABLE
+11-24 09:35:02.155  8420  8477 D ClutchNotificationPost: post=4b47eeb0-93ca-4e6f-bc6c-5e157e9b508c:1 sequence=1 scope=INSTALLATION installation=01f14787-0281-4578-b10c-0b76292fd615 game=mock-001
+11-24 09:35:13.509  8420  8420 D ClutchBehavior: process=3f3aedd0-25fa-49fd-b763-500ed7d4fc98 {"name":"first_done","notificationId":"4b47eeb0-93ca-4e6f-bc6c-5e157e9b508c:1","notificationSequence":1,"installationId":"01f14787-0281-4578-b10c-0b76292fd615","gameId":"mock-001"}
+11-24 09:35:13.509  8420  8420 I ClutchNotificationOpen: source=NOTIFICATION game=mock-001 post=4b47eeb0-93ca-4e6f-bc6c-5e157e9b508c:1 sequence=1 scope=INSTALLATION newRead=true status=NEW
+11-24 09:35:46.471  8420  8479 D ClutchNotificationPost: post=4b47eeb0-93ca-4e6f-bc6c-5e157e9b508c:2 sequence=2 scope=INSTALLATION installation=01f14787-0281-4578-b10c-0b76292fd615 game=mock-001
+11-24 09:35:58.762  8420  8420 D ClutchBehavior: process=3f3aedd0-25fa-49fd-b763-500ed7d4fc98 {"name":"repeat_done","action":"notification_open","notificationId":"4b47eeb0-93ca-4e6f-bc6c-5e157e9b508c:2","notificationSequence":2,"installationId":"01f14787-0281-4578-b10c-0b76292fd615","gameId":"mock-001"}
+11-24 09:35:58.763  8420  8420 I ClutchNotificationOpen: source=NOTIFICATION game=mock-001 post=4b47eeb0-93ca-4e6f-bc6c-5e157e9b508c:2 sequence=2 scope=INSTALLATION newRead=true status=NEW
+11-24 09:37:45.964  8420  8420 D ClutchBehavior: process=3f3aedd0-25fa-49fd-b763-500ed7d4fc98 {"name":"repeat_done","action":"settings_resave","flowId":"86ab6602-6c27-4379-b4dd-ae69d15b17ea"}
+11-24 09:37:55.805  8420  8420 D ClutchBehavior: process=3f3aedd0-25fa-49fd-b763-500ed7d4fc98 {"name":"drop","flowId":"ac62356e-2a23-41fc-8d1d-3249c3b6c3ca"}

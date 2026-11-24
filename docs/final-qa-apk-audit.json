@@ -1,0 +1,92 @@
+{
+  "qa": {
+    "apk": "build\\handoff\\ClutchAlarm-FinalQA.apk",
+    "sha256": "c617fa4fd63942f10a1eed004e73b721d7cb9ab960db883265eae282d4a25285",
+    "expected": "qa",
+    "dex_files": 10,
+    "entries_checked": 199,
+    "markers_present": {
+      "qa_package": true,
+      "qa_app_label": true,
+      "fixture_email": true,
+      "fixture_password": true,
+      "fixture_session": true,
+      "qa_auth_class": true,
+      "qa_login_label": true,
+      "qa_login_hint": true,
+      "qa_registration_hint": true,
+      "qa_deletion_hint": true,
+      "qa_home_action": true,
+      "notification_diagnostics": true,
+      "publication_diagnostics": true
+    },
+    "diagnostic_tags_present": {
+      "ClutchSession": true,
+      "ClutchNotificationOpen": true,
+      "ClutchNotificationPost": true,
+      "ClutchNotifications": true,
+      "ClutchBehavior": true
+    },
+    "passed": true
+  },
+  "normal_debug": {
+    "apk": "app\\build\\outputs\\apk\\debug\\app-debug.apk",
+    "sha256": "130d4625318fb7ec4bf410b2f90c6c30580576447543d38f287bfeb1e63d0d10",
+    "expected": "production-debug",
+    "dex_files": 10,
+    "entries_checked": 199,
+    "markers_present": {
+      "qa_package": false,
+      "qa_app_label": false,
+      "fixture_email": false,
+      "fixture_password": false,
+      "fixture_session": false,
+      "qa_auth_class": false,
+      "qa_login_label": false,
+      "qa_login_hint": false,
+      "qa_registration_hint": false,
+      "qa_deletion_hint": false,
+      "qa_home_action": false,
+      "notification_diagnostics": false,
+      "publication_diagnostics": false
+    },
+    "diagnostic_tags_present": {
+      "ClutchSession": true,
+      "ClutchNotificationOpen": true,
+      "ClutchNotificationPost": true,
+      "ClutchNotifications": true,
+      "ClutchBehavior": true
+    },
+    "passed": true
+  },
+  "release": {
+    "apk": "app\\build\\outputs\\apk\\release\\app-release-unsigned.apk",
+    "sha256": "802d2d48ad16f7a45565b6bad5135a64107deb3849c6df2241f086ebbc416117",
+    "expected": "release",
+    "dex_files": 3,
+    "entries_checked": 193,
+    "markers_present": {
+      "qa_package": false,
+      "qa_app_label": false,
+      "fixture_email": false,
+      "fixture_password": false,
+      "fixture_session": false,
+      "qa_auth_class": false,
+      "qa_login_label": false,
+      "qa_login_hint": false,
+      "qa_registration_hint": false,
+      "qa_deletion_hint": false,
+      "qa_home_action": false,
+      "notification_diagnostics": false,
+      "publication_diagnostics": false
+    },
+    "diagnostic_tags_present": {
+      "ClutchSession": false,
+      "ClutchNotificationOpen": false,
+      "ClutchNotificationPost": false,
+      "ClutchNotifications": false,
+      "ClutchBehavior": false
+    },
+    "passed": true
+  }
+}

@@ -41,8 +41,9 @@ internal fun SignUpScreen(
         Column(Modifier.padding(horizontal = ClutchStyle.page), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Text("회원가입", style = MaterialTheme.typography.headlineMedium)
             Text("가입을 마치면 로그인 화면으로 돌아갑니다.", color = MaterialTheme.colorScheme.onSurfaceVariant)
-            if (qa) Text("QA 전용 가입 체험 · 가입한 계정은 앱 프로세스가 종료되면 초기화돼요.",
-                color = MaterialTheme.colorScheme.primary, style = MaterialTheme.typography.bodySmall)
+            if (qa) BuildUiContent.registrationHint?.let { hint ->
+                Text(hint, color = MaterialTheme.colorScheme.primary, style = MaterialTheme.typography.bodySmall)
+            }
             OutlinedTextField(value = state.email, onValueChange = onEmail, enabled = !state.busy,
                 label = { Text("이메일") }, singleLine = true, isError = state.emailInvalid,
                 supportingText = { if (state.emailInvalid) Text("올바른 이메일을 입력해주세요.") },

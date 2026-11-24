@@ -1,0 +1,13 @@
+{
+  "pid": "12392",
+  "counts": {
+    "app_open": 1
+  },
+  "permission": [
+    "android.permission.POST_NOTIFICATIONS: granted=false, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]"
+  ],
+  "playback": "COMPLETED",
+  "posted": 0,
+  "sequenceKeyAbsent": true,
+  "notificationReadEvents": 0
+}
