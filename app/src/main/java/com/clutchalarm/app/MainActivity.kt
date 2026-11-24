@@ -1,6 +1,9 @@
 package com.clutchalarm.app
 
 import com.clutchalarm.app.behavior.DebugBehaviorEvents
+import com.clutchalarm.app.auth.AuthenticationProvider
+import com.clutchalarm.app.auth.AndroidSessionStore
+import com.clutchalarm.app.ui.LoginViewModel
 import android.Manifest
 import android.content.Intent
 import android.net.Uri
@@ -58,6 +61,16 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    private val loginViewModel by viewModels<LoginViewModel> {
+        viewModelFactory {
+            initializer {
+                LoginViewModel(AuthenticationProvider.create(AndroidSessionStore(applicationContext)), AuthenticationProvider.qaLoginAvailable,
+                    gameViewModel::onLoginCompleted, gameViewModel::onSessionUnavailable, gameViewModel::onLoggedOut,
+                    sessionEvent = { Log.i("ClutchSession", it) })
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
@@ -81,7 +94,7 @@ class MainActivity : ComponentActivity() {
             navigationBarStyle = SystemBarStyle.dark(android.graphics.Color.TRANSPARENT),
         )
         setContent {
-            GameApp(gameViewModel, availability, ::requestNotificationPermission, ::openNotificationSettings,
+            GameApp(gameViewModel, loginViewModel, availability, ::requestNotificationPermission, ::openNotificationSettings,
                 DebugBehaviorEvents.appOpen::onScreenVisible)
         }
     }

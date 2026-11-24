@@ -18,7 +18,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
-internal fun HomeScreen(state: GameListState, onShowGames: () -> Unit, modifier: Modifier = Modifier, teamName: String? = null) {
+internal fun HomeScreen(state: GameListState, onShowGames: () -> Unit, modifier: Modifier = Modifier,
+    teamName: String? = null, onQaReturnToLogin: (() -> Unit)? = null) {
     Column(
         modifier.background(Brush.verticalGradient(listOf(Color(0xFFBE1536), Color(0xFF800F2C))))
             .verticalScroll(rememberScrollState()).padding(24.dp),
@@ -62,6 +63,9 @@ internal fun HomeScreen(state: GameListState, onShowGames: () -> Unit, modifier:
             style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
         Text("알림이 오면 화면 위에서 알림창을 내려 클러치알림의 알림을 눌러보세요. 해당 경기 상세로 돌아올 수 있어요. 알림이 꺼져 있어도 경기 재생은 가능합니다.",
             color = Color(0xFFFFDCE4), style = MaterialTheme.typography.bodyMedium)
+        if (onQaReturnToLogin != null) TextButton(onClick = onQaReturnToLogin) {
+            Text("QA 로그인 화면으로", color = Color.White)
+        }
         Spacer(Modifier.height(12.dp))
     }
 }

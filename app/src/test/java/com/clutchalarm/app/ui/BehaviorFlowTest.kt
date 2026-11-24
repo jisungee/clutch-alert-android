@@ -190,6 +190,72 @@ class BehaviorFlowTest {
         }
     }
 
+    @Test fun verifiedLoginRoutesByExistingFirstUseStateWithoutChangingPreferences() = runTest {
+        for (saved in listOf(NotificationPreferences(), NotificationPreferences(
+            preferredTeamId = "KIA", onboardingCompleted = true, notificationSettingsSaved = true,
+            hideWhenLosing = true, disabledTypes = setOf(NotificationType.HOME_RUN)))) {
+            val repo = InMemoryNotificationPreferencesRepository(saved)
+            withModel(repo, InMemoryNotificationOpenRepository(), NoBehaviorEvents) { model ->
+                if (saved.onboardingCompleted) model.showMyPage()
+                val login = LoginViewModel(com.clutchalarm.app.auth.AuthenticationRepository { _, _ ->
+                    com.clutchalarm.app.auth.AuthenticationResult.Success
+                }, onAuthenticated = model::onLoginCompleted, restoreOnStart = false)
+                try {
+                    login.setEmail("test@example.com")
+                    login.setPassword("test")
+                    login.login()
+                    runCurrent()
+                    assertTrue(login.state.value.authenticated)
+                    assertEquals(MainScreen.HOME, model.mainScreen.value)
+                    assertEquals(!saved.onboardingCompleted, model.showNotificationSettings.value)
+                    if (!saved.onboardingCompleted) assertEquals(SettingsPage.TEAM, model.notificationSettings.value.editor?.page)
+                    assertEquals(saved, model.notificationSettings.value.preferences)
+                    assertEquals(saved, repo.load())
+                } finally { login.viewModelScope.cancel() }
+            }
+        }
+    }
+
+    @Test fun pendingNotificationSurvivesSignedOutGateButLogoutClearsProtectedRoutes() = runTest {
+        val saved = NotificationPreferences(preferredTeamId = "KIA", onboardingCompleted = true, notificationSettingsSaved = true)
+        val repo = InMemoryNotificationPreferencesRepository(saved)
+        var reads = 0
+        withModel(repo, NotificationOpenRepository { reads++; true }, NoBehaviorEvents) { model ->
+            val delivery = NotificationDelivery("mock-001", "post:1", 1, "post")
+            model.openNotification(delivery); runCurrent()
+            model.onSessionUnavailable(); runCurrent()
+            assertNull(model.detail.value)
+            assertEquals(0, reads)
+            model.onLoginCompleted(); runCurrent()
+            assertEquals("mock-001", model.currentGameId)
+            assertEquals(0, reads)
+            val entry = model.detailEntry.value!!
+            model.confirmDetailVisible(entry.gameId, entry.requestId); runCurrent()
+            assertEquals(1, reads)
+            model.onLoggedOut(); runCurrent()
+            assertNull(model.detail.value)
+            assertNull(model.detailEntry.value)
+            model.onLoginCompleted(); runCurrent()
+            assertEquals(MainScreen.HOME, model.mainScreen.value)
+            assertNull(model.detail.value)
+            assertEquals(saved, repo.load())
+        }
+    }
+
+    @Test fun alreadyConfirmedRestoredDetailDoesNotReappearAfterSessionLoss() = runTest {
+        val repo = InMemoryNotificationPreferencesRepository(NotificationPreferences(onboardingCompleted = true))
+        withModel(repo, InMemoryNotificationOpenRepository(), NoBehaviorEvents) { model ->
+            model.restoreDetailEntry(GameDetailEntry("mock-001", DetailEntrySource.NOTIFICATION,
+                NotificationDelivery("mock-001", "post:1", 1, "post"), NotificationReadStatus.RESTORED))
+            runCurrent()
+            model.onSessionUnavailable(); runCurrent()
+            model.onLoginCompleted(); runCurrent()
+            assertNull(model.detail.value)
+            assertNull(model.detailEntry.value)
+            assertEquals(MainScreen.HOME, model.mainScreen.value)
+        }
+    }
+
     private suspend fun TestScope.withModel(preferences: NotificationPreferencesRepository, opens: NotificationOpenRepository,
         recorder: BehaviorEventRecorder, block: suspend TestScope.(GameViewModel) -> Unit) {
         Dispatchers.setMain(StandardTestDispatcher(testScheduler))

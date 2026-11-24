@@ -27,6 +27,12 @@ android {
         defaultConfig.manifestPlaceholders["appLabel"] = "ClutchAlarm QA"
     }
 
+    // QA success code is absent from ordinary debug AND all release builds.
+    sourceSets.getByName("debug").java.srcDir(
+        if (providers.gradleProperty("behaviorQa").orNull == "true") "src/behaviorQa/java" else "src/productionAuth/java",
+    )
+    sourceSets.getByName("release").java.srcDir("src/productionAuth/java")
+
     buildFeatures {
         compose = true
         buildConfig = true

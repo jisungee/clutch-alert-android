@@ -107,6 +107,32 @@ class GameViewModel(
         mutableMainScreen.value = screen
     }
 
+    fun onLoginCompleted() {
+        if (pendingNotificationEntry != null) {
+            if (notificationSettings.value.preferences?.onboardingCompleted == true) openPendingNotification()
+            return
+        }
+        val entry = detailEntry.value
+        if (entry?.source == DetailEntrySource.NOTIFICATION && entry.readStatus in setOf(
+                NotificationReadStatus.PENDING, NotificationReadStatus.UNCONFIRMED, NotificationReadStatus.LEGACY)) return
+        showHome()
+    }
+
+    fun onSessionUnavailable() {
+        val entry = pendingNotificationEntry ?: detailEntry.value
+        val waiting = entry?.takeIf { it.source == DetailEntrySource.NOTIFICATION && it.readStatus in setOf(
+            NotificationReadStatus.PENDING, NotificationReadStatus.UNCONFIRMED, NotificationReadStatus.LEGACY) }
+        onLoggedOut()
+        pendingNotificationEntry = waiting
+        if (waiting != null) mutableDetailEntry.value = waiting
+    }
+
+    fun onLoggedOut() {
+        pendingNotificationEntry = null
+        closeGame()
+        mutableMainScreen.value = MainScreen.HOME
+    }
+
     private val mutableDetailEntry = MutableStateFlow<GameDetailEntry?>(null)
     val detailEntry = mutableDetailEntry.asStateFlow()
     private var pendingNotificationEntry: GameDetailEntry? = null

@@ -1,0 +1,1 @@
+11-24 12:29:28.214  5086  5086 D ClutchBehavior: process=e8c0b219-2ec1-4f83-aa8e-03f6b3d3d67e {"name":"app_open"}

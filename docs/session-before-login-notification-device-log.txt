@@ -1,0 +1,3 @@
+11-24 13:31:23.181 17314 17314 I ClutchSession: restore state=CHECKING
+11-24 13:31:23.277 17314 17314 D ClutchBehavior: process=7d313d0e-e024-437d-a08f-5131b04638b4 {"name":"app_open"}
+11-24 13:31:23.808 17314 17314 I ClutchSession: restore result=SIGNED_OUT

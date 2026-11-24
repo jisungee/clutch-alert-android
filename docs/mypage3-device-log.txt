@@ -1,0 +1,27 @@
+11-24 14:15:46.781 18841 18841 I ClutchSession: restore state=CHECKING
+11-24 14:15:46.906 18841 18841 D ClutchBehavior: process=1acb1810-e986-4472-8035-22a76238d34b {"name":"app_open"}
+11-24 14:15:47.394 18841 18841 I ClutchSession: restore result=SIGNED_OUT
+11-24 14:16:47.477 18841 18841 I ClutchSession: authenticated source=login
+11-24 14:17:27.387 21789 21789 I ClutchSession: restore state=CHECKING
+11-24 14:17:27.485 21789 21789 D ClutchBehavior: process=35698681-2763-4205-8e68-e24b574ba3e2 {"name":"app_open"}
+11-24 14:17:28.143 21789 21789 I ClutchSession: restore result=AUTHENTICATED
+11-24 14:18:27.220 21789 21789 D ClutchBehavior: process=35698681-2763-4205-8e68-e24b574ba3e2 {"name":"drop","flowId":"a2591546-a604-41f9-8191-13d913b8a309"}
+11-24 14:18:34.681 21789 21789 D ClutchBehavior: process=35698681-2763-4205-8e68-e24b574ba3e2 {"name":"repeat_done","action":"settings_resave","flowId":"e89b7dc7-faa3-4abb-8fe0-5ae0c08afe15"}
+11-24 14:18:51.625 21789 21789 I ClutchNotificationOpen: source=LIST game=mock-001 post=none sequence=0 scope=null newRead=false status=NOT_APPLICABLE
+11-24 14:19:17.653 21789 23743 D ClutchNotificationPost: post=86b26062-b367-4425-9096-88192830a3a2:1 sequence=1 scope=INSTALLATION installation=395b8b93-090a-44b6-8a98-04df17679a45 game=mock-001
+11-24 14:19:20.637 21789 23742 D ClutchNotificationPost: post=86b26062-b367-4425-9096-88192830a3a2:2 sequence=2 scope=INSTALLATION installation=395b8b93-090a-44b6-8a98-04df17679a45 game=mock-001
+11-24 14:19:41.584 21789 21789 D ClutchBehavior: process=35698681-2763-4205-8e68-e24b574ba3e2 {"name":"first_done","notificationId":"86b26062-b367-4425-9096-88192830a3a2:1","notificationSequence":1,"installationId":"395b8b93-090a-44b6-8a98-04df17679a45","gameId":"mock-001"}
+11-24 14:19:41.584 21789 21789 I ClutchNotificationOpen: source=NOTIFICATION game=mock-001 post=86b26062-b367-4425-9096-88192830a3a2:1 sequence=1 scope=INSTALLATION newRead=true status=NEW
+11-24 14:19:43.868 21789 21789 D ClutchBehavior: process=35698681-2763-4205-8e68-e24b574ba3e2 {"name":"repeat_done","action":"notification_open","notificationId":"86b26062-b367-4425-9096-88192830a3a2:2","notificationSequence":2,"installationId":"395b8b93-090a-44b6-8a98-04df17679a45","gameId":"mock-001"}
+11-24 14:19:43.869 21789 21789 I ClutchNotificationOpen: source=NOTIFICATION game=mock-001 post=86b26062-b367-4425-9096-88192830a3a2:2 sequence=2 scope=INSTALLATION newRead=true status=NEW
+11-24 14:20:16.483 21789 21789 I ClutchSession: logout local=CLEARED
+11-24 14:20:19.113 22845 22845 I ClutchSession: restore state=CHECKING
+11-24 14:20:19.210 22845 22845 D ClutchBehavior: process=e70291bc-a444-4fc9-8308-df42a2bdb13c {"name":"app_open"}
+11-24 14:20:19.718 22845 22845 I ClutchSession: restore result=SIGNED_OUT
+11-24 14:22:13.409 22845 22845 I ClutchSession: authenticated source=login
+11-24 14:22:36.152 22845 22845 I ClutchSession: account-delete result=CONFIRMED
+11-24 14:22:36.157 22845 22845 I ClutchSession: account-delete local=CLEARED
+11-24 14:23:15.044 23789 23789 I ClutchSession: restore state=CHECKING
+11-24 14:23:15.190 23789 23789 D ClutchBehavior: process=b3ce95a5-9aa9-4e21-8aa5-676f36ba5d58 {"name":"app_open"}
+11-24 14:23:15.657 23789 23789 I ClutchSession: restore result=SIGNED_OUT
+11-24 14:24:09.000 23789 23789 I ClutchSession: authenticated source=login

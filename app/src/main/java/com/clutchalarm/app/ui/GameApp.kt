@@ -34,6 +34,7 @@ private val DetailColors = lightColorScheme(
 @Composable
 fun GameApp(
     viewModel: GameViewModel,
+    loginViewModel: LoginViewModel,
     notificationAvailability: NotificationAvailability,
     onRequestPermission: () -> Unit,
     onOpenNotificationSettings: () -> Unit,
@@ -42,6 +43,37 @@ fun GameApp(
     LifecycleResumeEffect(Unit) {
         onAppVisible()
         onPauseOrDispose { }
+    }
+    val login by loginViewModel.state.collectAsStateWithLifecycle()
+    if (login.sessionPhase != SessionPhase.IDLE) {
+        BackHandler(enabled = login.sessionPhase in setOf(SessionPhase.LOGGING_OUT, SessionPhase.LOGOUT_FAILED,
+            SessionPhase.DELETING, SessionPhase.DELETE_CLEANUP_FAILED)) { }
+        MaterialTheme(colorScheme = DetailColors) {
+            SessionScreen(login, { loginViewModel.restoreSession() }, loginViewModel::confirmLogout, loginViewModel::retryDeletionCleanup)
+        }
+        return
+    }
+    if (!login.authenticated) {
+        val view = LocalView.current
+        SideEffect {
+            view.context.findActivity()?.window?.let { window ->
+                WindowCompat.getInsetsController(window, view).apply {
+                    isAppearanceLightStatusBars = true
+                    isAppearanceLightNavigationBars = true
+                }
+            }
+        }
+        val showSignUp by loginViewModel.showSignUp.collectAsStateWithLifecycle()
+        val signUp by loginViewModel.signUpState.collectAsStateWithLifecycle()
+        BackHandler(enabled = showSignUp) { loginViewModel.closeSignUp() }
+        MaterialTheme(colorScheme = DetailColors) {
+            if (showSignUp) SignUpScreen(signUp, loginViewModel.qaLoginAvailable, loginViewModel::setSignUpEmail,
+                loginViewModel::setSignUpPassword, loginViewModel::setSignUpConfirmation, loginViewModel::signUp,
+                loginViewModel::closeSignUp)
+            else LoginScreen(login, loginViewModel.qaLoginAvailable, loginViewModel::setEmail,
+                loginViewModel::setPassword, loginViewModel::login, loginViewModel::openSignUp)
+        }
+        return
     }
     val games by viewModel.games.collectAsStateWithLifecycle()
     val detail by viewModel.detail.collectAsStateWithLifecycle()
@@ -75,6 +107,25 @@ fun GameApp(
     }
 
     MaterialTheme(colorScheme = DetailColors) {
+        if (login.logoutConfirmation) AlertDialog(
+            onDismissRequest = loginViewModel::cancelLogout,
+            title = { Text("로그아웃하시겠어요?") },
+            text = { Text("저장한 응원팀과 알림 설정은 유지됩니다.") },
+            confirmButton = { TextButton(onClick = loginViewModel::confirmLogout) { Text("로그아웃하기") } },
+            dismissButton = { TextButton(onClick = loginViewModel::cancelLogout) { Text("취소") } },
+        )
+        if (login.deletionConfirmation) AlertDialog(
+            onDismissRequest = loginViewModel::cancelDeletion,
+            title = { Text("회원 탈퇴를 진행할까요?") },
+            text = { Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Text(login.accountEmail.orEmpty())
+                Text(if (loginViewModel.qaLoginAvailable) "QA 검증용 계정의 탈퇴를 진행합니다. 실제 서버 계정은 삭제되지 않습니다."
+                    else "현재 로그인한 계정의 탈퇴를 요청합니다. 완료 후 로그인 화면으로 이동합니다.")
+                Text("이 기기에 저장한 응원팀과 알림 설정은 유지됩니다.")
+            } },
+            confirmButton = { TextButton(onClick = loginViewModel::confirmDeletion) { Text("탈퇴하기") } },
+            dismissButton = { TextButton(onClick = loginViewModel::cancelDeletion) { Text("취소") } },
+        )
         Scaffold(
             topBar = {
                 CenterAlignedTopAppBar(
@@ -173,12 +224,21 @@ fun GameApp(
                 )
             } else when (val selected = detail) {
                 null -> when (mainScreen) {
-                    MainScreen.HOME -> HomeScreen(games, viewModel::showGames, content, KboTeams.find(settings.preferences?.preferredTeamId)?.name)
+                    MainScreen.HOME -> HomeScreen(games, viewModel::showGames, content,
+                        KboTeams.find(settings.preferences?.preferredTeamId)?.name,
+                        if (loginViewModel.qaLoginAvailable) loginViewModel::returnToLoginForQa else null)
                     MainScreen.GAMES -> GameSelectionScreen(games, viewModel::selectGame, viewModel::loadGames, inset)
                     MainScreen.MY_PAGE -> MyPageScreen(
                         preferences = requireNotNull(settings.preferences),
+                        email = login.accountEmail,
+                        accountLoading = login.accountLoading,
+                        accountError = login.accountError,
+                        deletionError = login.deletionError,
                         onChangeTeam = viewModel::showTeamSelection,
                         onNotificationSettings = { viewModel.showNotificationSettings(true) },
+                        onLogout = loginViewModel::requestLogout,
+                        onReloadAccount = loginViewModel::loadAccount,
+                        onDeleteAccount = loginViewModel::requestDeletion,
                         modifier = content,
                     )
                 }
