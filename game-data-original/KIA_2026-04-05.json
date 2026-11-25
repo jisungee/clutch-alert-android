@@ -1,0 +1,1086 @@
+{
+  "game_info": {
+    "game_id": "20260405_KIA_NC_01",
+    "date": "2026-04-05",
+    "stadium": "광주-기아 챔피언스 필드",
+    "away_team": "NC",
+    "home_team": "KIA",
+    "starting_pitchers": {
+      "away": "토다",
+      "home": "올러"
+    },
+    "scheduled_start_kst": "14:00",
+    "winner": "KIA",
+    "source_url": "https://mykbostats.com/games/13284-NC-vs-Kia-20260405",
+    "official_scoreboard_url": "https://eng.koreabaseball.com/Schedule/Scoreboard.aspx?searchDate=2026-04-05",
+    "coverage": "selected_plays_plus_official_half_inning_totals",
+    "line_score": {
+      "away": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "home": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        null
+      ]
+    },
+    "final_score": {
+      "away": 0,
+      "home": 3
+    },
+    "time_zone": "Asia/Seoul"
+  },
+  "events": [
+    {
+      "event_id": 1,
+      "delay_sec": 0,
+      "timestamp": null,
+      "event_type": "GAME_START",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 1,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "KIA",
+        "name": "올러",
+        "pitch_count": 0
+      },
+      "current_batter": {
+        "team": "NC",
+        "name": "김주원"
+      },
+      "details": {
+        "summary": "NC 대 KIA 경기 시작 (선발 토다 대 올러)",
+        "record_granularity": "game_boundary",
+        "scheduled_start_kst": "14:00",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 2,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 1,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "NC",
+        "name": "토다",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "1회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 3,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 2,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "2회초 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 4,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "PITCHER_STAT",
+      "actor_team": "KIA",
+      "inning": {
+        "number": 2,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "outs": 1,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "KIA",
+        "name": "올러",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "NC",
+        "name": "박건우"
+      },
+      "details": {
+        "summary": "올러, 박건우 삼진 처리",
+        "record_granularity": "selected_play",
+        "stat_type": "STRIKEOUT",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 5,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "PITCHER_STAT",
+      "actor_team": "KIA",
+      "inning": {
+        "number": 2,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "outs": 3,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "KIA",
+        "name": "올러",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "NC",
+        "name": "이우성"
+      },
+      "details": {
+        "summary": "올러, 이우성 삼진 처리",
+        "record_granularity": "selected_play",
+        "stat_type": "STRIKEOUT",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 6,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 2,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "2회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 7,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "ON_BASE",
+      "actor_team": "KIA",
+      "inning": {
+        "number": 2,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "outs": 0,
+      "bases": {
+        "first": "카스트로",
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "NC",
+        "name": "토다",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "KIA",
+        "name": "카스트로"
+      },
+      "details": {
+        "summary": "카스트로 좌익선상 안타 출루",
+        "record_granularity": "selected_play",
+        "hit_type": "좌익선상 안타",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 8,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "ON_BASE",
+      "actor_team": "KIA",
+      "inning": {
+        "number": 2,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "outs": 1,
+      "bases": {
+        "first": "한준수",
+        "second": "카스트로",
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "NC",
+        "name": "토다",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "KIA",
+        "name": "한준수"
+      },
+      "details": {
+        "summary": "한준수 볼넷 출루",
+        "record_granularity": "selected_play",
+        "hit_type": "볼넷",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 9,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "ON_BASE",
+      "actor_team": "KIA",
+      "inning": {
+        "number": 2,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "outs": 1,
+      "bases": {
+        "first": "김호령",
+        "second": "한준수",
+        "third": "카스트로"
+      },
+      "current_pitcher": {
+        "team": "NC",
+        "name": "토다",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "KIA",
+        "name": "김호령"
+      },
+      "details": {
+        "summary": "김호령 우전 안타 출루",
+        "record_granularity": "selected_play",
+        "hit_type": "우전 안타",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 10,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "SCORE",
+      "actor_team": "KIA",
+      "inning": {
+        "number": 2,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 1
+      },
+      "outs": 2,
+      "bases": {
+        "first": "정현창",
+        "second": null,
+        "third": "한준수"
+      },
+      "current_pitcher": {
+        "team": "NC",
+        "name": "토다",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "KIA",
+        "name": "정현창"
+      },
+      "details": {
+        "summary": "정현창 2루수 땅볼 때 카스트로 득점",
+        "record_granularity": "selected_play",
+        "runs_scored": 1,
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 11,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 3,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 0,
+        "home": 1
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "3회초 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 12,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 3,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 1
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "3회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 13,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 4,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 0,
+        "home": 1
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "4회초 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 14,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "ON_BASE",
+      "actor_team": "NC",
+      "inning": {
+        "number": 4,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 0,
+        "home": 1
+      },
+      "outs": 2,
+      "bases": {
+        "first": "데이비슨",
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "KIA",
+        "name": "올러",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "NC",
+        "name": "데이비슨"
+      },
+      "details": {
+        "summary": "데이비슨 좌중간 안타 출루",
+        "record_granularity": "selected_play",
+        "hit_type": "좌중간 안타",
+        "bases_state_known": true
+      },
+      "sub_types": [
+        "OPPONENT_ON_BASE"
+      ]
+    },
+    {
+      "event_id": 15,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 4,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 1
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "4회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 16,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "ON_BASE",
+      "actor_team": "KIA",
+      "inning": {
+        "number": 4,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 1
+      },
+      "outs": 0,
+      "bases": {
+        "first": "김도영",
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "NC",
+        "name": "토다",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "KIA",
+        "name": "김도영"
+      },
+      "details": {
+        "summary": "김도영 좌전 안타 출루",
+        "record_granularity": "selected_play",
+        "hit_type": "좌전 안타",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 17,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "ON_BASE",
+      "actor_team": "KIA",
+      "inning": {
+        "number": 4,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 1
+      },
+      "outs": 1,
+      "bases": {
+        "first": "김선빈",
+        "second": null,
+        "third": "김도영"
+      },
+      "current_pitcher": {
+        "team": "NC",
+        "name": "토다",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "KIA",
+        "name": "김선빈"
+      },
+      "details": {
+        "summary": "김선빈 좌전 안타 출루",
+        "record_granularity": "selected_play",
+        "hit_type": "좌전 안타",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 18,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "SCORE",
+      "actor_team": "KIA",
+      "inning": {
+        "number": 4,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 2
+      },
+      "outs": null,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "4회말 KIA 1득점 (공식 이닝 합계 기준)",
+        "runs_scored": 1,
+        "record_granularity": "half_inning_remaining",
+        "half_inning_total_runs": 1,
+        "selected_play_runs": 0,
+        "individual_play_unknown": true,
+        "bases_state_known": false
+      }
+    },
+    {
+      "event_id": 19,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 5,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 0,
+        "home": 2
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "5회초 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 20,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 5,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 2
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "5회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 21,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 6,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 0,
+        "home": 2
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "6회초 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 22,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 6,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 2
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "6회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 23,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 7,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 0,
+        "home": 2
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "7회초 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 24,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 7,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 2
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "7회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 25,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 8,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 0,
+        "home": 2
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "8회초 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 26,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 8,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 2
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "8회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 27,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "SCORE",
+      "actor_team": "KIA",
+      "inning": {
+        "number": 8,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 3
+      },
+      "outs": null,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "8회말 KIA 1득점 (공식 이닝 합계 기준)",
+        "runs_scored": 1,
+        "record_granularity": "half_inning_remaining",
+        "half_inning_total_runs": 1,
+        "selected_play_runs": 0,
+        "individual_play_unknown": true,
+        "bases_state_known": false
+      }
+    },
+    {
+      "event_id": 28,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 9,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 0,
+        "home": 3
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "9회초 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 29,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "GAME_END",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 9,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 0,
+        "home": 3
+      },
+      "outs": null,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "경기 종료: NC 0 - 3 KIA, KIA 승리",
+        "winner": "KIA",
+        "record_granularity": "game_boundary",
+        "bases_state_known": false
+      }
+    }
+  ]
+}

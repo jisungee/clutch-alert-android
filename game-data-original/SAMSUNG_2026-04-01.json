@@ -1,0 +1,1358 @@
+{
+  "game_info": {
+    "game_id": "20260401_SAMSUNG_DOOSAN_01",
+    "date": "2026-04-01",
+    "stadium": "대구 삼성 라이온즈 파크",
+    "away_team": "DOOSAN",
+    "home_team": "SAMSUNG",
+    "starting_pitchers": {
+      "away": "최승용",
+      "home": "양창섭"
+    },
+    "scheduled_start_kst": "18:30",
+    "winner": "SAMSUNG",
+    "source_url": "https://mykbostats.com/games/13265-Doosan-vs-Samsung-20260401",
+    "official_scoreboard_url": "https://eng.koreabaseball.com/Schedule/Scoreboard.aspx?searchDate=2026-04-01",
+    "coverage": "selected_plays_plus_official_half_inning_totals",
+    "line_score": {
+      "away": [
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        1
+      ],
+      "home": [
+        3,
+        0,
+        2,
+        3,
+        0,
+        2,
+        3,
+        0,
+        null
+      ]
+    },
+    "final_score": {
+      "away": 3,
+      "home": 13
+    },
+    "time_zone": "Asia/Seoul"
+  },
+  "events": [
+    {
+      "event_id": 1,
+      "delay_sec": 0,
+      "timestamp": null,
+      "event_type": "GAME_START",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 1,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "SAMSUNG",
+        "name": "양창섭",
+        "pitch_count": 0
+      },
+      "current_batter": {
+        "team": "DOOSAN",
+        "name": "박찬호"
+      },
+      "details": {
+        "summary": "DOOSAN 대 SAMSUNG 경기 시작 (선발 최승용 대 양창섭)",
+        "record_granularity": "game_boundary",
+        "scheduled_start_kst": "18:30",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 2,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "PITCHER_STAT",
+      "actor_team": "SAMSUNG",
+      "inning": {
+        "number": 1,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "outs": 1,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "SAMSUNG",
+        "name": "양창섭",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "DOOSAN",
+        "name": "박찬호"
+      },
+      "details": {
+        "summary": "양창섭, 박찬호 삼진 처리",
+        "record_granularity": "selected_play",
+        "stat_type": "STRIKEOUT",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 3,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "PITCHER_STAT",
+      "actor_team": "SAMSUNG",
+      "inning": {
+        "number": 1,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "outs": 3,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "SAMSUNG",
+        "name": "양창섭",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "DOOSAN",
+        "name": "카메론"
+      },
+      "details": {
+        "summary": "양창섭, 카메론 삼진 처리",
+        "record_granularity": "selected_play",
+        "stat_type": "STRIKEOUT",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 4,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 1,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "DOOSAN",
+        "name": "최승용",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "1회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 5,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "ON_BASE",
+      "actor_team": "SAMSUNG",
+      "inning": {
+        "number": 1,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "outs": 0,
+      "bases": {
+        "first": "김지찬",
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "DOOSAN",
+        "name": "최승용",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "SAMSUNG",
+        "name": "김지찬"
+      },
+      "details": {
+        "summary": "김지찬 볼넷 출루",
+        "record_granularity": "selected_play",
+        "hit_type": "볼넷",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 6,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "SCORE",
+      "actor_team": "SAMSUNG",
+      "inning": {
+        "number": 1,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 1
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": "김성윤"
+      },
+      "current_pitcher": {
+        "team": "DOOSAN",
+        "name": "최승용",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "SAMSUNG",
+        "name": "김성윤"
+      },
+      "details": {
+        "summary": "김성윤 우중간 3루타, 김지찬 득점",
+        "record_granularity": "selected_play",
+        "runs_scored": 1,
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 7,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "SCORE",
+      "actor_team": "SAMSUNG",
+      "inning": {
+        "number": 1,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 2
+      },
+      "outs": 1,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "DOOSAN",
+        "name": "최승용",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "SAMSUNG",
+        "name": "구자욱"
+      },
+      "details": {
+        "summary": "구자욱 중견수 희생플라이, 김성윤 득점",
+        "record_granularity": "selected_play",
+        "runs_scored": 1,
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 8,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "ON_BASE",
+      "actor_team": "SAMSUNG",
+      "inning": {
+        "number": 1,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 2
+      },
+      "outs": 1,
+      "bases": {
+        "first": "디아즈",
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "DOOSAN",
+        "name": "최승용",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "SAMSUNG",
+        "name": "디아즈"
+      },
+      "details": {
+        "summary": "디아즈 우중간 안타 출루",
+        "record_granularity": "selected_play",
+        "hit_type": "우중간 안타",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 9,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "ON_BASE",
+      "actor_team": "SAMSUNG",
+      "inning": {
+        "number": 1,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 2
+      },
+      "outs": 2,
+      "bases": {
+        "first": "류지혁",
+        "second": "디아즈",
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "DOOSAN",
+        "name": "최승용",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "SAMSUNG",
+        "name": "류지혁"
+      },
+      "details": {
+        "summary": "류지혁 볼넷 출루",
+        "record_granularity": "selected_play",
+        "hit_type": "볼넷",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 10,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "SCORE",
+      "actor_team": "SAMSUNG",
+      "inning": {
+        "number": 1,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 3
+      },
+      "outs": 2,
+      "bases": {
+        "first": "김영웅",
+        "second": null,
+        "third": "류지혁"
+      },
+      "current_pitcher": {
+        "team": "DOOSAN",
+        "name": "최승용",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "SAMSUNG",
+        "name": "김영웅"
+      },
+      "details": {
+        "summary": "김영웅 우중간 적시타, 디아즈 득점",
+        "record_granularity": "selected_play",
+        "runs_scored": 1,
+        "bases_state_known": true
+      },
+      "sub_types": [
+        "BIG_INNING"
+      ]
+    },
+    {
+      "event_id": 11,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 2,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 0,
+        "home": 3
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "2회초 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 12,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 2,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 3
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "2회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 13,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 3,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 0,
+        "home": 3
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "3회초 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 14,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 3,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 3
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "3회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 15,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "ON_BASE",
+      "actor_team": "SAMSUNG",
+      "inning": {
+        "number": 3,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 3
+      },
+      "outs": 1,
+      "bases": {
+        "first": "디아즈",
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "DOOSAN",
+        "name": "최승용",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "SAMSUNG",
+        "name": "디아즈"
+      },
+      "details": {
+        "summary": "디아즈 우중간 안타 출루",
+        "record_granularity": "selected_play",
+        "hit_type": "우중간 안타",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 16,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "ON_BASE",
+      "actor_team": "SAMSUNG",
+      "inning": {
+        "number": 3,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 3
+      },
+      "outs": 1,
+      "bases": {
+        "first": null,
+        "second": "최형우",
+        "third": "디아즈"
+      },
+      "current_pitcher": {
+        "team": "DOOSAN",
+        "name": "최승용",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "SAMSUNG",
+        "name": "최형우"
+      },
+      "details": {
+        "summary": "최형우 좌전 안타 및 상대 실책 출루",
+        "record_granularity": "selected_play",
+        "hit_type": "좌전 안타 및 상대 실책",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 17,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "SCORE",
+      "actor_team": "SAMSUNG",
+      "inning": {
+        "number": 3,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 5
+      },
+      "outs": 1,
+      "bases": {
+        "first": "류지혁",
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "DOOSAN",
+        "name": "최승용",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "SAMSUNG",
+        "name": "류지혁"
+      },
+      "details": {
+        "summary": "류지혁 좌중간 안타, 최형우·디아즈 득점",
+        "record_granularity": "selected_play",
+        "runs_scored": 2,
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 18,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 4,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 0,
+        "home": 5
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "4회초 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 19,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 4,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 5
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "4회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 20,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "PITCHER_CHANGE",
+      "actor_team": "DOOSAN",
+      "inning": {
+        "number": 4,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 5
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "DOOSAN",
+        "name": "박신지",
+        "pitch_count": 0
+      },
+      "current_batter": {
+        "team": "SAMSUNG",
+        "name": "이재현"
+      },
+      "details": {
+        "summary": "최승용에서 박신지(으)로 투수 교체",
+        "record_granularity": "selected_play",
+        "bases_state_known": true
+      },
+      "previous_pitcher": {
+        "team": "DOOSAN",
+        "name": "최승용",
+        "pitch_count": null,
+        "er": null
+      }
+    },
+    {
+      "event_id": 21,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "ON_BASE",
+      "actor_team": "SAMSUNG",
+      "inning": {
+        "number": 4,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 5
+      },
+      "outs": 0,
+      "bases": {
+        "first": "이재현",
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "DOOSAN",
+        "name": "박신지",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "SAMSUNG",
+        "name": "이재현"
+      },
+      "details": {
+        "summary": "이재현 볼넷 출루",
+        "record_granularity": "selected_play",
+        "hit_type": "볼넷",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 22,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "SCORE",
+      "actor_team": "SAMSUNG",
+      "inning": {
+        "number": 4,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 0,
+        "home": 8
+      },
+      "outs": null,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "4회말 SAMSUNG 3득점 (공식 이닝 합계 기준)",
+        "runs_scored": 3,
+        "record_granularity": "half_inning_remaining",
+        "half_inning_total_runs": 3,
+        "selected_play_runs": 0,
+        "individual_play_unknown": true,
+        "bases_state_known": false
+      },
+      "sub_types": [
+        "BIG_INNING"
+      ]
+    },
+    {
+      "event_id": 23,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 5,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 0,
+        "home": 8
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "5회초 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 24,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "SCORE",
+      "actor_team": "DOOSAN",
+      "inning": {
+        "number": 5,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 2,
+        "home": 8
+      },
+      "outs": null,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "5회초 DOOSAN 2득점 (공식 이닝 합계 기준)",
+        "runs_scored": 2,
+        "record_granularity": "half_inning_remaining",
+        "half_inning_total_runs": 2,
+        "selected_play_runs": 0,
+        "individual_play_unknown": true,
+        "bases_state_known": false
+      }
+    },
+    {
+      "event_id": 25,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 5,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 2,
+        "home": 8
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "5회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 26,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 6,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 2,
+        "home": 8
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "6회초 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 27,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 6,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 2,
+        "home": 8
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "6회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 28,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "SCORE",
+      "actor_team": "SAMSUNG",
+      "inning": {
+        "number": 6,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 2,
+        "home": 10
+      },
+      "outs": null,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "6회말 SAMSUNG 2득점 (공식 이닝 합계 기준)",
+        "runs_scored": 2,
+        "record_granularity": "half_inning_remaining",
+        "half_inning_total_runs": 2,
+        "selected_play_runs": 0,
+        "individual_play_unknown": true,
+        "bases_state_known": false
+      }
+    },
+    {
+      "event_id": 29,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 7,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 2,
+        "home": 10
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "7회초 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 30,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 7,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 2,
+        "home": 10
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "7회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 31,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "SCORE",
+      "actor_team": "SAMSUNG",
+      "inning": {
+        "number": 7,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 2,
+        "home": 13
+      },
+      "outs": null,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "7회말 SAMSUNG 3득점 (공식 이닝 합계 기준)",
+        "runs_scored": 3,
+        "record_granularity": "half_inning_remaining",
+        "half_inning_total_runs": 3,
+        "selected_play_runs": 0,
+        "individual_play_unknown": true,
+        "bases_state_known": false
+      },
+      "sub_types": [
+        "BIG_INNING"
+      ]
+    },
+    {
+      "event_id": 32,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 8,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 2,
+        "home": 13
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "8회초 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 33,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 8,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 2,
+        "home": 13
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "8회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 34,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 9,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 2,
+        "home": 13
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "9회초 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 35,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "SCORE",
+      "actor_team": "DOOSAN",
+      "inning": {
+        "number": 9,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 3,
+        "home": 13
+      },
+      "outs": null,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "9회초 DOOSAN 1득점 (공식 이닝 합계 기준)",
+        "runs_scored": 1,
+        "record_granularity": "half_inning_remaining",
+        "half_inning_total_runs": 1,
+        "selected_play_runs": 0,
+        "individual_play_unknown": true,
+        "bases_state_known": false
+      }
+    },
+    {
+      "event_id": 36,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "GAME_END",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 9,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 3,
+        "home": 13
+      },
+      "outs": null,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "경기 종료: DOOSAN 3 - 13 SAMSUNG, SAMSUNG 승리",
+        "winner": "SAMSUNG",
+        "record_granularity": "game_boundary",
+        "bases_state_known": false
+      }
+    }
+  ]
+}
