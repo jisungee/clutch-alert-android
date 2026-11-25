@@ -259,7 +259,7 @@ class BehaviorFlowTest {
     private suspend fun TestScope.withModel(preferences: NotificationPreferencesRepository, opens: NotificationOpenRepository,
         recorder: BehaviorEventRecorder, block: suspend TestScope.(GameViewModel) -> Unit) {
         Dispatchers.setMain(StandardTestDispatcher(testScheduler))
-        val repo = MockGameRepository(StandardTestDispatcher(testScheduler)) { file ->
+        val repo = MockGameRepository(StandardTestDispatcher(testScheduler), "test-catalog.json") { file ->
             requireNotNull(javaClass.getResource("/games/$file")).readText(Charsets.UTF_8)
         }
         val model = GameViewModel(repo, testScheduler.timeSource, preferencesRepository = preferences,

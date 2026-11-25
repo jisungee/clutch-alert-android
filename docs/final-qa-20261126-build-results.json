@@ -1,0 +1,134 @@
+{
+  "tests": {
+    "qa": {
+      "tests": 149,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "debug": {
+      "tests": 149,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "release": {
+      "tests": 149,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "apkAssets": {
+    "qa": {
+      "path": "build\\handoff-20261127-final\\ClutchAlarm-MVP-20261127-QA.apk",
+      "sha256": "eee6c7eb1a3d87aade1bc2fb160f25f1584d565b2ef5534c4bafc95df63208a8",
+      "realGames": 10,
+      "syntheticGames": 0
+    },
+    "debug": {
+      "path": "app\\build\\outputs\\apk\\debug\\app-debug.apk",
+      "sha256": "ddabdc86fce278288a78619a063fb8c4fb9a9dc407db2f2bd14387298938f56d",
+      "realGames": 10,
+      "syntheticGames": 0
+    },
+    "release": {
+      "path": "app\\build\\outputs\\apk\\release\\app-release-unsigned.apk",
+      "sha256": "5f26031c645c4f5a3dd3be5eb7d19ba2c8e7bf9d109ed51ab29c6c14ab43da8d",
+      "realGames": 10,
+      "syntheticGames": 0
+    }
+  },
+  "qaBoundaryChecks": {
+    "qa": {
+      "apk": "build\\handoff-20261127-final\\ClutchAlarm-MVP-20261127-QA.apk",
+      "sha256": "eee6c7eb1a3d87aade1bc2fb160f25f1584d565b2ef5534c4bafc95df63208a8",
+      "expected": "qa",
+      "dex_files": 10,
+      "entries_checked": 201,
+      "markers_present": {
+        "qa_package": true,
+        "qa_app_label": true,
+        "fixture_email": true,
+        "fixture_password": true,
+        "fixture_session": true,
+        "qa_auth_class": true,
+        "qa_login_label": true,
+        "qa_login_hint": true,
+        "qa_registration_hint": true,
+        "qa_deletion_hint": true,
+        "qa_home_action": true,
+        "notification_diagnostics": true,
+        "publication_diagnostics": true
+      },
+      "diagnostic_tags_present": {
+        "ClutchSession": true,
+        "ClutchNotificationOpen": true,
+        "ClutchNotificationPost": true,
+        "ClutchNotifications": true,
+        "ClutchBehavior": true
+      },
+      "passed": true
+    },
+    "debug": {
+      "apk": "app\\build\\outputs\\apk\\debug\\app-debug.apk",
+      "sha256": "ddabdc86fce278288a78619a063fb8c4fb9a9dc407db2f2bd14387298938f56d",
+      "expected": "production-debug",
+      "dex_files": 10,
+      "entries_checked": 201,
+      "markers_present": {
+        "qa_package": false,
+        "qa_app_label": false,
+        "fixture_email": false,
+        "fixture_password": false,
+        "fixture_session": false,
+        "qa_auth_class": false,
+        "qa_login_label": false,
+        "qa_login_hint": false,
+        "qa_registration_hint": false,
+        "qa_deletion_hint": false,
+        "qa_home_action": false,
+        "notification_diagnostics": false,
+        "publication_diagnostics": false
+      },
+      "diagnostic_tags_present": {
+        "ClutchSession": true,
+        "ClutchNotificationOpen": true,
+        "ClutchNotificationPost": true,
+        "ClutchNotifications": true,
+        "ClutchBehavior": true
+      },
+      "passed": true
+    },
+    "release": {
+      "apk": "app\\build\\outputs\\apk\\release\\app-release-unsigned.apk",
+      "sha256": "5f26031c645c4f5a3dd3be5eb7d19ba2c8e7bf9d109ed51ab29c6c14ab43da8d",
+      "expected": "release",
+      "dex_files": 3,
+      "entries_checked": 195,
+      "markers_present": {
+        "qa_package": false,
+        "qa_app_label": false,
+        "fixture_email": false,
+        "fixture_password": false,
+        "fixture_session": false,
+        "qa_auth_class": false,
+        "qa_login_label": false,
+        "qa_login_hint": false,
+        "qa_registration_hint": false,
+        "qa_deletion_hint": false,
+        "qa_home_action": false,
+        "notification_diagnostics": false,
+        "publication_diagnostics": false
+      },
+      "diagnostic_tags_present": {
+        "ClutchSession": false,
+        "ClutchNotificationOpen": false,
+        "ClutchNotificationPost": false,
+        "ClutchNotifications": false,
+        "ClutchBehavior": false
+      },
+      "passed": true
+    }
+  }
+}

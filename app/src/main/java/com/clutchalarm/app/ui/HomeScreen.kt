@@ -1,5 +1,6 @@
 package com.clutchalarm.app.ui
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -20,9 +21,11 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 internal fun HomeScreen(state: GameListState, onShowGames: () -> Unit, modifier: Modifier = Modifier,
-    teamName: String? = null, onQaReturnToLogin: (() -> Unit)? = null) {
+    teamName: String? = null, onQaReturnToLogin: (() -> Unit)? = null,
+    onOpenRecommended: () -> Unit = {}) {
     val palette = LocalTeamPalette.current
     val team = com.clutchalarm.app.domain.model.KboTeams.all.firstOrNull { it.name == teamName }
+    val shortcut = (state as? GameListState.Loaded)?.homeShortcut(team?.id)
     val gradient = com.clutchalarm.app.domain.model.HomeGradients.find(team?.id)
     val ink = if (gradient != null) Color.White else palette.onPrimaryContainer
     fun opaque(rgb: Int) = Color(0xFF000000L or rgb.toLong())
@@ -41,24 +44,31 @@ internal fun HomeScreen(state: GameListState, onShowGames: () -> Unit, modifier:
                     color = ink, style = MaterialTheme.typography.bodyMedium)
             }
         }
-        Card(onClick = onShowGames, modifier = Modifier.fillMaxWidth(), shape = ClutchStyle.card,
+        Card(onClick = onOpenRecommended, enabled = shortcut != null, modifier = Modifier.fillMaxWidth(), shape = ClutchStyle.card,
             colors = CardDefaults.cardColors(containerColor = Color.White)) {
             Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                    Text("모의 경기 보러가기", Modifier.weight(1f), style = MaterialTheme.typography.titleLarge)
+                    Text("내 응원팀 경기 보러가기", Modifier.weight(1f), style = MaterialTheme.typography.titleLarge)
                     ChevronMark()
                 }
-                Text(when (state) {
-                    is GameListState.Loaded -> "${state.games.size}개 시나리오 · 출루부터 역전 홈런까지"
-                    GameListState.Loading -> "경기 목록을 준비하고 있어요."
-                    GameListState.Error -> "경기 선택 화면에서 다시 불러와주세요."
+                Text(shortcut?.let { "${it.date?.replace('-', '.') ?: "날짜 미상"} · ${it.opponent.name} 상대" } ?: when (state) {
+                    GameListState.Loading -> "추천 경기를 준비하고 있어요."
+                    GameListState.Error -> "전체 경기에서 다시 불러와주세요."
+                    is GameListState.Loaded -> "응원팀 추천 경기가 없습니다. 전체 경기를 확인해주세요."
                 }, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                if (shortcut != null) Text("상세 화면에서 재생을 눌러 시작해요.",
+                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
+        }
+        OutlinedButton(onClick = onShowGames, modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp),
+            shape = ClutchStyle.card, border = BorderStroke(1.dp, ink.copy(alpha = 0.65f)),
+            colors = ButtonDefaults.outlinedButtonColors(contentColor = ink)) {
+            Text("전체 경기 보러가기", style = MaterialTheme.typography.titleMedium)
         }
         Surface(color = if (gradient != null) Color.White.copy(alpha = com.clutchalarm.app.domain.model.HomeGradient.GUIDE_ALPHA.toFloat()) else palette.primaryContainer, shape = ClutchStyle.card) {
             Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text("모의 경기, 이렇게 시작해요", color = ink, style = MaterialTheme.typography.titleMedium)
-                Text("경기 선택 → 이번 경기 알림 팀 선택 → 재생", color = ink, style = MaterialTheme.typography.bodyMedium)
+                Text("내 응원팀 경기 → 상세에서 재생", color = ink, style = MaterialTheme.typography.bodyMedium)
                 Text("알림창에서 클러치알림을 누르면 해당 상세로 돌아옵니다. 알림이 꺼져 있어도 경기 재생은 가능해요.",
                     color = ink, style = MaterialTheme.typography.bodySmall)
             }

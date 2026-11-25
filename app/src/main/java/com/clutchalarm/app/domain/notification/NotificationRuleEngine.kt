@@ -116,7 +116,7 @@ class NotificationRuleEngine {
         val bigInning = scoringTeam != null && !previouslyAnnounced && previousRuns < 3 && halfRuns >= 3
 
         val ended = event.eventType !in independentEventTypes &&
-            before.outs < 3 && after.outs == 3 && half == after.halfInning()
+            before.outs != null && before.outs < 3 && after.outs == 3 && half == after.halfInning()
         val starts = after.status == GameStatus.IN_PROGRESS &&
             (event.eventType == EventType.HALF_INNING_STARTED ||
                 (event.eventType == EventType.HALF_INNING_CHANGED && half != after.halfInning()))
@@ -153,6 +153,7 @@ class NotificationRuleEngine {
             EventType.GAME_STARTED -> if (event.details.firstPitchConfirmed &&
                 before.status == GameStatus.NOT_STARTED && after.status == GameStatus.IN_PROGRESS
             ) Message(NotificationType.GAME_STARTED, "${preferred.name} 경기 시작! 첫 투구") else null
+            EventType.OFFICIAL_REVIEW_RESULT -> Message(NotificationType.VIDEO_REVIEW, event.sourceSummary ?: "비디오 판독 결과 미상")
             EventType.OFFICIAL_REVIEW_STARTED -> Message(
                 NotificationType.VIDEO_REVIEW,
                 listOfNotNull(event.details.reviewSubject?.takeIf { it.isNotBlank() }, "공식 비디오 판독 시작")
@@ -172,13 +173,13 @@ class NotificationRuleEngine {
                 scoringTeam != null -> scoreMessage(event, scoringTeam.name, runs, preference, bigInning, recoveredLead)
                 preferredBatting && (event.teamId == null || event.teamId == preferredTeamId) &&
                     event.eventType.reachLabel() != null && !ended &&
-                    after.bases.canConfirmReach((event.playActor ?: before.batter)?.id) -> Message(
+                    (event.details.confirmedReach || after.bases.canConfirmReach((event.playActor ?: before.batter)?.id)) -> Message(
                         NotificationType.REACHED_BASE,
                         "${actor(preferred.name, (event.playActor ?: before.batter)?.name)} ${event.eventType.reachLabel()}! " +
                             "${after.outs.outLabel()} ${after.bases.runnerLabel()}",
                     )
                 !preferredBatting && event.eventType.reachLabel() != null && !ended &&
-                    after.bases.canConfirmReach((event.playActor ?: before.batter)?.id) -> Message(
+                    (event.details.confirmedReach || after.bases.canConfirmReach((event.playActor ?: before.batter)?.id)) -> Message(
                         NotificationType.OPPONENT_ON_BASE,
                         "${actor(batting.name, (event.playActor ?: before.batter)?.name)} ${event.eventType.reachLabel()}! " +
                             "${after.outs.outLabel()} ${after.bases.runnerLabel()}",
@@ -201,7 +202,9 @@ class NotificationRuleEngine {
         val candidate = decision?.let { message ->
             val body = listOfNotNull(
                 if (starts) after.halfInning().label else half.label,
-                message.text,
+                if (event.details.useSourceDescription && event.sourceSummary != null)
+                    if (runs > 0) "${event.details.notificationDescription ?: event.sourceSummary} · ${message.text}" else event.sourceSummary
+                else message.text,
                 if (bigInning) "${scoringTeam?.name} ${halfRuns}득점 빅이닝" else null,
                 ending?.takeIf { runs > 0 },
                 preference.score,
@@ -263,7 +266,7 @@ class NotificationRuleEngine {
             event.eventType in hitTypes -> event.eventType.reachLabel()
             else -> null
         }
-        val subject = actor(scoringTeamName, event.playActor?.name ?: event.before.batter?.name?.takeIf { hit != null })
+        val subject = actor(scoringTeamName, if (event.details.useSourceDescription) null else event.playActor?.name ?: event.before.batter?.name?.takeIf { hit != null })
         val play = listOfNotNull(subject, hit).joinToString(" ")
         val leadTaken = score.beforePreferred == score.beforeOpponent && score.afterPreferred > score.afterOpponent
         val result = when {
@@ -320,7 +323,7 @@ class NotificationRuleEngine {
     private companion object {
         val hitTypes = setOf(EventType.SINGLE, EventType.DOUBLE, EventType.TRIPLE)
         val independentEventTypes = setOf(
-            EventType.OFFICIAL_REVIEW_STARTED, EventType.OFFICIAL_REVIEW_UPHELD,
+            EventType.OFFICIAL_REVIEW_RESULT, EventType.OFFICIAL_REVIEW_STARTED, EventType.OFFICIAL_REVIEW_UPHELD,
             EventType.OFFICIAL_REVIEW_OVERTURNED, EventType.BROADCAST_REPLAY,
             EventType.INJURY_SUSPECTED_STOPPAGE, EventType.INJURY_MEDICAL_CHECK,
             EventType.INJURY_SUBSTITUTION,
@@ -331,6 +334,7 @@ class NotificationRuleEngine {
 private fun actor(team: String, player: String?) = listOfNotNull(team, player).joinToString(" ")
 
 private fun EventType.reachLabel() = when (this) {
+    EventType.REACHED_BASE -> "출루"
     EventType.SINGLE -> "안타"
     EventType.DOUBLE -> "2루타"
     EventType.TRIPLE -> "3루타"
@@ -342,12 +346,13 @@ private fun EventType.reachLabel() = when (this) {
     else -> null
 }
 
-private fun Int.outLabel() = if (this == 0) "무사" else "${this}사"
+private fun Int?.outLabel() = if (this == null) "아웃 미상" else if (this == 0) "무사" else "${this}사"
 
 private fun Bases.canConfirmReach(batterId: String?): Boolean =
-    listOfNotNull(first, second, third).any { batterId == null || it.id == batterId }
+    known && listOfNotNull(first, second, third).any { batterId == null || it.id == batterId }
 
 private fun Bases.runnerLabel(): String {
+    if (!known) return "주자 미상"
     val occupied = listOfNotNull(
         1.takeIf { first != null }, 2.takeIf { second != null }, 3.takeIf { third != null },
     )

@@ -1,0 +1,115 @@
+{
+  "games": [
+    {
+      "file": "KIWOOM_2026-04-01.json",
+      "score": "11:2",
+      "completed": true,
+      "sent": 31,
+      "expectedPolicyCount": 31,
+      "team": "KIWOOM",
+      "speed": 10
+    },
+    {
+      "file": "DOOSAN_2026-03-29.json",
+      "score": "9:6",
+      "completed": true,
+      "sent": 36,
+      "expectedPolicyCount": 36,
+      "team": "DOOSAN",
+      "speed": 10
+    },
+    {
+      "file": "HANWHA_2026-03-28.json",
+      "score": "9:10",
+      "completed": true,
+      "sent": 48,
+      "expectedPolicyCount": 48,
+      "team": "HANWHA",
+      "speed": 10
+    },
+    {
+      "file": "KIA_2026-04-05.json",
+      "score": "0:3",
+      "completed": true,
+      "sent": 27,
+      "expectedPolicyCount": 27,
+      "team": "KIA",
+      "speed": 10
+    },
+    {
+      "file": "KT_2026-03-28.json",
+      "score": "11:7",
+      "completed": true,
+      "sent": 35,
+      "expectedPolicyCount": 35,
+      "team": "KT",
+      "speed": 10
+    },
+    {
+      "file": "LG_2026-04-01.json",
+      "score": "2:7",
+      "completed": true,
+      "sent": 29,
+      "expectedPolicyCount": 29,
+      "team": "LG",
+      "speed": 10
+    },
+    {
+      "file": "LOTTE_2026-03-28.json",
+      "score": "6:3",
+      "completed": true,
+      "sent": 35,
+      "expectedPolicyCount": 35,
+      "team": "LOTTE",
+      "speed": 10
+    },
+    {
+      "file": "NC_2026-03-28.json",
+      "score": "0:6",
+      "completed": true,
+      "sent": 33,
+      "expectedPolicyCount": 33,
+      "team": "NC",
+      "speed": 10
+    },
+    {
+      "file": "SAMSUNG_2026-04-01.json",
+      "score": "3:13",
+      "completed": true,
+      "sent": 35,
+      "expectedPolicyCount": 35,
+      "team": "SAMSUNG",
+      "speed": 10
+    },
+    {
+      "file": "SSG_2026-03-28.json",
+      "score": "6:7",
+      "completed": true,
+      "sent": 43,
+      "expectedPolicyCount": 43,
+      "team": "SSG",
+      "speed": 10
+    }
+  ],
+  "log": {
+    "posts": 352,
+    "sequenceFirst": 69,
+    "sequenceLast": 420,
+    "uniqueSequences": 352,
+    "behavior": {
+      "app_open": 1
+    },
+    "postCountsByGame": {
+      "20260401_SSG_KIWOOM_01": 31,
+      "20260329_NC_DOOSAN_01": 36,
+      "20260328_HANWHA_KIWOOM_01": 48,
+      "20260405_KIA_NC_01": 27,
+      "20260328_LG_KT_01": 35,
+      "20260401_LG_KIA_01": 29,
+      "20260328_SAMSUNG_LOTTE_01": 35,
+      "20260328_NC_DOOSAN_01": 33,
+      "20260401_SAMSUNG_DOOSAN_01": 35,
+      "20260328_SSG_KIA_01": 43
+    }
+  }
+}

@@ -106,7 +106,7 @@ class GameNavigationTest {
 
     private suspend fun TestScope.withModel(block: suspend TestScope.(GameViewModel) -> Unit) {
         Dispatchers.setMain(StandardTestDispatcher(testScheduler))
-        val repository = MockGameRepository(StandardTestDispatcher(testScheduler)) { file ->
+        val repository = MockGameRepository(StandardTestDispatcher(testScheduler), "test-catalog.json") { file ->
             requireNotNull(javaClass.getResource("/games/$file")).readText(Charsets.UTF_8)
         }
         val model = GameViewModel(repository, testScheduler.timeSource)

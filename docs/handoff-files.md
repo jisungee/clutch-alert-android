@@ -1,6 +1,6 @@
 # 인계 대상 파일과 제외 기준
 
-기준일 2026-11-24. [handoff-files.txt](handoff-files.txt)는 현재 Git 추적 파일과 필요한 미추적 파일을 합친 **소스 인계 목록**이다. 초기 점검의 디자인 커밋 218c1a1 이후 QA 분리·통합 QA 증거·최신 문서까지 MVP-20261127 확정 커밋에 함께 포함한다. 최신 원본은 이 문서를 포함한 브랜치 HEAD이며 최종 검증 영수증과 대조한다. 임시 산출물은 계속 제외한다.
+기준일 2026-11-26. [handoff-files.txt](handoff-files.txt)는 현재 Git 추적 파일과 필요한 미추적 파일을 합친 **소스 인계 목록**이다. 초기 점검의 디자인 커밋 218c1a1 이후 QA 분리·통합 QA 증거·최신 문서까지 MVP-20261127 확정 커밋에 함께 포함한다. 현재 목록은 실제10경기·홈 바로가기·합성 테스트 분리 및11/26 최종 통합 QA를 포함한다. 이전 d6204eb 검증 영수증과 혼동하지 않는다. 임시 산출물은 계속 제외한다.
 
 ## Git에 포함할 파일
 
@@ -9,8 +9,8 @@
 | 루트 Gradle 설정·Wrapper·AGENTS·README·Git 설정 | 빌드·개발 규칙 재현 |
 | `app/src/main/` Kotlin·Manifest·리소스·모의 JSON | 실제 앱 UI·기능·로컬 알림·이벤트 계약 |
 | `app/src/productionAuth/` | 일반 디버그·릴리스의 운영 연결 지점과 운영 UI 문구 |
-| `app/src/behaviorQa/` | 소스 인계에는 포함. QA 디버그만 컴파일하고 일반/릴리스 APK에서는 제외 |
-| `app/src/test/` | 인증·세션·설정·재생·알림·이벤트·디자인·빌드 경계 회귀 |
+| `app/src/behaviorQa/` | 소스 인계에는 포함. QA 인증 코드만 QA 디버그에 포함. 합성 경기 데이터는 이 소스 세트에서 제거 |
+| `app/src/test/` | 인증·세션·설정·재생·알림·이벤트·디자인·빌드 경계 회귀 및 합성 8개 테스트 전용 리소스 |
 | `design-assets/teams/` SVG 10개·`design-assets/branding/` PNG 3개 | 제공 원본 보존. 앱은 변환된 VectorDrawable·리소스를 사용 |
 | `app/src/main/res/` 벡터·PNG·mipmap·시작 테마 | 빌드 때 변환 도구를 다시 실행하지 않아도 리소스 재현 |
 | `docs/` 최신 문서·과거 검증 기록·텍스트 로그·대비 JSON | 현재 계약 및 이전 실기기 증거. 과거 보고서는 최신 절차와 구분 |
@@ -38,4 +38,4 @@ python tools/prepare_handoff_manifest.py
 
 ## 별도 QA 실행 산출물
 
-소스 목록에 APK를 넣지 않는다. 최종 확정 커밋에서 재빌드한 `build/handoff/ClutchAlarm-MVP-20261127-QA.apk` 한 개를 `.sha256` 및 `ClutchAlarm-MVP-20261127-receipt.json`과 함께 별도로 전달한다. [최종 버전 안내](mvp-20261127.md)를 따른다. 구형 APK를 혼합하지 않는다. 일반 디버그와 QA 디버그는 원래 출력 파일명이 같으므로 빌드 직후 복사본을 사용한다. 릴리스는 unsigned이므로 배포용 설치 파일로 전달하지 않는다.
+소스 목록에 APK를 넣지 않는다. 최종 확정 커밋에서 재빌드한 `build/handoff-20261127-final/ClutchAlarm-MVP-20261127-QA.apk` 한 개를 `.sha256` 및 `ClutchAlarm-MVP-20261127-receipt.json`과 함께 별도로 전달한다. [최종 버전 안내](mvp-20261127.md)를 따른다. 구형 APK를 혼합하지 않는다. 일반 디버그와 QA 디버그는 원래 출력 파일명이 같으므로 빌드 직후 복사본을 사용한다. 릴리스는 unsigned이므로 배포용 설치 파일로 전달하지 않는다.

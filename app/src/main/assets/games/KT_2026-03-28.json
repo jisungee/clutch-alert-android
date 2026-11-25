@@ -1,0 +1,1441 @@
+{
+  "game_info": {
+    "game_id": "20260328_LG_KT_01",
+    "date": "2026-03-28",
+    "stadium": "잠실야구장",
+    "away_team": "KT",
+    "home_team": "LG",
+    "starting_pitchers": {
+      "away": "사우어",
+      "home": "치리노스"
+    },
+    "scheduled_start_kst": "14:00",
+    "winner": "KT",
+    "source_url": "https://mykbostats.com/games/13248-KT-vs-LG-20260328",
+    "official_scoreboard_url": "https://eng.koreabaseball.com/Schedule/Scoreboard.aspx?searchDate=2026-03-28",
+    "coverage": "selected_plays_plus_official_half_inning_totals",
+    "line_score": {
+      "away": [
+        6,
+        0,
+        0,
+        1,
+        0,
+        1,
+        3,
+        0,
+        0
+      ],
+      "home": [
+        0,
+        0,
+        2,
+        0,
+        1,
+        0,
+        2,
+        2,
+        0
+      ]
+    },
+    "final_score": {
+      "away": 11,
+      "home": 7
+    },
+    "time_zone": "Asia/Seoul"
+  },
+  "events": [
+    {
+      "event_id": 1,
+      "delay_sec": 0,
+      "timestamp": null,
+      "event_type": "GAME_START",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 1,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "LG",
+        "name": "치리노스",
+        "pitch_count": 0
+      },
+      "current_batter": {
+        "team": "KT",
+        "name": "최원준"
+      },
+      "details": {
+        "summary": "KT 대 LG 경기 시작 (선발 사우어 대 치리노스)",
+        "record_granularity": "game_boundary",
+        "scheduled_start_kst": "14:00",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 2,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "ON_BASE",
+      "actor_team": "KT",
+      "inning": {
+        "number": 1,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "outs": 2,
+      "bases": {
+        "first": "안현민",
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "LG",
+        "name": "치리노스",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "KT",
+        "name": "안현민"
+      },
+      "details": {
+        "summary": "안현민 볼넷 출루",
+        "record_granularity": "selected_play",
+        "hit_type": "볼넷",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 3,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "ON_BASE",
+      "actor_team": "KT",
+      "inning": {
+        "number": 1,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "outs": 2,
+      "bases": {
+        "first": "힐리어드",
+        "second": "안현민",
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "LG",
+        "name": "치리노스",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "KT",
+        "name": "힐리어드"
+      },
+      "details": {
+        "summary": "힐리어드 좌전 안타 출루",
+        "record_granularity": "selected_play",
+        "hit_type": "좌전 안타",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 4,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "SCORE",
+      "actor_team": "KT",
+      "inning": {
+        "number": 1,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 1,
+        "home": 0
+      },
+      "outs": 2,
+      "bases": {
+        "first": "류현인",
+        "second": "힐리어드",
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "LG",
+        "name": "치리노스",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "KT",
+        "name": "류현인"
+      },
+      "details": {
+        "summary": "류현인 우전 적시타, 안현민 득점",
+        "record_granularity": "selected_play",
+        "runs_scored": 1,
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 5,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "SCORE",
+      "actor_team": "KT",
+      "inning": {
+        "number": 1,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 2,
+        "home": 0
+      },
+      "outs": 2,
+      "bases": {
+        "first": "이정훈",
+        "second": "류현인",
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "LG",
+        "name": "치리노스",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "KT",
+        "name": "이정훈"
+      },
+      "details": {
+        "summary": "이정훈 좌전 적시타, 힐리어드 득점",
+        "record_granularity": "selected_play",
+        "runs_scored": 1,
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 6,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "SCORE",
+      "actor_team": "KT",
+      "inning": {
+        "number": 1,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 3,
+        "home": 0
+      },
+      "outs": 2,
+      "bases": {
+        "first": "허경민",
+        "second": "이정훈",
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "LG",
+        "name": "치리노스",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "KT",
+        "name": "허경민"
+      },
+      "details": {
+        "summary": "허경민 좌익선상 적시타, 류현인 득점",
+        "record_granularity": "selected_play",
+        "runs_scored": 1,
+        "bases_state_known": true
+      },
+      "sub_types": [
+        "BIG_INNING"
+      ]
+    },
+    {
+      "event_id": 7,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "SCORE",
+      "actor_team": "KT",
+      "inning": {
+        "number": 1,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 4,
+        "home": 0
+      },
+      "outs": 2,
+      "bases": {
+        "first": "한승택",
+        "second": "허경민",
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "LG",
+        "name": "치리노스",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "KT",
+        "name": "한승택"
+      },
+      "details": {
+        "summary": "한승택 우전 적시타, 이정훈 득점",
+        "record_granularity": "selected_play",
+        "runs_scored": 1,
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 8,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "SCORE",
+      "actor_team": "KT",
+      "inning": {
+        "number": 1,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 6,
+        "home": 0
+      },
+      "outs": 2,
+      "bases": {
+        "first": null,
+        "second": "이강민",
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "LG",
+        "name": "치리노스",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "KT",
+        "name": "이강민"
+      },
+      "details": {
+        "summary": "이강민 중견수 방향 2루타, 한승택·허경민 득점",
+        "record_granularity": "selected_play",
+        "runs_scored": 2,
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 9,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 1,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 6,
+        "home": 0
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "KT",
+        "name": "사우어",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "1회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 10,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "ON_BASE",
+      "actor_team": "LG",
+      "inning": {
+        "number": 1,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 6,
+        "home": 0
+      },
+      "outs": 0,
+      "bases": {
+        "first": "홍창기",
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "KT",
+        "name": "사우어",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "LG",
+        "name": "홍창기"
+      },
+      "details": {
+        "summary": "홍창기 볼넷 출루",
+        "record_granularity": "selected_play",
+        "hit_type": "볼넷",
+        "bases_state_known": true
+      },
+      "sub_types": [
+        "OPPONENT_ON_BASE"
+      ]
+    },
+    {
+      "event_id": 11,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "ON_BASE",
+      "actor_team": "LG",
+      "inning": {
+        "number": 1,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 6,
+        "home": 0
+      },
+      "outs": 2,
+      "bases": {
+        "first": "문보경",
+        "second": "신민재",
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "KT",
+        "name": "사우어",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "LG",
+        "name": "문보경"
+      },
+      "details": {
+        "summary": "문보경 볼넷 출루",
+        "record_granularity": "selected_play",
+        "hit_type": "볼넷",
+        "bases_state_known": true
+      },
+      "sub_types": [
+        "OPPONENT_ON_BASE"
+      ]
+    },
+    {
+      "event_id": 12,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "ON_BASE",
+      "actor_team": "LG",
+      "inning": {
+        "number": 1,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 6,
+        "home": 0
+      },
+      "outs": 2,
+      "bases": {
+        "first": "박동원",
+        "second": "문보경",
+        "third": "신민재"
+      },
+      "current_pitcher": {
+        "team": "KT",
+        "name": "사우어",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "LG",
+        "name": "박동원"
+      },
+      "details": {
+        "summary": "박동원 볼넷 출루",
+        "record_granularity": "selected_play",
+        "hit_type": "볼넷",
+        "bases_state_known": true
+      },
+      "sub_types": [
+        "OPPONENT_ON_BASE"
+      ]
+    },
+    {
+      "event_id": 13,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 2,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 6,
+        "home": 0
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "2회초 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 14,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "PITCHER_CHANGE",
+      "actor_team": "LG",
+      "inning": {
+        "number": 2,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 6,
+        "home": 0
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "LG",
+        "name": "배재준",
+        "pitch_count": 0
+      },
+      "current_batter": {
+        "team": "KT",
+        "name": "김현수"
+      },
+      "details": {
+        "summary": "치리노스에서 배재준(으)로 투수 교체",
+        "record_granularity": "selected_play",
+        "bases_state_known": true
+      },
+      "previous_pitcher": {
+        "team": "LG",
+        "name": "치리노스",
+        "pitch_count": 36,
+        "er": 6
+      }
+    },
+    {
+      "event_id": 15,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "ON_BASE",
+      "actor_team": "KT",
+      "inning": {
+        "number": 2,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 6,
+        "home": 0
+      },
+      "outs": 1,
+      "bases": {
+        "first": "안현민",
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": "LG",
+        "name": "배재준",
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": "KT",
+        "name": "안현민"
+      },
+      "details": {
+        "summary": "안현민 볼넷 출루",
+        "record_granularity": "selected_play",
+        "hit_type": "볼넷",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 16,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 2,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 6,
+        "home": 0
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "2회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 17,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 3,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 6,
+        "home": 0
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "3회초 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 18,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 3,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 6,
+        "home": 0
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "3회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 19,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "SCORE",
+      "actor_team": "LG",
+      "inning": {
+        "number": 3,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 6,
+        "home": 2
+      },
+      "outs": null,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "3회말 LG 2득점 (공식 이닝 합계 기준)",
+        "runs_scored": 2,
+        "record_granularity": "half_inning_remaining",
+        "half_inning_total_runs": 2,
+        "selected_play_runs": 0,
+        "individual_play_unknown": true,
+        "bases_state_known": false
+      }
+    },
+    {
+      "event_id": 20,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 4,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 6,
+        "home": 2
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "4회초 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 21,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "SCORE",
+      "actor_team": "KT",
+      "inning": {
+        "number": 4,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 7,
+        "home": 2
+      },
+      "outs": null,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "4회초 KT 1득점 (공식 이닝 합계 기준)",
+        "runs_scored": 1,
+        "record_granularity": "half_inning_remaining",
+        "half_inning_total_runs": 1,
+        "selected_play_runs": 0,
+        "individual_play_unknown": true,
+        "bases_state_known": false
+      }
+    },
+    {
+      "event_id": 22,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 4,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 7,
+        "home": 2
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "4회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 23,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 5,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 7,
+        "home": 2
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "5회초 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 24,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 5,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 7,
+        "home": 2
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "5회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 25,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "SCORE",
+      "actor_team": "LG",
+      "inning": {
+        "number": 5,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 7,
+        "home": 3
+      },
+      "outs": null,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "5회말 LG 1득점 (공식 이닝 합계 기준)",
+        "runs_scored": 1,
+        "record_granularity": "half_inning_remaining",
+        "half_inning_total_runs": 1,
+        "selected_play_runs": 0,
+        "individual_play_unknown": true,
+        "bases_state_known": false
+      }
+    },
+    {
+      "event_id": 26,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 6,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 7,
+        "home": 3
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "6회초 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 27,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "SCORE",
+      "actor_team": "KT",
+      "inning": {
+        "number": 6,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 8,
+        "home": 3
+      },
+      "outs": null,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "6회초 KT 1득점 (공식 이닝 합계 기준)",
+        "runs_scored": 1,
+        "record_granularity": "half_inning_remaining",
+        "half_inning_total_runs": 1,
+        "selected_play_runs": 0,
+        "individual_play_unknown": true,
+        "bases_state_known": false
+      }
+    },
+    {
+      "event_id": 28,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 6,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 8,
+        "home": 3
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "6회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 29,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 7,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 8,
+        "home": 3
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "7회초 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 30,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "SCORE",
+      "actor_team": "KT",
+      "inning": {
+        "number": 7,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 11,
+        "home": 3
+      },
+      "outs": null,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "7회초 KT 3득점 (공식 이닝 합계 기준)",
+        "runs_scored": 3,
+        "record_granularity": "half_inning_remaining",
+        "half_inning_total_runs": 3,
+        "selected_play_runs": 0,
+        "individual_play_unknown": true,
+        "bases_state_known": false
+      },
+      "sub_types": [
+        "BIG_INNING"
+      ]
+    },
+    {
+      "event_id": 31,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 7,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 11,
+        "home": 3
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "7회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 32,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "SCORE",
+      "actor_team": "LG",
+      "inning": {
+        "number": 7,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 11,
+        "home": 5
+      },
+      "outs": null,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "7회말 LG 2득점 (공식 이닝 합계 기준)",
+        "runs_scored": 2,
+        "record_granularity": "half_inning_remaining",
+        "half_inning_total_runs": 2,
+        "selected_play_runs": 0,
+        "individual_play_unknown": true,
+        "bases_state_known": false
+      }
+    },
+    {
+      "event_id": 33,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 8,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 11,
+        "home": 5
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "8회초 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 34,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 8,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 11,
+        "home": 5
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "8회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 35,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "SCORE",
+      "actor_team": "LG",
+      "inning": {
+        "number": 8,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 11,
+        "home": 7
+      },
+      "outs": null,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "8회말 LG 2득점 (공식 이닝 합계 기준)",
+        "runs_scored": 2,
+        "record_granularity": "half_inning_remaining",
+        "half_inning_total_runs": 2,
+        "selected_play_runs": 0,
+        "individual_play_unknown": true,
+        "bases_state_known": false
+      }
+    },
+    {
+      "event_id": 36,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 9,
+        "half": "TOP"
+      },
+      "score": {
+        "away": 11,
+        "home": 7
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "9회초 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 37,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "INNING_CHANGE",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 9,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 11,
+        "home": 7
+      },
+      "outs": 0,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "9회말 시작",
+        "record_granularity": "half_inning_boundary",
+        "bases_state_known": true
+      }
+    },
+    {
+      "event_id": 38,
+      "delay_sec": 5,
+      "timestamp": null,
+      "event_type": "GAME_END",
+      "actor_team": "ALL",
+      "inning": {
+        "number": 9,
+        "half": "BOTTOM"
+      },
+      "score": {
+        "away": 11,
+        "home": 7
+      },
+      "outs": null,
+      "bases": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "current_pitcher": {
+        "team": null,
+        "name": null,
+        "pitch_count": null
+      },
+      "current_batter": {
+        "team": null,
+        "name": null
+      },
+      "details": {
+        "summary": "경기 종료: KT 11 - 7 LG, KT 승리",
+        "winner": "KT",
+        "record_granularity": "game_boundary",
+        "bases_state_known": false
+      }
+    }
+  ]
+}

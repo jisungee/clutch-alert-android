@@ -1,0 +1,56 @@
+{
+  "verificationDate": "2026-11-26",
+  "device": "disposable Handoff20261127 AVD / Android 16 API36 / emulator-5560",
+  "pid": 2197,
+  "newInstall": true,
+  "sameProcess": true,
+  "events": [
+    {
+      "name": "app_open"
+    },
+    {
+      "name": "first_done",
+      "notificationId": "e707cdbe-b9cc-42f2-92cc-9590bd289aed:1",
+      "notificationSequence": 1,
+      "installationId": "f7e9d478-8c77-49ee-826f-5703a2f0a544",
+      "gameId": "20260328_HANWHA_KIWOOM_01"
+    },
+    {
+      "name": "repeat_done",
+      "action": "notification_open",
+      "notificationId": "e707cdbe-b9cc-42f2-92cc-9590bd289aed:2",
+      "notificationSequence": 2,
+      "installationId": "f7e9d478-8c77-49ee-826f-5703a2f0a544",
+      "gameId": "20260328_HANWHA_KIWOOM_01"
+    },
+    {
+      "name": "repeat_done",
+      "action": "settings_resave",
+      "flowId": "dc4241e8-3472-491b-9bf4-1a46321967e8"
+    },
+    {
+      "name": "drop",
+      "flowId": "b6dd2f1b-8933-4651-866c-0713e48ef020"
+    }
+  ],
+  "counts": {
+    "app_open": 1,
+    "first_done": 1,
+    "repeat_done": 2,
+    "drop": 1
+  },
+  "repeatActions": [
+    "notification_open",
+    "settings_resave"
+  ],
+  "postedSequences": [
+    1,
+    2
+  ],
+  "newReadSequences": [
+    1,
+    2
+  ],
+  "gameId": "20260328_HANWHA_KIWOOM_01",
+  "passed": true
+}

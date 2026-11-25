@@ -28,11 +28,13 @@ class MockGameRepository private constructor(
         assets.open("games/$fileName").bufferedReader(Charsets.UTF_8).use { it.readText() }
     })
 
-    internal constructor(ioDispatcher: CoroutineDispatcher, readAsset: (String) -> String) :
+    // Android always uses the real catalog. JVM regressions may supply a test-only catalog.
+    internal constructor(ioDispatcher: CoroutineDispatcher, catalogFile: String = "catalog.json", readAsset: (String) -> String) :
         this(ioDispatcher, loadGames = {
-            Json.decodeFromString<List<ScenarioEntry>>(readAsset("catalog.json")).map { entry ->
+            Json.decodeFromString<List<ScenarioEntry>>(readAsset(catalogFile)).map { entry ->
                 val timeline = decodeTimeline(readAsset(entry.file))
-                timeline to GameScenario(entry.name, entry.description)
+                timeline to GameScenario(entry.name, entry.description, entry.date,
+                    timeline.events.lastOrNull()?.offsetMs ?: 0, entry.preparedForTeamId)
             }
         })
 
@@ -55,7 +57,10 @@ class MockGameRepository private constructor(
 }
 
 @Serializable
-private data class ScenarioEntry(val file: String, val name: String, val description: String)
+private data class ScenarioEntry(
+    val file: String, val name: String, val description: String,
+    val date: String? = null, val preparedForTeamId: String? = null,
+)
 
 @Serializable
 private data class GameFile(val initialState: GameState, val events: List<PlayRecord>) {
@@ -93,5 +98,10 @@ private data class PlayRecord(
 private fun decodeTimeline(json: String): GameTimeline =
     if (kotlinx.serialization.json.Json.parseToJsonElement(json).let {
         it is kotlinx.serialization.json.JsonObject && "game_info" in it
-    }) SnapshotGameAdapter.decode(json)
+    }) {
+        val root = Json.parseToJsonElement(json) as kotlinx.serialization.json.JsonObject
+        val info = root["game_info"] as kotlinx.serialization.json.JsonObject
+        if ((info["coverage"] as? kotlinx.serialization.json.JsonPrimitive)?.content == SelectedPlayGameAdapter.COVERAGE)
+            SelectedPlayGameAdapter.decode(json) else SnapshotGameAdapter.decode(json)
+    }
     else Json.decodeFromString<GameFile>(json).toTimeline()

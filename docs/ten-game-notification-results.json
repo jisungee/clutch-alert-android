@@ -1,0 +1,2575 @@
+{
+  "policy": {
+    "perspective": "preparedForTeamId (file prefix)",
+    "hideWhenLosing": false,
+    "opponentOnBase": false,
+    "remainingSubscriptions": true
+  },
+  "totalEvents": 374,
+  "allOnCandidates": 368,
+  "defaultDispatches": 352,
+  "mergedHalfInningStarts": 6,
+  "filteredOpponentReaches": 16,
+  "representativeTypes": {
+    "COMEBACK": 3,
+    "DEFENSE_STARTED": 85,
+    "GAME_ENDED": 10,
+    "GAME_STARTED": 10,
+    "HOME_RUN": 7,
+    "OFFENSE_STARTED": 79,
+    "PITCHER_CHANGE": 16,
+    "PITCHER_STAT": 12,
+    "REACHED_BASE": 54,
+    "RUN_ALLOWED": 24,
+    "RUN_SCORED": 30,
+    "VIDEO_REVIEW": 7,
+    "TIED": 2,
+    "BIG_INNING": 11,
+    "DEFENSE_HIGHLIGHT": 2
+  },
+  "matchingSubscriptionCounts": {
+    "OPPONENT_ON_BASE": 0,
+    "GAME_ENDED": 10,
+    "PITCHER_CHANGE": 16,
+    "PITCHER_STAT": 12,
+    "DEFENSE_HIGHLIGHT": 2,
+    "BENCH_CLEARING": 0,
+    "GAME_STARTED": 10,
+    "OFFENSE_STARTED": 164,
+    "REACHED_BASE": 54,
+    "RUN_SCORED": 53,
+    "COMEBACK": 8,
+    "HOME_RUN": 8,
+    "RUN_ALLOWED": 24,
+    "VIDEO_REVIEW": 7,
+    "INJURY": 0,
+    "BIG_INNING": 18
+  },
+  "games": [
+    {
+      "file": "DOOSAN_2026-03-29.json",
+      "team": "DOOSAN",
+      "events": 39,
+      "awayScore": 9,
+      "homeScore": 6,
+      "durationMs": 190000,
+      "sent": 36,
+      "types": {
+        "COMEBACK": 1,
+        "DEFENSE_STARTED": 9,
+        "GAME_ENDED": 1,
+        "GAME_STARTED": 1,
+        "HOME_RUN": 1,
+        "OFFENSE_STARTED": 7,
+        "PITCHER_CHANGE": 2,
+        "PITCHER_STAT": 3,
+        "REACHED_BASE": 5,
+        "RUN_ALLOWED": 3,
+        "RUN_SCORED": 2,
+        "VIDEO_REVIEW": 1
+      },
+      "subscriptions": {
+        "OPPONENT_ON_BASE": 0,
+        "GAME_ENDED": 1,
+        "PITCHER_CHANGE": 2,
+        "PITCHER_STAT": 3,
+        "DEFENSE_HIGHLIGHT": 0,
+        "BENCH_CLEARING": 0,
+        "GAME_STARTED": 1,
+        "OFFENSE_STARTED": 16,
+        "REACHED_BASE": 5,
+        "RUN_SCORED": 4,
+        "COMEBACK": 2,
+        "HOME_RUN": 2,
+        "RUN_ALLOWED": 3,
+        "VIDEO_REVIEW": 1,
+        "INJURY": 0,
+        "BIG_INNING": 2
+      },
+      "notifications": [
+        {
+          "eventId": "1",
+          "type": "GAME_STARTED",
+          "title": "⚾ 경기 시작",
+          "body": "1회초 · DOOSAN 대 NC 경기 시작 (선발 곽빈 대 테일러) · 0 : 0"
+        },
+        {
+          "eventId": "2",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "1회초 · 박찬호 좌전 안타 출루 · 0 : 0"
+        },
+        {
+          "eventId": "3",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "1회초 · 정수빈 볼넷 출루 · 0 : 0"
+        },
+        {
+          "eventId": "4",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "1회말 · 1회말 시작 · 0 : 0"
+        },
+        {
+          "eventId": "5",
+          "type": "PITCHER_STAT",
+          "title": "투수 기록",
+          "body": "1회말 · 곽빈, 김주원 삼진 처리 · 0 : 0"
+        },
+        {
+          "eventId": "6",
+          "type": "PITCHER_STAT",
+          "title": "투수 기록",
+          "body": "1회말 · 곽빈, 권희동 삼진 처리 · 0 : 0"
+        },
+        {
+          "eventId": "8",
+          "type": "PITCHER_STAT",
+          "title": "투수 기록",
+          "body": "1회말 · 곽빈, 데이비슨 삼진 처리 · 0 : 0"
+        },
+        {
+          "eventId": "10",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "2회말 · 2회말 시작 · 0 : 0"
+        },
+        {
+          "eventId": "12",
+          "type": "VIDEO_REVIEW",
+          "title": "📺 비디오 판독",
+          "body": "2회말 · DOOSAN 요청 비디오 판독: 김형준, 세이프 유지 · 0 : 0"
+        },
+        {
+          "eventId": "13",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "3회초 · 3회초 시작 · 0 : 0"
+        },
+        {
+          "eventId": "14",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "3회말 · 3회말 시작 · 0 : 0"
+        },
+        {
+          "eventId": "15",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "4회초 · 4회초 시작 · 0 : 0"
+        },
+        {
+          "eventId": "16",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "4회말 · 4회말 시작 · 0 : 0"
+        },
+        {
+          "eventId": "17",
+          "type": "RUN_ALLOWED",
+          "title": "⚠️ 실점",
+          "body": "4회말 · 4회말 NC 4득점 (공식 이닝 합계 기준) · NC 다이노스! 4실점 허용 · NC 다이노스 4득점 빅이닝 · 0 : 4"
+        },
+        {
+          "eventId": "18",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "5회초 · 5회초 시작 · 0 : 4"
+        },
+        {
+          "eventId": "19",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "5회말 · 5회말 시작 · 0 : 4"
+        },
+        {
+          "eventId": "20",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "6회초 · 6회초 시작 · 0 : 4"
+        },
+        {
+          "eventId": "21",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "6회초 · 6회초 DOOSAN 2득점 (공식 이닝 합계 기준) · 두산 베어스! 2점 득점 · 2 : 4"
+        },
+        {
+          "eventId": "22",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "6회말 · 6회말 시작 · 2 : 4"
+        },
+        {
+          "eventId": "23",
+          "type": "RUN_ALLOWED",
+          "title": "⚠️ 실점",
+          "body": "6회말 · 6회말 NC 1득점 (공식 이닝 합계 기준) · NC 다이노스! 1실점 허용 · 2 : 5"
+        },
+        {
+          "eventId": "24",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "7회초 · 7회초 시작 · 2 : 5"
+        },
+        {
+          "eventId": "25",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "7회초 · 7회초 DOOSAN 2득점 (공식 이닝 합계 기준) · 두산 베어스! 2점 득점 · 4 : 5"
+        },
+        {
+          "eventId": "26",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "7회말 · 7회말 시작 · 4 : 5"
+        },
+        {
+          "eventId": "27",
+          "type": "RUN_ALLOWED",
+          "title": "⚠️ 실점",
+          "body": "7회말 · 7회말 NC 1득점 (공식 이닝 합계 기준) · NC 다이노스! 1실점 허용 · 4 : 6"
+        },
+        {
+          "eventId": "28",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "8회초 · 8회초 시작 · 4 : 6"
+        },
+        {
+          "eventId": "29",
+          "type": "PITCHER_CHANGE",
+          "title": "투수 교체",
+          "body": "8회초 · 배재환에서 김진호(으)로 투수 교체 · 4 : 6"
+        },
+        {
+          "eventId": "30",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "8회초 · 강승호 볼넷 출루 · 4 : 6"
+        },
+        {
+          "eventId": "31",
+          "type": "HOME_RUN",
+          "title": "💥 홈런",
+          "body": "8회초 · 카메론 투런 홈런 (115m) · 두산 베어스 2점 홈런! 동점 · 6 : 6"
+        },
+        {
+          "eventId": "32",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "8회초 · 안재석 좌중간 2루타 출루 · 6 : 6"
+        },
+        {
+          "eventId": "33",
+          "type": "PITCHER_CHANGE",
+          "title": "투수 교체",
+          "body": "8회초 · 김진호에서 손주환(으)로 투수 교체 · 6 : 6"
+        },
+        {
+          "eventId": "34",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "8회초 · 양석환 고의4구 출루 · 6 : 6"
+        },
+        {
+          "eventId": "35",
+          "type": "COMEBACK",
+          "title": "🚨 역전 홈런",
+          "body": "8회초 · 김민석 3점 홈런 (120m) · 두산 베어스 3점 홈런! 역전 · 두산 베어스 5득점 빅이닝 · 9 : 6"
+        },
+        {
+          "eventId": "36",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "8회말 · 8회말 시작 · 9 : 6"
+        },
+        {
+          "eventId": "37",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "9회초 · 9회초 시작 · 9 : 6"
+        },
+        {
+          "eventId": "38",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "9회말 · 9회말 시작 · 9 : 6"
+        },
+        {
+          "eventId": "39",
+          "type": "GAME_ENDED",
+          "title": "경기 종료",
+          "body": "9회말 · 경기 종료: DOOSAN 9 - 6 NC, DOOSAN 승리 · 9 : 6"
+        }
+      ]
+    },
+    {
+      "file": "HANWHA_2026-03-28.json",
+      "team": "HANWHA",
+      "events": 49,
+      "awayScore": 9,
+      "homeScore": 10,
+      "durationMs": 240000,
+      "sent": 48,
+      "types": {
+        "COMEBACK": 1,
+        "DEFENSE_STARTED": 10,
+        "GAME_ENDED": 1,
+        "GAME_STARTED": 1,
+        "HOME_RUN": 2,
+        "OFFENSE_STARTED": 11,
+        "PITCHER_CHANGE": 2,
+        "PITCHER_STAT": 1,
+        "REACHED_BASE": 7,
+        "RUN_ALLOWED": 4,
+        "RUN_SCORED": 4,
+        "TIED": 1,
+        "VIDEO_REVIEW": 3
+      },
+      "subscriptions": {
+        "OPPONENT_ON_BASE": 0,
+        "GAME_ENDED": 1,
+        "PITCHER_CHANGE": 2,
+        "PITCHER_STAT": 1,
+        "DEFENSE_HIGHLIGHT": 0,
+        "BENCH_CLEARING": 0,
+        "GAME_STARTED": 1,
+        "OFFENSE_STARTED": 21,
+        "REACHED_BASE": 7,
+        "RUN_SCORED": 8,
+        "COMEBACK": 4,
+        "HOME_RUN": 2,
+        "RUN_ALLOWED": 4,
+        "VIDEO_REVIEW": 3,
+        "INJURY": 0,
+        "BIG_INNING": 3
+      },
+      "notifications": [
+        {
+          "eventId": "1",
+          "type": "GAME_STARTED",
+          "title": "⚾ 경기 시작",
+          "body": "1회초 · KIWOOM 대 HANWHA 경기 시작 (선발 알칸타라 대 헤르난데스) · 0 : 0"
+        },
+        {
+          "eventId": "2",
+          "type": "PITCHER_STAT",
+          "title": "투수 기록",
+          "body": "1회초 · 헤르난데스, 이주형 삼진 처리 · 0 : 0"
+        },
+        {
+          "eventId": "4",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "1회말 · 1회말 시작 · 0 : 0"
+        },
+        {
+          "eventId": "5",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "1회말 · 페라자 중전 안타 출루 · 0 : 0"
+        },
+        {
+          "eventId": "6",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "1회말 · 문현빈 우익수 방향 2루타 출루 · 0 : 0"
+        },
+        {
+          "eventId": "7",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "1회말 · 강백호 타석 폭투로 페라자 득점 · 한화 이글스! 리드 · 1 : 0"
+        },
+        {
+          "eventId": "8",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "2회초 · 2회초 시작 · 1 : 0"
+        },
+        {
+          "eventId": "9",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "2회말 · 2회말 시작 · 1 : 0"
+        },
+        {
+          "eventId": "10",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "3회초 · 3회초 시작 · 1 : 0"
+        },
+        {
+          "eventId": "11",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "3회말 · 3회말 시작 · 1 : 0"
+        },
+        {
+          "eventId": "12",
+          "type": "VIDEO_REVIEW",
+          "title": "📺 비디오 판독",
+          "body": "3회말 · HANWHA 요청 비디오 판독: 심우준, 스윙 유지 · 1 : 0"
+        },
+        {
+          "eventId": "13",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "3회말 · 오재원 좌전 안타 출루 · 1 : 0"
+        },
+        {
+          "eventId": "14",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "3회말 · 페라자 우익선상 안타 출루 · 1 : 0"
+        },
+        {
+          "eventId": "15",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "3회말 · 문현빈 2루수 땅볼 때 오재원 득점 · 한화 이글스! 1점 득점 · 2 : 0"
+        },
+        {
+          "eventId": "16",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "4회초 · 4회초 시작 · 2 : 0"
+        },
+        {
+          "eventId": "17",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "4회말 · 4회말 시작 · 2 : 0"
+        },
+        {
+          "eventId": "18",
+          "type": "HOME_RUN",
+          "title": "💥 홈런",
+          "body": "4회말 · 채은성 솔로 홈런 (110m) · 한화 이글스 솔로 홈런! 1점 득점 · 3 : 0"
+        },
+        {
+          "eventId": "19",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "5회초 · 5회초 시작 · 3 : 0"
+        },
+        {
+          "eventId": "20",
+          "type": "RUN_ALLOWED",
+          "title": "🚨 역전 허용",
+          "body": "5회초 · 5회초 KIWOOM 4득점 (공식 이닝 합계 기준) · 키움 히어로즈! 역전 허용 · 키움 히어로즈 4득점 빅이닝 · 3 : 4"
+        },
+        {
+          "eventId": "21",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "5회말 · 5회말 시작 · 3 : 4"
+        },
+        {
+          "eventId": "22",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "6회초 · 6회초 시작 · 3 : 4"
+        },
+        {
+          "eventId": "23",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "6회말 · 6회말 시작 · 3 : 4"
+        },
+        {
+          "eventId": "24",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "7회초 · 7회초 시작 · 3 : 4"
+        },
+        {
+          "eventId": "25",
+          "type": "RUN_ALLOWED",
+          "title": "⚠️ 실점",
+          "body": "7회초 · 7회초 KIWOOM 1득점 (공식 이닝 합계 기준) · 키움 히어로즈! 1실점 허용 · 3 : 5"
+        },
+        {
+          "eventId": "26",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "7회말 · 7회말 시작 · 3 : 5"
+        },
+        {
+          "eventId": "27",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "7회말 · 7회말 HANWHA 1득점 (공식 이닝 합계 기준) · 한화 이글스! 1점 득점 · 4 : 5"
+        },
+        {
+          "eventId": "28",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "8회초 · 8회초 시작 · 4 : 5"
+        },
+        {
+          "eventId": "29",
+          "type": "RUN_ALLOWED",
+          "title": "⚠️ 실점",
+          "body": "8회초 · 8회초 KIWOOM 2득점 (공식 이닝 합계 기준) · 키움 히어로즈! 2실점 허용 · 4 : 7"
+        },
+        {
+          "eventId": "30",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "8회말 · 8회말 시작 · 4 : 7"
+        },
+        {
+          "eventId": "31",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "8회말 · 채은성 볼넷 출루 · 4 : 7"
+        },
+        {
+          "eventId": "32",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "8회말 · 황영묵 볼넷 출루 · 4 : 7"
+        },
+        {
+          "eventId": "33",
+          "type": "VIDEO_REVIEW",
+          "title": "📺 비디오 판독",
+          "body": "8회말 · KIWOOM 요청 비디오 판독: 황영묵, 노스윙 유지 · 4 : 7"
+        },
+        {
+          "eventId": "34",
+          "type": "PITCHER_CHANGE",
+          "title": "투수 교체",
+          "body": "8회말 · 김재웅에서 배동현(으)로 투수 교체 · 4 : 7"
+        },
+        {
+          "eventId": "35",
+          "type": "HOME_RUN",
+          "title": "💥 홈런",
+          "body": "8회말 · 심우준 3점 홈런 (115m) · 한화 이글스 3점 홈런! 동점 · 한화 이글스 3득점 빅이닝 · 7 : 7"
+        },
+        {
+          "eventId": "36",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "9회초 · 9회초 시작 · 7 : 7"
+        },
+        {
+          "eventId": "37",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "9회말 · 9회말 시작 · 7 : 7"
+        },
+        {
+          "eventId": "38",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "10회초 · 10회초 시작 · 7 : 7"
+        },
+        {
+          "eventId": "39",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "10회말 · 10회말 시작 · 7 : 7"
+        },
+        {
+          "eventId": "40",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "11회초 · 11회초 시작 · 7 : 7"
+        },
+        {
+          "eventId": "41",
+          "type": "RUN_ALLOWED",
+          "title": "⚠️ 실점",
+          "body": "11회초 · 11회초 KIWOOM 2득점 (공식 이닝 합계 기준) · 키움 히어로즈! 2실점 허용 · 7 : 9"
+        },
+        {
+          "eventId": "42",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "11회말 · 11회말 시작 · 7 : 9"
+        },
+        {
+          "eventId": "43",
+          "type": "PITCHER_CHANGE",
+          "title": "투수 교체",
+          "body": "11회말 · 박윤성에서 가나쿠보(으)로 투수 교체 · 7 : 9"
+        },
+        {
+          "eventId": "44",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "11회말 · 심우준 우중간 안타 출루 · 7 : 9"
+        },
+        {
+          "eventId": "45",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "11회말 · 문현빈 좌중간 2루타, 심우준 득점 · 한화 이글스! 1점 득점 · 8 : 9"
+        },
+        {
+          "eventId": "46",
+          "type": "TIED",
+          "title": "🔥 동점",
+          "body": "11회말 · 노시환 좌전 안타, 문현빈 득점 (판독 후 확정) · 한화 이글스! 동점 · 9 : 9"
+        },
+        {
+          "eventId": "47",
+          "type": "VIDEO_REVIEW",
+          "title": "📺 비디오 판독",
+          "body": "11회말 · KIWOOM 요청 비디오 판독: 노시환, 세이프 유지 · 9 : 9"
+        },
+        {
+          "eventId": "48",
+          "type": "COMEBACK",
+          "title": "🚨 역전",
+          "body": "11회말 · 강백호 우중간 안타, 대주자 최유빈 끝내기 득점 · 한화 이글스! 끝내기 승리 · 한화 이글스 3득점 빅이닝 · 10 : 9"
+        },
+        {
+          "eventId": "49",
+          "type": "GAME_ENDED",
+          "title": "경기 종료",
+          "body": "11회말 · 경기 종료: KIWOOM 9 - 10 HANWHA, HANWHA 승리 · 10 : 9"
+        }
+      ]
+    },
+    {
+      "file": "KIA_2026-04-05.json",
+      "team": "KIA",
+      "events": 29,
+      "awayScore": 0,
+      "homeScore": 3,
+      "durationMs": 140000,
+      "sent": 27,
+      "types": {
+        "DEFENSE_STARTED": 8,
+        "GAME_ENDED": 1,
+        "GAME_STARTED": 1,
+        "OFFENSE_STARTED": 7,
+        "PITCHER_STAT": 2,
+        "REACHED_BASE": 5,
+        "RUN_SCORED": 3
+      },
+      "subscriptions": {
+        "OPPONENT_ON_BASE": 0,
+        "GAME_ENDED": 1,
+        "PITCHER_CHANGE": 0,
+        "PITCHER_STAT": 2,
+        "DEFENSE_HIGHLIGHT": 0,
+        "BENCH_CLEARING": 0,
+        "GAME_STARTED": 1,
+        "OFFENSE_STARTED": 15,
+        "REACHED_BASE": 5,
+        "RUN_SCORED": 3,
+        "COMEBACK": 0,
+        "HOME_RUN": 0,
+        "RUN_ALLOWED": 0,
+        "VIDEO_REVIEW": 0,
+        "INJURY": 0,
+        "BIG_INNING": 0
+      },
+      "notifications": [
+        {
+          "eventId": "1",
+          "type": "GAME_STARTED",
+          "title": "⚾ 경기 시작",
+          "body": "1회초 · NC 대 KIA 경기 시작 (선발 토다 대 올러) · 0 : 0"
+        },
+        {
+          "eventId": "2",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "1회말 · 1회말 시작 · 0 : 0"
+        },
+        {
+          "eventId": "3",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "2회초 · 2회초 시작 · 0 : 0"
+        },
+        {
+          "eventId": "4",
+          "type": "PITCHER_STAT",
+          "title": "투수 기록",
+          "body": "2회초 · 올러, 박건우 삼진 처리 · 0 : 0"
+        },
+        {
+          "eventId": "5",
+          "type": "PITCHER_STAT",
+          "title": "투수 기록",
+          "body": "2회초 · 올러, 이우성 삼진 처리 · 0 : 0"
+        },
+        {
+          "eventId": "7",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "2회말 · 카스트로 좌익선상 안타 출루 · 0 : 0"
+        },
+        {
+          "eventId": "8",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "2회말 · 한준수 볼넷 출루 · 0 : 0"
+        },
+        {
+          "eventId": "9",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "2회말 · 김호령 우전 안타 출루 · 0 : 0"
+        },
+        {
+          "eventId": "10",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "2회말 · 정현창 2루수 땅볼 때 카스트로 득점 · KIA 타이거즈! 리드 · 1 : 0"
+        },
+        {
+          "eventId": "11",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "3회초 · 3회초 시작 · 1 : 0"
+        },
+        {
+          "eventId": "12",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "3회말 · 3회말 시작 · 1 : 0"
+        },
+        {
+          "eventId": "13",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "4회초 · 4회초 시작 · 1 : 0"
+        },
+        {
+          "eventId": "15",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "4회말 · 4회말 시작 · 1 : 0"
+        },
+        {
+          "eventId": "16",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "4회말 · 김도영 좌전 안타 출루 · 1 : 0"
+        },
+        {
+          "eventId": "17",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "4회말 · 김선빈 좌전 안타 출루 · 1 : 0"
+        },
+        {
+          "eventId": "18",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "4회말 · 4회말 KIA 1득점 (공식 이닝 합계 기준) · KIA 타이거즈! 1점 득점 · 2 : 0"
+        },
+        {
+          "eventId": "19",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "5회초 · 5회초 시작 · 2 : 0"
+        },
+        {
+          "eventId": "20",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "5회말 · 5회말 시작 · 2 : 0"
+        },
+        {
+          "eventId": "21",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "6회초 · 6회초 시작 · 2 : 0"
+        },
+        {
+          "eventId": "22",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "6회말 · 6회말 시작 · 2 : 0"
+        },
+        {
+          "eventId": "23",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "7회초 · 7회초 시작 · 2 : 0"
+        },
+        {
+          "eventId": "24",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "7회말 · 7회말 시작 · 2 : 0"
+        },
+        {
+          "eventId": "25",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "8회초 · 8회초 시작 · 2 : 0"
+        },
+        {
+          "eventId": "26",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "8회말 · 8회말 시작 · 2 : 0"
+        },
+        {
+          "eventId": "27",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "8회말 · 8회말 KIA 1득점 (공식 이닝 합계 기준) · KIA 타이거즈! 1점 득점 · 3 : 0"
+        },
+        {
+          "eventId": "28",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "9회초 · 9회초 시작 · 3 : 0"
+        },
+        {
+          "eventId": "29",
+          "type": "GAME_ENDED",
+          "title": "경기 종료",
+          "body": "9회초 · 경기 종료: NC 0 - 3 KIA, KIA 승리 · 3 : 0"
+        }
+      ]
+    },
+    {
+      "file": "KIWOOM_2026-04-01.json",
+      "team": "KIWOOM",
+      "events": 34,
+      "awayScore": 11,
+      "homeScore": 2,
+      "durationMs": 165000,
+      "sent": 31,
+      "types": {
+        "BIG_INNING": 2,
+        "DEFENSE_HIGHLIGHT": 1,
+        "DEFENSE_STARTED": 8,
+        "GAME_ENDED": 1,
+        "GAME_STARTED": 1,
+        "OFFENSE_STARTED": 8,
+        "REACHED_BASE": 4,
+        "RUN_ALLOWED": 2,
+        "RUN_SCORED": 4
+      },
+      "subscriptions": {
+        "OPPONENT_ON_BASE": 0,
+        "GAME_ENDED": 1,
+        "PITCHER_CHANGE": 0,
+        "PITCHER_STAT": 0,
+        "DEFENSE_HIGHLIGHT": 1,
+        "BENCH_CLEARING": 0,
+        "GAME_STARTED": 1,
+        "OFFENSE_STARTED": 16,
+        "REACHED_BASE": 4,
+        "RUN_SCORED": 6,
+        "COMEBACK": 0,
+        "HOME_RUN": 0,
+        "RUN_ALLOWED": 2,
+        "VIDEO_REVIEW": 0,
+        "INJURY": 0,
+        "BIG_INNING": 2
+      },
+      "notifications": [
+        {
+          "eventId": "1",
+          "type": "GAME_STARTED",
+          "title": "⚾ 경기 시작",
+          "body": "1회초 · KIWOOM 대 SSG 경기 시작 (선발 배동현 대 다케다) · 0 : 0"
+        },
+        {
+          "eventId": "2",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "1회초 · 브룩스 우익선상 안타 출루 · 0 : 0"
+        },
+        {
+          "eventId": "3",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "1회초 · 이주형 좌익선상 2루타, 브룩스 득점 · 키움 히어로즈! 리드 · 1 : 0"
+        },
+        {
+          "eventId": "4",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "1회초 · 추재현 좌전 적시타, 이주형 득점 · 키움 히어로즈! 1점 득점 · 2 : 0"
+        },
+        {
+          "eventId": "5",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "1회초 · 박찬혁 좌전 안타 출루 · 2 : 0"
+        },
+        {
+          "eventId": "6",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "1회초 · 어준서 볼넷 출루 · 2 : 0"
+        },
+        {
+          "eventId": "7",
+          "type": "BIG_INNING",
+          "title": "🔥 빅이닝",
+          "body": "1회초 · 박한결 타석 폭투로 추재현 득점 · 키움 히어로즈! 1점 득점 · 키움 히어로즈 3득점 빅이닝 · 3 : 0"
+        },
+        {
+          "eventId": "8",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "1회말 · 1회말 시작 · 3 : 0"
+        },
+        {
+          "eventId": "11",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "2회초 · 2회초 시작 · 3 : 0"
+        },
+        {
+          "eventId": "12",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "2회말 · 2회말 시작 · 3 : 0"
+        },
+        {
+          "eventId": "13",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "3회초 · 3회초 시작 · 3 : 0"
+        },
+        {
+          "eventId": "14",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "3회초 · 김건희 좌전 안타 출루 · 3 : 0"
+        },
+        {
+          "eventId": "15",
+          "type": "DEFENSE_HIGHLIGHT",
+          "title": "호수비",
+          "body": "3회초 · 추재현 병살타 유도 · 3 : 0"
+        },
+        {
+          "eventId": "17",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "4회초 · 4회초 시작 · 3 : 0"
+        },
+        {
+          "eventId": "18",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "4회말 · 4회말 시작 · 3 : 0"
+        },
+        {
+          "eventId": "19",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "5회초 · 5회초 시작 · 3 : 0"
+        },
+        {
+          "eventId": "20",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "5회초 · 5회초 KIWOOM 2득점 (공식 이닝 합계 기준) · 키움 히어로즈! 2점 득점 · 5 : 0"
+        },
+        {
+          "eventId": "21",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "5회말 · 5회말 시작 · 5 : 0"
+        },
+        {
+          "eventId": "22",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "6회초 · 6회초 시작 · 5 : 0"
+        },
+        {
+          "eventId": "23",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "6회초 · 6회초 KIWOOM 2득점 (공식 이닝 합계 기준) · 키움 히어로즈! 2점 득점 · 7 : 0"
+        },
+        {
+          "eventId": "24",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "6회말 · 6회말 시작 · 7 : 0"
+        },
+        {
+          "eventId": "25",
+          "type": "RUN_ALLOWED",
+          "title": "⚠️ 실점",
+          "body": "6회말 · 6회말 SSG 1득점 (공식 이닝 합계 기준) · SSG 랜더스! 1실점 허용 · 7 : 1"
+        },
+        {
+          "eventId": "26",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "7회초 · 7회초 시작 · 7 : 1"
+        },
+        {
+          "eventId": "27",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "7회말 · 7회말 시작 · 7 : 1"
+        },
+        {
+          "eventId": "28",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "8회초 · 8회초 시작 · 7 : 1"
+        },
+        {
+          "eventId": "29",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "8회말 · 8회말 시작 · 7 : 1"
+        },
+        {
+          "eventId": "30",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "9회초 · 9회초 시작 · 7 : 1"
+        },
+        {
+          "eventId": "31",
+          "type": "BIG_INNING",
+          "title": "🔥 빅이닝",
+          "body": "9회초 · 9회초 KIWOOM 4득점 (공식 이닝 합계 기준) · 키움 히어로즈! 4점 득점 · 키움 히어로즈 4득점 빅이닝 · 11 : 1"
+        },
+        {
+          "eventId": "32",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "9회말 · 9회말 시작 · 11 : 1"
+        },
+        {
+          "eventId": "33",
+          "type": "RUN_ALLOWED",
+          "title": "⚠️ 실점",
+          "body": "9회말 · 9회말 SSG 1득점 (공식 이닝 합계 기준) · SSG 랜더스! 1실점 허용 · 11 : 2"
+        },
+        {
+          "eventId": "34",
+          "type": "GAME_ENDED",
+          "title": "경기 종료",
+          "body": "9회말 · 경기 종료: KIWOOM 11 - 2 SSG, KIWOOM 승리 · 11 : 2"
+        }
+      ]
+    },
+    {
+      "file": "KT_2026-03-28.json",
+      "team": "KT",
+      "events": 38,
+      "awayScore": 11,
+      "homeScore": 7,
+      "durationMs": 185000,
+      "sent": 35,
+      "types": {
+        "BIG_INNING": 2,
+        "DEFENSE_STARTED": 9,
+        "GAME_ENDED": 1,
+        "GAME_STARTED": 1,
+        "OFFENSE_STARTED": 8,
+        "PITCHER_CHANGE": 1,
+        "REACHED_BASE": 3,
+        "RUN_ALLOWED": 4,
+        "RUN_SCORED": 6
+      },
+      "subscriptions": {
+        "OPPONENT_ON_BASE": 0,
+        "GAME_ENDED": 1,
+        "PITCHER_CHANGE": 1,
+        "PITCHER_STAT": 0,
+        "DEFENSE_HIGHLIGHT": 0,
+        "BENCH_CLEARING": 0,
+        "GAME_STARTED": 1,
+        "OFFENSE_STARTED": 17,
+        "REACHED_BASE": 3,
+        "RUN_SCORED": 8,
+        "COMEBACK": 0,
+        "HOME_RUN": 0,
+        "RUN_ALLOWED": 4,
+        "VIDEO_REVIEW": 0,
+        "INJURY": 0,
+        "BIG_INNING": 2
+      },
+      "notifications": [
+        {
+          "eventId": "1",
+          "type": "GAME_STARTED",
+          "title": "⚾ 경기 시작",
+          "body": "1회초 · KT 대 LG 경기 시작 (선발 사우어 대 치리노스) · 0 : 0"
+        },
+        {
+          "eventId": "2",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "1회초 · 안현민 볼넷 출루 · 0 : 0"
+        },
+        {
+          "eventId": "3",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "1회초 · 힐리어드 좌전 안타 출루 · 0 : 0"
+        },
+        {
+          "eventId": "4",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "1회초 · 류현인 우전 적시타, 안현민 득점 · KT 위즈! 리드 · 1 : 0"
+        },
+        {
+          "eventId": "5",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "1회초 · 이정훈 좌전 적시타, 힐리어드 득점 · KT 위즈! 1점 득점 · 2 : 0"
+        },
+        {
+          "eventId": "6",
+          "type": "BIG_INNING",
+          "title": "🔥 빅이닝",
+          "body": "1회초 · 허경민 좌익선상 적시타, 류현인 득점 · KT 위즈! 1점 득점 · KT 위즈 3득점 빅이닝 · 3 : 0"
+        },
+        {
+          "eventId": "7",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "1회초 · 한승택 우전 적시타, 이정훈 득점 · KT 위즈! 1점 득점 · 4 : 0"
+        },
+        {
+          "eventId": "8",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "1회초 · 이강민 중견수 방향 2루타, 한승택·허경민 득점 · KT 위즈! 2점 득점 · 6 : 0"
+        },
+        {
+          "eventId": "9",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "1회말 · 1회말 시작 · 6 : 0"
+        },
+        {
+          "eventId": "13",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "2회초 · 2회초 시작 · 6 : 0"
+        },
+        {
+          "eventId": "14",
+          "type": "PITCHER_CHANGE",
+          "title": "투수 교체",
+          "body": "2회초 · 치리노스에서 배재준(으)로 투수 교체 · 6 : 0"
+        },
+        {
+          "eventId": "15",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "2회초 · 안현민 볼넷 출루 · 6 : 0"
+        },
+        {
+          "eventId": "16",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "2회말 · 2회말 시작 · 6 : 0"
+        },
+        {
+          "eventId": "17",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "3회초 · 3회초 시작 · 6 : 0"
+        },
+        {
+          "eventId": "18",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "3회말 · 3회말 시작 · 6 : 0"
+        },
+        {
+          "eventId": "19",
+          "type": "RUN_ALLOWED",
+          "title": "⚠️ 실점",
+          "body": "3회말 · 3회말 LG 2득점 (공식 이닝 합계 기준) · LG 트윈스! 2실점 허용 · 6 : 2"
+        },
+        {
+          "eventId": "20",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "4회초 · 4회초 시작 · 6 : 2"
+        },
+        {
+          "eventId": "21",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "4회초 · 4회초 KT 1득점 (공식 이닝 합계 기준) · KT 위즈! 1점 득점 · 7 : 2"
+        },
+        {
+          "eventId": "22",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "4회말 · 4회말 시작 · 7 : 2"
+        },
+        {
+          "eventId": "23",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "5회초 · 5회초 시작 · 7 : 2"
+        },
+        {
+          "eventId": "24",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "5회말 · 5회말 시작 · 7 : 2"
+        },
+        {
+          "eventId": "25",
+          "type": "RUN_ALLOWED",
+          "title": "⚠️ 실점",
+          "body": "5회말 · 5회말 LG 1득점 (공식 이닝 합계 기준) · LG 트윈스! 1실점 허용 · 7 : 3"
+        },
+        {
+          "eventId": "26",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "6회초 · 6회초 시작 · 7 : 3"
+        },
+        {
+          "eventId": "27",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "6회초 · 6회초 KT 1득점 (공식 이닝 합계 기준) · KT 위즈! 1점 득점 · 8 : 3"
+        },
+        {
+          "eventId": "28",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "6회말 · 6회말 시작 · 8 : 3"
+        },
+        {
+          "eventId": "29",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "7회초 · 7회초 시작 · 8 : 3"
+        },
+        {
+          "eventId": "30",
+          "type": "BIG_INNING",
+          "title": "🔥 빅이닝",
+          "body": "7회초 · 7회초 KT 3득점 (공식 이닝 합계 기준) · KT 위즈! 3점 득점 · KT 위즈 3득점 빅이닝 · 11 : 3"
+        },
+        {
+          "eventId": "31",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "7회말 · 7회말 시작 · 11 : 3"
+        },
+        {
+          "eventId": "32",
+          "type": "RUN_ALLOWED",
+          "title": "⚠️ 실점",
+          "body": "7회말 · 7회말 LG 2득점 (공식 이닝 합계 기준) · LG 트윈스! 2실점 허용 · 11 : 5"
+        },
+        {
+          "eventId": "33",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "8회초 · 8회초 시작 · 11 : 5"
+        },
+        {
+          "eventId": "34",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "8회말 · 8회말 시작 · 11 : 5"
+        },
+        {
+          "eventId": "35",
+          "type": "RUN_ALLOWED",
+          "title": "⚠️ 실점",
+          "body": "8회말 · 8회말 LG 2득점 (공식 이닝 합계 기준) · LG 트윈스! 2실점 허용 · 11 : 7"
+        },
+        {
+          "eventId": "36",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "9회초 · 9회초 시작 · 11 : 7"
+        },
+        {
+          "eventId": "37",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "9회말 · 9회말 시작 · 11 : 7"
+        },
+        {
+          "eventId": "38",
+          "type": "GAME_ENDED",
+          "title": "경기 종료",
+          "body": "9회말 · 경기 종료: KT 11 - 7 LG, KT 승리 · 11 : 7"
+        }
+      ]
+    },
+    {
+      "file": "LG_2026-04-01.json",
+      "team": "LG",
+      "events": 31,
+      "awayScore": 2,
+      "homeScore": 7,
+      "durationMs": 150000,
+      "sent": 29,
+      "types": {
+        "BIG_INNING": 2,
+        "DEFENSE_STARTED": 8,
+        "GAME_ENDED": 1,
+        "GAME_STARTED": 1,
+        "OFFENSE_STARTED": 7,
+        "PITCHER_STAT": 1,
+        "REACHED_BASE": 3,
+        "RUN_ALLOWED": 2,
+        "RUN_SCORED": 3,
+        "VIDEO_REVIEW": 1
+      },
+      "subscriptions": {
+        "OPPONENT_ON_BASE": 0,
+        "GAME_ENDED": 1,
+        "PITCHER_CHANGE": 0,
+        "PITCHER_STAT": 1,
+        "DEFENSE_HIGHLIGHT": 0,
+        "BENCH_CLEARING": 0,
+        "GAME_STARTED": 1,
+        "OFFENSE_STARTED": 15,
+        "REACHED_BASE": 3,
+        "RUN_SCORED": 5,
+        "COMEBACK": 0,
+        "HOME_RUN": 0,
+        "RUN_ALLOWED": 2,
+        "VIDEO_REVIEW": 1,
+        "INJURY": 0,
+        "BIG_INNING": 2
+      },
+      "notifications": [
+        {
+          "eventId": "1",
+          "type": "GAME_STARTED",
+          "title": "⚾ 경기 시작",
+          "body": "1회초 · KIA 대 LG 경기 시작 (선발 양현종 대 송승기) · 0 : 0"
+        },
+        {
+          "eventId": "3",
+          "type": "PITCHER_STAT",
+          "title": "투수 기록",
+          "body": "1회초 · 송승기, 나성범 삼진 처리 · 0 : 0"
+        },
+        {
+          "eventId": "5",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "1회말 · 신민재 좌전 안타 출루 · 0 : 0"
+        },
+        {
+          "eventId": "6",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "1회말 · 오스틴 좌전 안타 출루 · 0 : 0"
+        },
+        {
+          "eventId": "7",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "1회말 · 박동원 볼넷 출루 · 0 : 0"
+        },
+        {
+          "eventId": "8",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "1회말 · 문성주 밀어내기 볼넷, 신민재 득점 · LG 트윈스! 리드 · 1 : 0"
+        },
+        {
+          "eventId": "9",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "1회말 · 오지환 2루수 땅볼 때 오스틴 득점 (판독 후 확정) · LG 트윈스! 1점 득점 · 2 : 0"
+        },
+        {
+          "eventId": "10",
+          "type": "VIDEO_REVIEW",
+          "title": "📺 비디오 판독",
+          "body": "1회말 · LG 요청 비디오 판독: 오지환, 아웃→세이프 · 2 : 0"
+        },
+        {
+          "eventId": "11",
+          "type": "BIG_INNING",
+          "title": "🔥 빅이닝",
+          "body": "1회말 · 구본혁 3루수 앞 번트 안타, 박동원 득점 · LG 트윈스! 1점 득점 · LG 트윈스 3득점 빅이닝 · 3 : 0"
+        },
+        {
+          "eventId": "12",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "2회초 · 2회초 시작 · 3 : 0"
+        },
+        {
+          "eventId": "13",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "2회말 · 2회말 시작 · 3 : 0"
+        },
+        {
+          "eventId": "14",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "3회초 · 3회초 시작 · 3 : 0"
+        },
+        {
+          "eventId": "15",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "3회말 · 3회말 시작 · 3 : 0"
+        },
+        {
+          "eventId": "16",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "4회초 · 4회초 시작 · 3 : 0"
+        },
+        {
+          "eventId": "17",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "4회말 · 4회말 시작 · 3 : 0"
+        },
+        {
+          "eventId": "18",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "5회초 · 5회초 시작 · 3 : 0"
+        },
+        {
+          "eventId": "19",
+          "type": "RUN_ALLOWED",
+          "title": "⚠️ 실점",
+          "body": "5회초 · 5회초 KIA 1득점 (공식 이닝 합계 기준) · KIA 타이거즈! 1실점 허용 · 3 : 1"
+        },
+        {
+          "eventId": "20",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "5회말 · 5회말 시작 · 3 : 1"
+        },
+        {
+          "eventId": "21",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "6회초 · 6회초 시작 · 3 : 1"
+        },
+        {
+          "eventId": "22",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "6회말 · 6회말 시작 · 3 : 1"
+        },
+        {
+          "eventId": "23",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "6회말 · 6회말 LG 1득점 (공식 이닝 합계 기준) · LG 트윈스! 1점 득점 · 4 : 1"
+        },
+        {
+          "eventId": "24",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "7회초 · 7회초 시작 · 4 : 1"
+        },
+        {
+          "eventId": "25",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "7회말 · 7회말 시작 · 4 : 1"
+        },
+        {
+          "eventId": "26",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "8회초 · 8회초 시작 · 4 : 1"
+        },
+        {
+          "eventId": "27",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "8회말 · 8회말 시작 · 4 : 1"
+        },
+        {
+          "eventId": "28",
+          "type": "BIG_INNING",
+          "title": "🔥 빅이닝",
+          "body": "8회말 · 8회말 LG 3득점 (공식 이닝 합계 기준) · LG 트윈스! 3점 득점 · LG 트윈스 3득점 빅이닝 · 7 : 1"
+        },
+        {
+          "eventId": "29",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "9회초 · 9회초 시작 · 7 : 1"
+        },
+        {
+          "eventId": "30",
+          "type": "RUN_ALLOWED",
+          "title": "⚠️ 실점",
+          "body": "9회초 · 9회초 KIA 1득점 (공식 이닝 합계 기준) · KIA 타이거즈! 1실점 허용 · 7 : 2"
+        },
+        {
+          "eventId": "31",
+          "type": "GAME_ENDED",
+          "title": "경기 종료",
+          "body": "9회초 · 경기 종료: KIA 2 - 7 LG, LG 승리 · 7 : 2"
+        }
+      ]
+    },
+    {
+      "file": "LOTTE_2026-03-28.json",
+      "team": "LOTTE",
+      "events": 38,
+      "awayScore": 6,
+      "homeScore": 3,
+      "durationMs": 185000,
+      "sent": 35,
+      "types": {
+        "DEFENSE_STARTED": 9,
+        "GAME_ENDED": 1,
+        "GAME_STARTED": 1,
+        "HOME_RUN": 3,
+        "OFFENSE_STARTED": 7,
+        "PITCHER_CHANGE": 4,
+        "PITCHER_STAT": 2,
+        "REACHED_BASE": 5,
+        "RUN_ALLOWED": 2,
+        "RUN_SCORED": 1
+      },
+      "subscriptions": {
+        "OPPONENT_ON_BASE": 0,
+        "GAME_ENDED": 1,
+        "PITCHER_CHANGE": 4,
+        "PITCHER_STAT": 2,
+        "DEFENSE_HIGHLIGHT": 0,
+        "BENCH_CLEARING": 0,
+        "GAME_STARTED": 1,
+        "OFFENSE_STARTED": 16,
+        "REACHED_BASE": 5,
+        "RUN_SCORED": 4,
+        "COMEBACK": 0,
+        "HOME_RUN": 3,
+        "RUN_ALLOWED": 2,
+        "VIDEO_REVIEW": 0,
+        "INJURY": 0,
+        "BIG_INNING": 0
+      },
+      "notifications": [
+        {
+          "eventId": "1",
+          "type": "GAME_STARTED",
+          "title": "⚾ 경기 시작",
+          "body": "1회초 · LOTTE 대 SAMSUNG 경기 시작 (선발 로드리게스 대 후라도) · 0 : 0"
+        },
+        {
+          "eventId": "2",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "1회초 · 손호영 좌중간 안타 출루 · 0 : 0"
+        },
+        {
+          "eventId": "3",
+          "type": "HOME_RUN",
+          "title": "💥 홈런",
+          "body": "1회초 · 윤동희 선제 투런 홈런 (115m) · 롯데 자이언츠 2점 홈런! 리드 · 2 : 0"
+        },
+        {
+          "eventId": "4",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "1회초 · 유강남 2루수에 맞고 굴절된 안타 출루 · 2 : 0"
+        },
+        {
+          "eventId": "5",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "1회말 · 1회말 시작 · 2 : 0"
+        },
+        {
+          "eventId": "8",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "2회초 · 2회초 시작 · 2 : 0"
+        },
+        {
+          "eventId": "9",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "2회말 · 2회말 시작 · 2 : 0"
+        },
+        {
+          "eventId": "10",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "3회초 · 3회초 시작 · 2 : 0"
+        },
+        {
+          "eventId": "11",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "3회말 · 3회말 시작 · 2 : 0"
+        },
+        {
+          "eventId": "12",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "4회초 · 4회초 시작 · 2 : 0"
+        },
+        {
+          "eventId": "13",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "4회초 · 4회초 LOTTE 1득점 (공식 이닝 합계 기준) · 롯데 자이언츠! 1점 득점 · 3 : 0"
+        },
+        {
+          "eventId": "14",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "4회말 · 4회말 시작 · 3 : 0"
+        },
+        {
+          "eventId": "15",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "5회초 · 5회초 시작 · 3 : 0"
+        },
+        {
+          "eventId": "16",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "5회말 · 5회말 시작 · 3 : 0"
+        },
+        {
+          "eventId": "17",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "6회초 · 6회초 시작 · 3 : 0"
+        },
+        {
+          "eventId": "18",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "6회말 · 6회말 시작 · 3 : 0"
+        },
+        {
+          "eventId": "19",
+          "type": "PITCHER_CHANGE",
+          "title": "투수 교체",
+          "body": "6회말 · 로드리게스에서 정철원(으)로 투수 교체 · 3 : 0"
+        },
+        {
+          "eventId": "20",
+          "type": "PITCHER_STAT",
+          "title": "투수 기록",
+          "body": "6회말 · 정철원, 김영웅 삼진 처리 · 3 : 0"
+        },
+        {
+          "eventId": "21",
+          "type": "PITCHER_STAT",
+          "title": "투수 기록",
+          "body": "6회말 · 정철원, 강민호 삼진 처리 · 3 : 0"
+        },
+        {
+          "eventId": "23",
+          "type": "PITCHER_CHANGE",
+          "title": "투수 교체",
+          "body": "7회초 · 후라도에서 육선엽(으)로 투수 교체 · 3 : 0"
+        },
+        {
+          "eventId": "24",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "7회초 · 전민재 볼넷 출루 · 3 : 0"
+        },
+        {
+          "eventId": "25",
+          "type": "HOME_RUN",
+          "title": "💥 홈런",
+          "body": "7회초 · 레이예스 투런 홈런 (120m) · 롯데 자이언츠 2점 홈런! 2점 득점 · 5 : 0"
+        },
+        {
+          "eventId": "26",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "7회말 · 7회말 시작 · 5 : 0"
+        },
+        {
+          "eventId": "27",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "8회초 · 8회초 시작 · 5 : 0"
+        },
+        {
+          "eventId": "28",
+          "type": "PITCHER_CHANGE",
+          "title": "투수 교체",
+          "body": "8회초 · 육선엽에서 임기영(으)로 투수 교체 · 5 : 0"
+        },
+        {
+          "eventId": "29",
+          "type": "HOME_RUN",
+          "title": "💥 홈런",
+          "body": "8회초 · 전준우 솔로 홈런 (120m) · 롯데 자이언츠 솔로 홈런! 1점 득점 · 6 : 0"
+        },
+        {
+          "eventId": "30",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "8회초 · 노진혁 중전 안타 출루 · 6 : 0"
+        },
+        {
+          "eventId": "31",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "8회초 · 한태양 우중간 안타 출루 · 6 : 0"
+        },
+        {
+          "eventId": "32",
+          "type": "PITCHER_CHANGE",
+          "title": "투수 교체",
+          "body": "8회초 · 임기영에서 백정현(으)로 투수 교체 · 6 : 0"
+        },
+        {
+          "eventId": "33",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "8회말 · 8회말 시작 · 6 : 0"
+        },
+        {
+          "eventId": "34",
+          "type": "RUN_ALLOWED",
+          "title": "⚠️ 실점",
+          "body": "8회말 · 8회말 SAMSUNG 1득점 (공식 이닝 합계 기준) · 삼성 라이온즈! 1실점 허용 · 6 : 1"
+        },
+        {
+          "eventId": "35",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "9회초 · 9회초 시작 · 6 : 1"
+        },
+        {
+          "eventId": "36",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "9회말 · 9회말 시작 · 6 : 1"
+        },
+        {
+          "eventId": "37",
+          "type": "RUN_ALLOWED",
+          "title": "⚠️ 실점",
+          "body": "9회말 · 9회말 SAMSUNG 2득점 (공식 이닝 합계 기준) · 삼성 라이온즈! 2실점 허용 · 6 : 3"
+        },
+        {
+          "eventId": "38",
+          "type": "GAME_ENDED",
+          "title": "경기 종료",
+          "body": "9회말 · 경기 종료: LOTTE 6 - 3 SAMSUNG, LOTTE 승리 · 6 : 3"
+        }
+      ]
+    },
+    {
+      "file": "NC_2026-03-28.json",
+      "team": "NC",
+      "events": 35,
+      "awayScore": 0,
+      "homeScore": 6,
+      "durationMs": 170000,
+      "sent": 33,
+      "types": {
+        "BIG_INNING": 1,
+        "DEFENSE_HIGHLIGHT": 1,
+        "DEFENSE_STARTED": 8,
+        "GAME_ENDED": 1,
+        "GAME_STARTED": 1,
+        "HOME_RUN": 1,
+        "OFFENSE_STARTED": 8,
+        "PITCHER_CHANGE": 2,
+        "PITCHER_STAT": 1,
+        "REACHED_BASE": 8,
+        "VIDEO_REVIEW": 1
+      },
+      "subscriptions": {
+        "OPPONENT_ON_BASE": 0,
+        "GAME_ENDED": 1,
+        "PITCHER_CHANGE": 2,
+        "PITCHER_STAT": 1,
+        "DEFENSE_HIGHLIGHT": 1,
+        "BENCH_CLEARING": 0,
+        "GAME_STARTED": 1,
+        "OFFENSE_STARTED": 16,
+        "REACHED_BASE": 8,
+        "RUN_SCORED": 2,
+        "COMEBACK": 0,
+        "HOME_RUN": 1,
+        "RUN_ALLOWED": 0,
+        "VIDEO_REVIEW": 1,
+        "INJURY": 0,
+        "BIG_INNING": 2
+      },
+      "notifications": [
+        {
+          "eventId": "1",
+          "type": "GAME_STARTED",
+          "title": "⚾ 경기 시작",
+          "body": "1회초 · DOOSAN 대 NC 경기 시작 (선발 플렉센 대 구창모) · 0 : 0"
+        },
+        {
+          "eventId": "3",
+          "type": "PITCHER_STAT",
+          "title": "투수 기록",
+          "body": "1회초 · 구창모, 카메론 삼진 처리 · 0 : 0"
+        },
+        {
+          "eventId": "4",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "1회말 · 1회말 시작 · 0 : 0"
+        },
+        {
+          "eventId": "5",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "1회말 · 김주원 우전 안타 출루 · 0 : 0"
+        },
+        {
+          "eventId": "6",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "1회말 · 데이비슨 볼넷 출루 · 0 : 0"
+        },
+        {
+          "eventId": "7",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "2회초 · 2회초 시작 · 0 : 0"
+        },
+        {
+          "eventId": "8",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "2회말 · 2회말 시작 · 0 : 0"
+        },
+        {
+          "eventId": "9",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "2회말 · 김휘집 볼넷 출루 · 0 : 0"
+        },
+        {
+          "eventId": "10",
+          "type": "DEFENSE_HIGHLIGHT",
+          "title": "호수비",
+          "body": "2회말 · 김형준 병살타 유도 · 0 : 0"
+        },
+        {
+          "eventId": "11",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "2회말 · 서호철 1루수 실책 출루 · 0 : 0"
+        },
+        {
+          "eventId": "12",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "2회말 · 최정원 몸에 맞는 공 출루 · 0 : 0"
+        },
+        {
+          "eventId": "13",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "3회초 · 3회초 시작 · 0 : 0"
+        },
+        {
+          "eventId": "14",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "3회말 · 3회말 시작 · 0 : 0"
+        },
+        {
+          "eventId": "15",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "3회말 · 권희동 볼넷 출루 · 0 : 0"
+        },
+        {
+          "eventId": "16",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "3회말 · 박민우 야수선택 및 투수 실책 출루 · 0 : 0"
+        },
+        {
+          "eventId": "17",
+          "type": "HOME_RUN",
+          "title": "💥 홈런",
+          "body": "3회말 · 박건우 선제 3점 홈런 (115m) · NC 다이노스 3점 홈런! 리드 · NC 다이노스 3득점 빅이닝 · 3 : 0"
+        },
+        {
+          "eventId": "18",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "4회초 · 4회초 시작 · 3 : 0"
+        },
+        {
+          "eventId": "19",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "4회말 · 4회말 시작 · 3 : 0"
+        },
+        {
+          "eventId": "20",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "5회초 · 5회초 시작 · 3 : 0"
+        },
+        {
+          "eventId": "21",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "5회말 · 5회말 시작 · 3 : 0"
+        },
+        {
+          "eventId": "22",
+          "type": "PITCHER_CHANGE",
+          "title": "투수 교체",
+          "body": "5회말 · 플렉센에서 박신지(으)로 투수 교체 · 3 : 0"
+        },
+        {
+          "eventId": "23",
+          "type": "VIDEO_REVIEW",
+          "title": "📺 비디오 판독",
+          "body": "5회말 · NC 요청 비디오 판독: 박건우, 스윙 유지 · 3 : 0"
+        },
+        {
+          "eventId": "24",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "5회말 · 김휘집 몸에 맞는 공 출루 · 3 : 0"
+        },
+        {
+          "eventId": "25",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "6회초 · 6회초 시작 · 3 : 0"
+        },
+        {
+          "eventId": "26",
+          "type": "PITCHER_CHANGE",
+          "title": "투수 교체",
+          "body": "6회초 · 구창모에서 배재환(으)로 투수 교체 · 3 : 0"
+        },
+        {
+          "eventId": "28",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "6회말 · 6회말 시작 · 3 : 0"
+        },
+        {
+          "eventId": "29",
+          "type": "BIG_INNING",
+          "title": "🔥 빅이닝",
+          "body": "6회말 · 6회말 NC 3득점 (공식 이닝 합계 기준) · NC 다이노스! 3점 득점 · NC 다이노스 3득점 빅이닝 · 6 : 0"
+        },
+        {
+          "eventId": "30",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "7회초 · 7회초 시작 · 6 : 0"
+        },
+        {
+          "eventId": "31",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "7회말 · 7회말 시작 · 6 : 0"
+        },
+        {
+          "eventId": "32",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "8회초 · 8회초 시작 · 6 : 0"
+        },
+        {
+          "eventId": "33",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "8회말 · 8회말 시작 · 6 : 0"
+        },
+        {
+          "eventId": "34",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "9회초 · 9회초 시작 · 6 : 0"
+        },
+        {
+          "eventId": "35",
+          "type": "GAME_ENDED",
+          "title": "경기 종료",
+          "body": "9회초 · 경기 종료: DOOSAN 0 - 6 NC, NC 승리 · 6 : 0"
+        }
+      ]
+    },
+    {
+      "file": "SAMSUNG_2026-04-01.json",
+      "team": "SAMSUNG",
+      "events": 36,
+      "awayScore": 3,
+      "homeScore": 13,
+      "durationMs": 175000,
+      "sent": 35,
+      "types": {
+        "BIG_INNING": 3,
+        "DEFENSE_STARTED": 8,
+        "GAME_ENDED": 1,
+        "GAME_STARTED": 1,
+        "OFFENSE_STARTED": 7,
+        "PITCHER_CHANGE": 1,
+        "PITCHER_STAT": 2,
+        "REACHED_BASE": 6,
+        "RUN_ALLOWED": 2,
+        "RUN_SCORED": 4
+      },
+      "subscriptions": {
+        "OPPONENT_ON_BASE": 0,
+        "GAME_ENDED": 1,
+        "PITCHER_CHANGE": 1,
+        "PITCHER_STAT": 2,
+        "DEFENSE_HIGHLIGHT": 0,
+        "BENCH_CLEARING": 0,
+        "GAME_STARTED": 1,
+        "OFFENSE_STARTED": 15,
+        "REACHED_BASE": 6,
+        "RUN_SCORED": 7,
+        "COMEBACK": 0,
+        "HOME_RUN": 0,
+        "RUN_ALLOWED": 2,
+        "VIDEO_REVIEW": 0,
+        "INJURY": 0,
+        "BIG_INNING": 3
+      },
+      "notifications": [
+        {
+          "eventId": "1",
+          "type": "GAME_STARTED",
+          "title": "⚾ 경기 시작",
+          "body": "1회초 · DOOSAN 대 SAMSUNG 경기 시작 (선발 최승용 대 양창섭) · 0 : 0"
+        },
+        {
+          "eventId": "2",
+          "type": "PITCHER_STAT",
+          "title": "투수 기록",
+          "body": "1회초 · 양창섭, 박찬호 삼진 처리 · 0 : 0"
+        },
+        {
+          "eventId": "3",
+          "type": "PITCHER_STAT",
+          "title": "투수 기록",
+          "body": "1회초 · 양창섭, 카메론 삼진 처리 · 0 : 0"
+        },
+        {
+          "eventId": "5",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "1회말 · 김지찬 볼넷 출루 · 0 : 0"
+        },
+        {
+          "eventId": "6",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "1회말 · 김성윤 우중간 3루타, 김지찬 득점 · 삼성 라이온즈! 리드 · 1 : 0"
+        },
+        {
+          "eventId": "7",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "1회말 · 구자욱 중견수 희생플라이, 김성윤 득점 · 삼성 라이온즈! 1점 득점 · 2 : 0"
+        },
+        {
+          "eventId": "8",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "1회말 · 디아즈 우중간 안타 출루 · 2 : 0"
+        },
+        {
+          "eventId": "9",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "1회말 · 류지혁 볼넷 출루 · 2 : 0"
+        },
+        {
+          "eventId": "10",
+          "type": "BIG_INNING",
+          "title": "🔥 빅이닝",
+          "body": "1회말 · 김영웅 우중간 적시타, 디아즈 득점 · 삼성 라이온즈! 1점 득점 · 삼성 라이온즈 3득점 빅이닝 · 3 : 0"
+        },
+        {
+          "eventId": "11",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "2회초 · 2회초 시작 · 3 : 0"
+        },
+        {
+          "eventId": "12",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "2회말 · 2회말 시작 · 3 : 0"
+        },
+        {
+          "eventId": "13",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "3회초 · 3회초 시작 · 3 : 0"
+        },
+        {
+          "eventId": "14",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "3회말 · 3회말 시작 · 3 : 0"
+        },
+        {
+          "eventId": "15",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "3회말 · 디아즈 우중간 안타 출루 · 3 : 0"
+        },
+        {
+          "eventId": "16",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "3회말 · 최형우 좌전 안타 및 상대 실책 출루 · 3 : 0"
+        },
+        {
+          "eventId": "17",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "3회말 · 류지혁 좌중간 안타, 최형우·디아즈 득점 · 삼성 라이온즈! 2점 득점 · 5 : 0"
+        },
+        {
+          "eventId": "18",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "4회초 · 4회초 시작 · 5 : 0"
+        },
+        {
+          "eventId": "19",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "4회말 · 4회말 시작 · 5 : 0"
+        },
+        {
+          "eventId": "20",
+          "type": "PITCHER_CHANGE",
+          "title": "투수 교체",
+          "body": "4회말 · 최승용에서 박신지(으)로 투수 교체 · 5 : 0"
+        },
+        {
+          "eventId": "21",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "4회말 · 이재현 볼넷 출루 · 5 : 0"
+        },
+        {
+          "eventId": "22",
+          "type": "BIG_INNING",
+          "title": "🔥 빅이닝",
+          "body": "4회말 · 4회말 SAMSUNG 3득점 (공식 이닝 합계 기준) · 삼성 라이온즈! 3점 득점 · 삼성 라이온즈 3득점 빅이닝 · 8 : 0"
+        },
+        {
+          "eventId": "23",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "5회초 · 5회초 시작 · 8 : 0"
+        },
+        {
+          "eventId": "24",
+          "type": "RUN_ALLOWED",
+          "title": "⚠️ 실점",
+          "body": "5회초 · 5회초 DOOSAN 2득점 (공식 이닝 합계 기준) · 두산 베어스! 2실점 허용 · 8 : 2"
+        },
+        {
+          "eventId": "25",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "5회말 · 5회말 시작 · 8 : 2"
+        },
+        {
+          "eventId": "26",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "6회초 · 6회초 시작 · 8 : 2"
+        },
+        {
+          "eventId": "27",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "6회말 · 6회말 시작 · 8 : 2"
+        },
+        {
+          "eventId": "28",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "6회말 · 6회말 SAMSUNG 2득점 (공식 이닝 합계 기준) · 삼성 라이온즈! 2점 득점 · 10 : 2"
+        },
+        {
+          "eventId": "29",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "7회초 · 7회초 시작 · 10 : 2"
+        },
+        {
+          "eventId": "30",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "7회말 · 7회말 시작 · 10 : 2"
+        },
+        {
+          "eventId": "31",
+          "type": "BIG_INNING",
+          "title": "🔥 빅이닝",
+          "body": "7회말 · 7회말 SAMSUNG 3득점 (공식 이닝 합계 기준) · 삼성 라이온즈! 3점 득점 · 삼성 라이온즈 3득점 빅이닝 · 13 : 2"
+        },
+        {
+          "eventId": "32",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "8회초 · 8회초 시작 · 13 : 2"
+        },
+        {
+          "eventId": "33",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "8회말 · 8회말 시작 · 13 : 2"
+        },
+        {
+          "eventId": "34",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "9회초 · 9회초 시작 · 13 : 2"
+        },
+        {
+          "eventId": "35",
+          "type": "RUN_ALLOWED",
+          "title": "⚠️ 실점",
+          "body": "9회초 · 9회초 DOOSAN 1득점 (공식 이닝 합계 기준) · 두산 베어스! 1실점 허용 · 13 : 3"
+        },
+        {
+          "eventId": "36",
+          "type": "GAME_ENDED",
+          "title": "경기 종료",
+          "body": "9회초 · 경기 종료: DOOSAN 3 - 13 SAMSUNG, SAMSUNG 승리 · 13 : 3"
+        }
+      ]
+    },
+    {
+      "file": "SSG_2026-03-28.json",
+      "team": "SSG",
+      "events": 45,
+      "awayScore": 6,
+      "homeScore": 7,
+      "durationMs": 220000,
+      "sent": 43,
+      "types": {
+        "BIG_INNING": 1,
+        "COMEBACK": 1,
+        "DEFENSE_STARTED": 8,
+        "GAME_ENDED": 1,
+        "GAME_STARTED": 1,
+        "OFFENSE_STARTED": 9,
+        "PITCHER_CHANGE": 4,
+        "REACHED_BASE": 8,
+        "RUN_ALLOWED": 5,
+        "RUN_SCORED": 3,
+        "TIED": 1,
+        "VIDEO_REVIEW": 1
+      },
+      "subscriptions": {
+        "OPPONENT_ON_BASE": 0,
+        "GAME_ENDED": 1,
+        "PITCHER_CHANGE": 4,
+        "PITCHER_STAT": 0,
+        "DEFENSE_HIGHLIGHT": 0,
+        "BENCH_CLEARING": 0,
+        "GAME_STARTED": 1,
+        "OFFENSE_STARTED": 17,
+        "REACHED_BASE": 8,
+        "RUN_SCORED": 6,
+        "COMEBACK": 2,
+        "HOME_RUN": 0,
+        "RUN_ALLOWED": 5,
+        "VIDEO_REVIEW": 1,
+        "INJURY": 0,
+        "BIG_INNING": 2
+      },
+      "notifications": [
+        {
+          "eventId": "1",
+          "type": "GAME_STARTED",
+          "title": "⚾ 경기 시작",
+          "body": "1회초 · KIA 대 SSG 경기 시작 (선발 네일 대 화이트) · 0 : 0"
+        },
+        {
+          "eventId": "4",
+          "type": "RUN_ALLOWED",
+          "title": "⚠️ 실점",
+          "body": "1회초 · 나성범 우전 안타, 김호령 득점 · KIA 타이거즈! 1실점 허용 · 0 : 1"
+        },
+        {
+          "eventId": "5",
+          "type": "RUN_ALLOWED",
+          "title": "⚠️ 실점",
+          "body": "1회초 · 김선빈 3루수 땅볼 때 카스트로 득점 · KIA 타이거즈! 1실점 허용 · 0 : 2"
+        },
+        {
+          "eventId": "6",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "1회말 · 1회말 시작 · 0 : 2"
+        },
+        {
+          "eventId": "7",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "1회말 · 박성한 우전 안타 출루 · 0 : 2"
+        },
+        {
+          "eventId": "8",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "2회초 · 2회초 시작 · 0 : 2"
+        },
+        {
+          "eventId": "9",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "2회말 · 2회말 시작 · 0 : 2"
+        },
+        {
+          "eventId": "10",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "3회초 · 3회초 시작 · 0 : 2"
+        },
+        {
+          "eventId": "11",
+          "type": "RUN_ALLOWED",
+          "title": "⚠️ 실점",
+          "body": "3회초 · 3회초 KIA 1득점 (공식 이닝 합계 기준) · KIA 타이거즈! 1실점 허용 · 0 : 3"
+        },
+        {
+          "eventId": "12",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "3회말 · 3회말 시작 · 0 : 3"
+        },
+        {
+          "eventId": "13",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "4회초 · 4회초 시작 · 0 : 3"
+        },
+        {
+          "eventId": "14",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "4회말 · 4회말 시작 · 0 : 3"
+        },
+        {
+          "eventId": "15",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "5회초 · 5회초 시작 · 0 : 3"
+        },
+        {
+          "eventId": "16",
+          "type": "RUN_ALLOWED",
+          "title": "⚠️ 실점",
+          "body": "5회초 · 5회초 KIA 2득점 (공식 이닝 합계 기준) · KIA 타이거즈! 2실점 허용 · 0 : 5"
+        },
+        {
+          "eventId": "17",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "5회말 · 5회말 시작 · 0 : 5"
+        },
+        {
+          "eventId": "18",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "6회초 · 6회초 시작 · 0 : 5"
+        },
+        {
+          "eventId": "19",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "6회말 · 6회말 시작 · 0 : 5"
+        },
+        {
+          "eventId": "20",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "7회초 · 7회초 시작 · 0 : 5"
+        },
+        {
+          "eventId": "21",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "7회말 · 7회말 시작 · 0 : 5"
+        },
+        {
+          "eventId": "22",
+          "type": "PITCHER_CHANGE",
+          "title": "투수 교체",
+          "body": "7회말 · 네일에서 김범수(으)로 투수 교체 · 0 : 5"
+        },
+        {
+          "eventId": "23",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "7회말 · 김재환 볼넷 출루 · 0 : 5"
+        },
+        {
+          "eventId": "24",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "7회말 · 고명준 우중간 안타 출루 · 0 : 5"
+        },
+        {
+          "eventId": "25",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "7회말 · 최지훈 우전 안타 출루 · 0 : 5"
+        },
+        {
+          "eventId": "26",
+          "type": "PITCHER_CHANGE",
+          "title": "투수 교체",
+          "body": "7회말 · 김범수에서 성영탁(으)로 투수 교체 · 0 : 5"
+        },
+        {
+          "eventId": "27",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "7회말 · 조형우 2루수 땅볼 때 김재환 득점 · SSG 랜더스! 1점 득점 · 1 : 5"
+        },
+        {
+          "eventId": "28",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "7회말 · 포일로 고명준 득점 · SSG 랜더스! 1점 득점 · 2 : 5"
+        },
+        {
+          "eventId": "29",
+          "type": "BIG_INNING",
+          "title": "🔥 빅이닝",
+          "body": "7회말 · 오태곤 좌전 적시타, 조형우 득점 · SSG 랜더스! 1점 득점 · SSG 랜더스 3득점 빅이닝 · 3 : 5"
+        },
+        {
+          "eventId": "30",
+          "type": "VIDEO_REVIEW",
+          "title": "📺 비디오 판독",
+          "body": "7회말 · SSG 요청 비디오 판독: 박성한, 아웃→세이프 · 3 : 5"
+        },
+        {
+          "eventId": "31",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "8회초 · 8회초 시작 · 3 : 5"
+        },
+        {
+          "eventId": "32",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "8회말 · 8회말 시작 · 3 : 5"
+        },
+        {
+          "eventId": "33",
+          "type": "DEFENSE_STARTED",
+          "title": "🛡️ 수비 시작",
+          "body": "9회초 · 9회초 시작 · 3 : 5"
+        },
+        {
+          "eventId": "34",
+          "type": "RUN_ALLOWED",
+          "title": "⚠️ 실점",
+          "body": "9회초 · 9회초 KIA 1득점 (공식 이닝 합계 기준) · KIA 타이거즈! 1실점 허용 · 3 : 6"
+        },
+        {
+          "eventId": "35",
+          "type": "OFFENSE_STARTED",
+          "title": "⚾ 공격 시작",
+          "body": "9회말 · 9회말 시작 · 3 : 6"
+        },
+        {
+          "eventId": "36",
+          "type": "PITCHER_CHANGE",
+          "title": "투수 교체",
+          "body": "9회말 · 전상현에서 정해영(으)로 투수 교체 · 3 : 6"
+        },
+        {
+          "eventId": "37",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "9회말 · 최지훈 볼넷 출루 · 3 : 6"
+        },
+        {
+          "eventId": "38",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "9회말 · 안상현 우익선상 2루타 출루 · 3 : 6"
+        },
+        {
+          "eventId": "39",
+          "type": "RUN_SCORED",
+          "title": "🎉 득점",
+          "body": "9회말 · 오태곤 중전 적시타, 최지훈·안상현 득점 · SSG 랜더스! 2점 득점 · 5 : 6"
+        },
+        {
+          "eventId": "40",
+          "type": "PITCHER_CHANGE",
+          "title": "투수 교체",
+          "body": "9회말 · 정해영에서 조상우(으)로 투수 교체 · 5 : 6"
+        },
+        {
+          "eventId": "41",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "9회말 · 박성한 볼넷 출루 · 5 : 6"
+        },
+        {
+          "eventId": "42",
+          "type": "TIED",
+          "title": "🔥 동점",
+          "body": "9회말 · 에레디아 좌전 적시타, 오태곤 득점 · SSG 랜더스! 동점 · SSG 랜더스 3득점 빅이닝 · 6 : 6"
+        },
+        {
+          "eventId": "43",
+          "type": "REACHED_BASE",
+          "title": "🏃 출루",
+          "body": "9회말 · 최정 볼넷 출루 · 6 : 6"
+        },
+        {
+          "eventId": "44",
+          "type": "COMEBACK",
+          "title": "🚨 역전",
+          "body": "9회말 · 김재환 타석 폭투로 박성한 끝내기 득점 · SSG 랜더스! 끝내기 승리 · 7 : 6"
+        },
+        {
+          "eventId": "45",
+          "type": "GAME_ENDED",
+          "title": "경기 종료",
+          "body": "9회말 · 경기 종료: KIA 6 - 7 SSG, SSG 승리 · 7 : 6"
+        }
+      ]
+    }
+  ]
+}

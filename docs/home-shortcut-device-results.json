@@ -1,0 +1,113 @@
+{
+  "device": "Samsung SM-N960N / Android 10 (API29)",
+  "originalAndRestoredTeam": "SAMSUNG",
+  "targets": [
+    {
+      "team": "DOOSAN",
+      "gameId": "20260329_NC_DOOSAN_01",
+      "date": "2026-03-29",
+      "opponent": "NC",
+      "status": "IDLE",
+      "source": "LIST"
+    },
+    {
+      "team": "HANWHA",
+      "gameId": "20260328_HANWHA_KIWOOM_01",
+      "date": "2026-03-28",
+      "opponent": "KIWOOM",
+      "status": "IDLE",
+      "source": "LIST"
+    },
+    {
+      "team": "KIA",
+      "gameId": "20260405_KIA_NC_01",
+      "date": "2026-04-05",
+      "opponent": "NC",
+      "status": "IDLE",
+      "source": "LIST"
+    },
+    {
+      "team": "KIWOOM",
+      "gameId": "20260401_SSG_KIWOOM_01",
+      "date": "2026-04-01",
+      "opponent": "SSG",
+      "status": "IDLE",
+      "source": "LIST"
+    },
+    {
+      "team": "KT",
+      "gameId": "20260328_LG_KT_01",
+      "date": "2026-03-28",
+      "opponent": "LG",
+      "status": "IDLE",
+      "source": "LIST"
+    },
+    {
+      "team": "LG",
+      "gameId": "20260401_LG_KIA_01",
+      "date": "2026-04-01",
+      "opponent": "KIA",
+      "status": "IDLE",
+      "source": "LIST"
+    },
+    {
+      "team": "LOTTE",
+      "gameId": "20260328_SAMSUNG_LOTTE_01",
+      "date": "2026-03-28",
+      "opponent": "SAMSUNG",
+      "status": "IDLE",
+      "source": "LIST"
+    },
+    {
+      "team": "NC",
+      "gameId": "20260328_NC_DOOSAN_01",
+      "date": "2026-03-28",
+      "opponent": "DOOSAN",
+      "status": "IDLE",
+      "source": "LIST"
+    },
+    {
+      "team": "SSG",
+      "gameId": "20260328_SSG_KIA_01",
+      "date": "2026-03-28",
+      "opponent": "KIA",
+      "status": "IDLE",
+      "source": "LIST"
+    },
+    {
+      "team": "SAMSUNG",
+      "gameId": "20260401_SAMSUNG_DOOSAN_01",
+      "date": "2026-04-01",
+      "opponent": "DOOSAN",
+      "status": "IDLE",
+      "source": "LIST"
+    }
+  ],
+  "phases": {
+    "shortcut_only": {
+      "behavior": {
+        "app_open": 1
+      },
+      "posts": 0,
+      "newReads": 0
+    },
+    "warm": {
+      "behavior": {
+        "app_open": 1,
+        "repeat_done": 2
+      },
+      "posts": 3,
+      "newReads": 2
+    },
+    "cold": {
+      "behavior": {
+        "app_open": 1,
+        "repeat_done": 1
+      },
+      "posts": 0,
+      "newReads": 1
+    }
+  },
+  "restartProof": "after_force_stop=",
+  "notificationColdStartProof": "after_background_am_kill=24178\nafter_verified_background_kill=\nnew_pid=31050"
+}

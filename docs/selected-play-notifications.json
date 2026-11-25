@@ -1,0 +1,354 @@
+{
+  "game_id": "20260328_HANWHA_KIWOOM_01",
+  "perspective": "HANWHA",
+  "default_preferences": {
+    "opponent_on_base": false,
+    "hide_when_losing": false,
+    "other_types": true
+  },
+  "candidates": [
+    {
+      "event_id": 1,
+      "type": "GAME_STARTED",
+      "body": "1회초 · KIWOOM 대 HANWHA 경기 시작 (선발 알칸타라 대 헤르난데스) · 0 : 0",
+      "default_sent": true,
+      "title": "경기 시작"
+    },
+    {
+      "event_id": 2,
+      "type": "PITCHER_STAT",
+      "body": "1회초 · 헤르난데스, 이주형 삼진 처리 · 0 : 0",
+      "default_sent": true,
+      "title": "투수 기록"
+    },
+    {
+      "event_id": 3,
+      "type": "OPPONENT_ON_BASE",
+      "body": "1회초 · 안치홍 좌익수 방향 2루타 출루 · 0 : 0",
+      "default_sent": false,
+      "title": "상대 팀 출루"
+    },
+    {
+      "event_id": 4,
+      "type": "OFFENSE_STARTED",
+      "body": "1회말 · 1회말 시작 · 0 : 0",
+      "default_sent": true,
+      "title": "공격 시작"
+    },
+    {
+      "event_id": 5,
+      "type": "REACHED_BASE",
+      "body": "1회말 · 페라자 중전 안타 출루 · 0 : 0",
+      "default_sent": true,
+      "title": "출루"
+    },
+    {
+      "event_id": 6,
+      "type": "REACHED_BASE",
+      "body": "1회말 · 문현빈 우익수 방향 2루타 출루 · 0 : 0",
+      "default_sent": true,
+      "title": "출루"
+    },
+    {
+      "event_id": 7,
+      "type": "RUN_SCORED",
+      "body": "1회말 · 강백호 타석 폭투로 페라자 득점 · 한화 이글스! 리드 · 1 : 0",
+      "default_sent": true,
+      "title": "득점"
+    },
+    {
+      "event_id": 8,
+      "type": "DEFENSE_STARTED",
+      "body": "2회초 · 2회초 시작 · 1 : 0",
+      "default_sent": true,
+      "title": "수비 시작"
+    },
+    {
+      "event_id": 9,
+      "type": "OFFENSE_STARTED",
+      "body": "2회말 · 2회말 시작 · 1 : 0",
+      "default_sent": true,
+      "title": "공격 시작"
+    },
+    {
+      "event_id": 10,
+      "type": "DEFENSE_STARTED",
+      "body": "3회초 · 3회초 시작 · 1 : 0",
+      "default_sent": true,
+      "title": "수비 시작"
+    },
+    {
+      "event_id": 11,
+      "type": "OFFENSE_STARTED",
+      "body": "3회말 · 3회말 시작 · 1 : 0",
+      "default_sent": true,
+      "title": "공격 시작"
+    },
+    {
+      "event_id": 12,
+      "type": "VIDEO_REVIEW",
+      "body": "3회말 · HANWHA 요청 비디오 판독: 심우준, 스윙 유지 · 1 : 0",
+      "default_sent": true,
+      "title": "비디오 판독"
+    },
+    {
+      "event_id": 13,
+      "type": "REACHED_BASE",
+      "body": "3회말 · 오재원 좌전 안타 출루 · 1 : 0",
+      "default_sent": true,
+      "title": "출루"
+    },
+    {
+      "event_id": 14,
+      "type": "REACHED_BASE",
+      "body": "3회말 · 페라자 우익선상 안타 출루 · 1 : 0",
+      "default_sent": true,
+      "title": "출루"
+    },
+    {
+      "event_id": 15,
+      "type": "RUN_SCORED",
+      "body": "3회말 · 문현빈 2루수 땅볼 때 오재원 득점 · 한화 이글스! 1점 득점 · 2 : 0",
+      "default_sent": true,
+      "title": "득점"
+    },
+    {
+      "event_id": 16,
+      "type": "DEFENSE_STARTED",
+      "body": "4회초 · 4회초 시작 · 2 : 0",
+      "default_sent": true,
+      "title": "수비 시작"
+    },
+    {
+      "event_id": 17,
+      "type": "OFFENSE_STARTED",
+      "body": "4회말 · 4회말 시작 · 2 : 0",
+      "default_sent": true,
+      "title": "공격 시작"
+    },
+    {
+      "event_id": 18,
+      "type": "HOME_RUN",
+      "body": "4회말 · 채은성 솔로 홈런 (110m) · 한화 이글스 솔로 홈런! 1점 득점 · 3 : 0",
+      "default_sent": true,
+      "title": "홈런"
+    },
+    {
+      "event_id": 19,
+      "type": "DEFENSE_STARTED",
+      "body": "5회초 · 5회초 시작 · 3 : 0",
+      "default_sent": true,
+      "title": "수비 시작"
+    },
+    {
+      "event_id": 20,
+      "type": "RUN_ALLOWED",
+      "body": "5회초 · 5회초 KIWOOM 4득점 (공식 이닝 합계 기준) · 키움 히어로즈! 역전 허용 · 키움 히어로즈 4득점 빅이닝 · 3 : 4",
+      "default_sent": true,
+      "title": "역전 허용"
+    },
+    {
+      "event_id": 21,
+      "type": "OFFENSE_STARTED",
+      "body": "5회말 · 5회말 시작 · 3 : 4",
+      "default_sent": true,
+      "title": "공격 시작"
+    },
+    {
+      "event_id": 22,
+      "type": "DEFENSE_STARTED",
+      "body": "6회초 · 6회초 시작 · 3 : 4",
+      "default_sent": true,
+      "title": "수비 시작"
+    },
+    {
+      "event_id": 23,
+      "type": "OFFENSE_STARTED",
+      "body": "6회말 · 6회말 시작 · 3 : 4",
+      "default_sent": true,
+      "title": "공격 시작"
+    },
+    {
+      "event_id": 24,
+      "type": "DEFENSE_STARTED",
+      "body": "7회초 · 7회초 시작 · 3 : 4",
+      "default_sent": true,
+      "title": "수비 시작"
+    },
+    {
+      "event_id": 25,
+      "type": "RUN_ALLOWED",
+      "body": "7회초 · 7회초 KIWOOM 1득점 (공식 이닝 합계 기준) · 키움 히어로즈! 1실점 허용 · 3 : 5",
+      "default_sent": true,
+      "title": "실점"
+    },
+    {
+      "event_id": 26,
+      "type": "OFFENSE_STARTED",
+      "body": "7회말 · 7회말 시작 · 3 : 5",
+      "default_sent": true,
+      "title": "공격 시작"
+    },
+    {
+      "event_id": 27,
+      "type": "RUN_SCORED",
+      "body": "7회말 · 7회말 HANWHA 1득점 (공식 이닝 합계 기준) · 한화 이글스! 1점 득점 · 4 : 5",
+      "default_sent": true,
+      "title": "득점"
+    },
+    {
+      "event_id": 28,
+      "type": "DEFENSE_STARTED",
+      "body": "8회초 · 8회초 시작 · 4 : 5",
+      "default_sent": true,
+      "title": "수비 시작"
+    },
+    {
+      "event_id": 29,
+      "type": "RUN_ALLOWED",
+      "body": "8회초 · 8회초 KIWOOM 2득점 (공식 이닝 합계 기준) · 키움 히어로즈! 2실점 허용 · 4 : 7",
+      "default_sent": true,
+      "title": "실점"
+    },
+    {
+      "event_id": 30,
+      "type": "OFFENSE_STARTED",
+      "body": "8회말 · 8회말 시작 · 4 : 7",
+      "default_sent": true,
+      "title": "공격 시작"
+    },
+    {
+      "event_id": 31,
+      "type": "REACHED_BASE",
+      "body": "8회말 · 채은성 볼넷 출루 · 4 : 7",
+      "default_sent": true,
+      "title": "출루"
+    },
+    {
+      "event_id": 32,
+      "type": "REACHED_BASE",
+      "body": "8회말 · 황영묵 볼넷 출루 · 4 : 7",
+      "default_sent": true,
+      "title": "출루"
+    },
+    {
+      "event_id": 33,
+      "type": "VIDEO_REVIEW",
+      "body": "8회말 · KIWOOM 요청 비디오 판독: 황영묵, 노스윙 유지 · 4 : 7",
+      "default_sent": true,
+      "title": "비디오 판독"
+    },
+    {
+      "event_id": 34,
+      "type": "PITCHER_CHANGE",
+      "body": "8회말 · 김재웅에서 배동현(으)로 투수 교체 · 4 : 7",
+      "default_sent": true,
+      "title": "투수 교체"
+    },
+    {
+      "event_id": 35,
+      "type": "HOME_RUN",
+      "body": "8회말 · 심우준 3점 홈런 (115m) · 한화 이글스 3점 홈런! 동점 · 한화 이글스 3득점 빅이닝 · 7 : 7",
+      "default_sent": true,
+      "title": "홈런"
+    },
+    {
+      "event_id": 36,
+      "type": "DEFENSE_STARTED",
+      "body": "9회초 · 9회초 시작 · 7 : 7",
+      "default_sent": true,
+      "title": "수비 시작"
+    },
+    {
+      "event_id": 37,
+      "type": "OFFENSE_STARTED",
+      "body": "9회말 · 9회말 시작 · 7 : 7",
+      "default_sent": true,
+      "title": "공격 시작"
+    },
+    {
+      "event_id": 38,
+      "type": "DEFENSE_STARTED",
+      "body": "10회초 · 10회초 시작 · 7 : 7",
+      "default_sent": true,
+      "title": "수비 시작"
+    },
+    {
+      "event_id": 39,
+      "type": "OFFENSE_STARTED",
+      "body": "10회말 · 10회말 시작 · 7 : 7",
+      "default_sent": true,
+      "title": "공격 시작"
+    },
+    {
+      "event_id": 40,
+      "type": "DEFENSE_STARTED",
+      "body": "11회초 · 11회초 시작 · 7 : 7",
+      "default_sent": true,
+      "title": "수비 시작"
+    },
+    {
+      "event_id": 41,
+      "type": "RUN_ALLOWED",
+      "body": "11회초 · 11회초 KIWOOM 2득점 (공식 이닝 합계 기준) · 키움 히어로즈! 2실점 허용 · 7 : 9",
+      "default_sent": true,
+      "title": "실점"
+    },
+    {
+      "event_id": 42,
+      "type": "OFFENSE_STARTED",
+      "body": "11회말 · 11회말 시작 · 7 : 9",
+      "default_sent": true,
+      "title": "공격 시작"
+    },
+    {
+      "event_id": 43,
+      "type": "PITCHER_CHANGE",
+      "body": "11회말 · 박윤성에서 가나쿠보(으)로 투수 교체 · 7 : 9",
+      "default_sent": true,
+      "title": "투수 교체"
+    },
+    {
+      "event_id": 44,
+      "type": "REACHED_BASE",
+      "body": "11회말 · 심우준 우중간 안타 출루 · 7 : 9",
+      "default_sent": true,
+      "title": "출루"
+    },
+    {
+      "event_id": 45,
+      "type": "RUN_SCORED",
+      "body": "11회말 · 문현빈 좌중간 2루타, 심우준 득점 · 한화 이글스! 1점 득점 · 8 : 9",
+      "default_sent": true,
+      "title": "득점"
+    },
+    {
+      "event_id": 46,
+      "type": "TIED",
+      "body": "11회말 · 노시환 좌전 안타, 문현빈 득점 (판독 후 확정) · 한화 이글스! 동점 · 9 : 9",
+      "default_sent": true,
+      "title": "동점"
+    },
+    {
+      "event_id": 47,
+      "type": "VIDEO_REVIEW",
+      "body": "11회말 · KIWOOM 요청 비디오 판독: 노시환, 세이프 유지 · 9 : 9",
+      "default_sent": true,
+      "title": "비디오 판독"
+    },
+    {
+      "event_id": 48,
+      "type": "COMEBACK",
+      "body": "11회말 · 강백호 우중간 안타, 대주자 최유빈 끝내기 득점 · 한화 이글스! 끝내기 승리 · 한화 이글스 3득점 빅이닝 · 10 : 9",
+      "default_sent": true,
+      "title": "역전"
+    },
+    {
+      "event_id": 49,
+      "type": "GAME_ENDED",
+      "body": "11회말 · 경기 종료: KIWOOM 9 - 10 HANWHA, HANWHA 승리 · 10 : 9",
+      "default_sent": true,
+      "title": "경기 종료"
+    }
+  ]
+}

@@ -25,6 +25,7 @@ data class Bases(
     val first: Player? = null,
     val second: Player? = null,
     val third: Player? = null,
+    val known: Boolean = true,
 ) {
     init {
         val occupied = listOfNotNull(first?.id, second?.id, third?.id)
@@ -43,17 +44,18 @@ data class GameState(
     val half: InningHalf,
     val balls: Int?,
     val strikes: Int?,
-    val outs: Int,
+    val outs: Int?,
     val bases: Bases,
     val batter: Player?,
     val pitcher: Player?,
     val status: GameStatus,
+    val batterIsLastPlayActor: Boolean = false,
 ) {
     init {
         require(gameId.isNotBlank())
         require(homeTeam.id != awayTeam.id) { "Home and away teams must differ" }
         require(homeScore >= 0 && awayScore >= 0) { "Scores cannot be negative" }
         require(inning >= 1) { "Inning must be positive" }
-        require((balls == null || balls in 0..3) && (strikes == null || strikes in 0..2) && outs in 0..3) { "Invalid count" }
+        require((balls == null || balls in 0..3) && (strikes == null || strikes in 0..2) && (outs == null || outs in 0..3)) { "Invalid count" }
     }
 }

@@ -215,8 +215,9 @@ fun GameApp(
                 null -> when (mainScreen) {
                     MainScreen.HOME -> HomeScreen(games, viewModel::showGames, content,
                         KboTeams.find(settings.preferences?.preferredTeamId)?.name,
-                        if (loginViewModel.qaLoginAvailable) loginViewModel::returnToLoginForQa else null)
-                    MainScreen.GAMES -> GameSelectionScreen(games, viewModel::selectGame, viewModel::loadGames, inset)
+                        if (loginViewModel.qaLoginAvailable) loginViewModel::returnToLoginForQa else null,
+                        onOpenRecommended = viewModel::openRecommendedGame)
+                    MainScreen.GAMES -> GameSelectionScreen(games, viewModel::selectGame, viewModel::loadGames, inset, settings.preferences?.preferredTeamId)
                     MainScreen.MY_PAGE -> MyPageScreen(
                         preferences = requireNotNull(settings.preferences),
                         email = login.accountEmail,

@@ -116,14 +116,14 @@ class MockScenarioIntegrationTest {
     fun completeSourceGameAndAllLegacyGamesOpenAndFinish() = runTest {
         withViewModel { viewModel, dispatches ->
             val games = viewModel.games.value as GameListState.Loaded
-            assertEquals(8, games.games.size)
+            assertEquals(18, games.games.size)
             for (game in games.games) {
                 viewModel.selectGame(game.gameId)
                 runCurrent()
                 assertTrue(viewModel.loaded().notificationsEnabled)
                 viewModel.selectPreferredTeam(game.homeTeam.id)
                 viewModel.play()
-                step(60_001)
+                step(240_001)
                 assertEquals(game.gameId, PlaybackStatus.COMPLETED, viewModel.loaded().playback.status)
                 if (game.gameId == "pdf-snapshot-test") {
                     assertEquals(GameStatus.FINISHED, viewModel.loaded().playback.gameState.status)
@@ -347,7 +347,7 @@ class MockScenarioIntegrationTest {
     @Test
     fun catalogAndAllSevenTimelinesAreConsistent() = runTest {
         val repository = repository()
-        val listings = repository.listScenarios().filter { it.state.gameId != "pdf-snapshot-test" }
+        val listings = repository.listScenarios().filter { it.state.gameId.startsWith("mock-") }
         assertEquals(
             listOf("mock-001", "mock-close", "mock-home-runs", "mock-big-inning",
                 "mock-walkoff-hit", "mock-walkoff-homer", "mock-special"),
@@ -377,7 +377,7 @@ class MockScenarioIntegrationTest {
                 if (event.details.walkOff) {
                     assertEquals(9, before.inning)
                     assertEquals(InningHalf.BOTTOM, before.half)
-                    assertTrue(before.outs < 3 && before.homeScore <= before.awayScore)
+                    assertTrue(before.outs != null && before.outs < 3 && before.homeScore <= before.awayScore)
                     assertTrue(after.homeScore > after.awayScore)
                     assertEquals(GameStatus.FINISHED, after.status)
                     assertEquals(timeline.events.last(), event)
@@ -392,8 +392,8 @@ class MockScenarioIntegrationTest {
         withViewModel { viewModel, dispatches ->
             val verified = mutableSetOf<NotificationType>()
             val games = viewModel.games.value as GameListState.Loaded
-            assertEquals(8, games.games.size)
-            assertEquals(8, games.scenarios.size)
+            assertEquals(18, games.games.size)
+            assertEquals(18, games.scenarios.size)
             for ((scenario, cases) in expected.groupBy { it.gameId to it.team }) {
                 val (gameId, team) = scenario
                 val startIndex = dispatches.size
@@ -470,7 +470,7 @@ class MockScenarioIntegrationTest {
         }
     }
 
-    private fun TestScope.repository() = MockGameRepository(StandardTestDispatcher(testScheduler)) { file ->
+    private fun TestScope.repository() = MockGameRepository(StandardTestDispatcher(testScheduler), "test-catalog.json") { file ->
         requireNotNull(javaClass.getResource("/games/$file")) { file }.readText(Charsets.UTF_8)
     }
 

@@ -1,0 +1,14 @@
+--------- beginning of main
+I/ClutchSession( 2197): restore state=CHECKING
+D/ClutchBehavior( 2197): process=9db6660e-b63c-4df7-a824-632d342f03eb {"name":"app_open"}
+I/ClutchSession( 2197): restore result=SIGNED_OUT
+I/ClutchSession( 2197): authenticated source=login
+I/ClutchNotificationOpen( 2197): source=LIST game=20260328_HANWHA_KIWOOM_01 post=none sequence=0 scope=null newRead=false status=NOT_APPLICABLE
+D/ClutchNotificationPost( 2197): post=e707cdbe-b9cc-42f2-92cc-9590bd289aed:1 sequence=1 scope=INSTALLATION installation=f7e9d478-8c77-49ee-826f-5703a2f0a544 game=20260328_HANWHA_KIWOOM_01
+D/ClutchBehavior( 2197): process=9db6660e-b63c-4df7-a824-632d342f03eb {"name":"first_done","notificationId":"e707cdbe-b9cc-42f2-92cc-9590bd289aed:1","notificationSequence":1,"installationId":"f7e9d478-8c77-49ee-826f-5703a2f0a544","gameId":"20260328_HANWHA_KIWOOM_01"}
+I/ClutchNotificationOpen( 2197): source=NOTIFICATION game=20260328_HANWHA_KIWOOM_01 post=e707cdbe-b9cc-42f2-92cc-9590bd289aed:1 sequence=1 scope=INSTALLATION newRead=true status=NEW
+D/ClutchNotificationPost( 2197): post=e707cdbe-b9cc-42f2-92cc-9590bd289aed:2 sequence=2 scope=INSTALLATION installation=f7e9d478-8c77-49ee-826f-5703a2f0a544 game=20260328_HANWHA_KIWOOM_01
+D/ClutchBehavior( 2197): process=9db6660e-b63c-4df7-a824-632d342f03eb {"name":"repeat_done","action":"notification_open","notificationId":"e707cdbe-b9cc-42f2-92cc-9590bd289aed:2","notificationSequence":2,"installationId":"f7e9d478-8c77-49ee-826f-5703a2f0a544","gameId":"20260328_HANWHA_KIWOOM_01"}
+I/ClutchNotificationOpen( 2197): source=NOTIFICATION game=20260328_HANWHA_KIWOOM_01 post=e707cdbe-b9cc-42f2-92cc-9590bd289aed:2 sequence=2 scope=INSTALLATION newRead=true status=NEW
+D/ClutchBehavior( 2197): process=9db6660e-b63c-4df7-a824-632d342f03eb {"name":"repeat_done","action":"settings_resave","flowId":"dc4241e8-3472-491b-9bf4-1a46321967e8"}
+D/ClutchBehavior( 2197): process=9db6660e-b63c-4df7-a824-632d342f03eb {"name":"drop","flowId":"b6dd2f1b-8933-4651-866c-0713e48ef020"}

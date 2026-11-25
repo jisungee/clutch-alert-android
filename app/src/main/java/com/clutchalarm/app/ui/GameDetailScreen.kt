@@ -81,7 +81,7 @@ fun GameDetailScreen(
                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                             Text("${game.inning}회 ${if (game.half == InningHalf.TOP) "초" else "말"}",
                                 style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
-                            Text("${game.outs} OUT", style = MaterialTheme.typography.labelLarge)
+                            Text("${game.outs ?: "—"} OUT", style = MaterialTheme.typography.labelLarge)
                         }
                         BaseballDiamond(game.bases, Modifier.weight(1f).height(56.dp))
                     }
@@ -91,7 +91,7 @@ fun GameDetailScreen(
                     CountIndicator("S", "스트라이크", game.strikes, 2, Color(0xFFC38A00))
                     CountIndicator("O", "아웃", game.outs, 3, MaterialTheme.colorScheme.primary)
                 }
-                Text(listOfNotNull(
+                Text(if (!game.bases.known) "주자 미상" else listOfNotNull(
                     game.bases.first?.let { "1루 ${it.name}" },
                     game.bases.second?.let { "2루 ${it.name}" },
                     game.bases.third?.let { "3루 ${it.name}" },
@@ -104,7 +104,7 @@ fun GameDetailScreen(
             Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text("최신 경기 상황", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                 HorizontalDivider(color = MaterialTheme.colorScheme.primary, thickness = 2.dp)
-                Text("타자  ${game.batter?.name ?: "미제공"}   ·   투수  ${game.pitcher?.name ?: "미제공"}",
+                Text("${if (game.batterIsLastPlayActor) "플레이 타자" else "타자"}  ${game.batter?.name ?: "미상"}   ·   투수  ${game.pitcher?.name ?: "미상"}",
                     style = MaterialTheme.typography.bodyMedium)
                 val event = detail.latestEvent
                 if (event == null) {
@@ -113,6 +113,7 @@ fun GameDetailScreen(
                     Text(event.sourceLabel ?: event.eventType.label(), color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.Bold)
                     Text(event.sourceSummary ?: event.description())
+                    if (game.batterIsLastPlayActor) Text("기록 시각 · ${event.sourceTime ?: "미상"}", style = MaterialTheme.typography.bodySmall)
                 }
             }
         }
@@ -124,6 +125,9 @@ fun GameDetailScreen(
                 style = MaterialTheme.typography.bodyMedium)
         }
         Text("저장한 응원팀 · ${savedTeamName ?: "미선택"}", style = MaterialTheme.typography.bodySmall)
+        if (selectedTeam != null && selectedTeam.name == savedTeamName) {
+            Text("저장된 응원팀으로 바로 재생할 수 있어요.", style = MaterialTheme.typography.bodySmall)
+        }
         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             for (team in teams) {
                 FilterChip(selected = team.id == detail.preferredTeamId, onClick = { onSelectTeam(team.id) }, label = { Text(team.name) })
@@ -236,7 +240,7 @@ private fun BaseballDiamond(bases: Bases, modifier: Modifier) {
                 lineTo(base.x - 7.dp.toPx(), base.y)
                 close()
             }
-            drawPath(diamond, if (occupied) Color(0xFFFFCC32) else Color.White)
+            drawPath(diamond, if (!bases.known) Color(0xFFDDE0E6) else if (occupied) Color(0xFFFFCC32) else Color.White)
             drawPath(diamond, chalk, style = Stroke(2.dp.toPx()))
         }
     }
@@ -254,6 +258,8 @@ private fun EventType.label() = when (this) {
     EventType.PITCHER_STAT -> "투수 기록"
     EventType.DEFENSE_HIGHLIGHT -> "호수비"
     EventType.BENCH_CLEARING -> "벤치클리어링"
+    EventType.REACHED_BASE -> "출루"
+    EventType.OFFICIAL_REVIEW_RESULT -> "비디오 판독 결과"
     EventType.SNAPSHOT -> "원본 상태 스냅샷"
     EventType.GAME_STARTED -> "경기 시작"
     EventType.SINGLE -> "단타"

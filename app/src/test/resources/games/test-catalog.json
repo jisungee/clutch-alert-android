@@ -1,0 +1,112 @@
+[
+  {
+    "file": "mock-game.json",
+    "name": "모의 경기 · 일반",
+    "description": "첫 투구, 출루, 득점, 세 번째 아웃과 공수교대가 이어지는 1회."
+  },
+  {
+    "file": "mock-close.json",
+    "name": "모의 경기 · 접전",
+    "description": "7회 초 동점, 7회 말 홈팀 리드, 8회 초 원정팀의 역전 2점 홈런."
+  },
+  {
+    "file": "mock-home-runs.json",
+    "name": "모의 경기 · 홈런",
+    "description": "4회 초 역전 2점, 솔로, 3점, 만루 홈런을 차례로 재현."
+  },
+  {
+    "file": "mock-big-inning.json",
+    "name": "모의 경기 · 빅이닝",
+    "description": "5회 초 적시타로 이닝 4득점을 달성하고, 5번째 득점에서는 빅이닝이 반복되지 않는 장면."
+  },
+  {
+    "file": "mock-walkoff-hit.json",
+    "name": "모의 경기 · 끝내기 안타",
+    "description": "9회 말 4대4, 3루 주자가 홈에 들어오며 홈팀이 끝내기 승리."
+  },
+  {
+    "file": "mock-walkoff-homer.json",
+    "name": "모의 경기 · 끝내기 홈런",
+    "description": "9회 말 한 점 뒤진 홈팀이 1루 주자를 두고 2점 홈런으로 승리."
+  },
+  {
+    "file": "mock-special.json",
+    "name": "모의 경기 · 판독과 부상",
+    "description": "1루 아웃 판정 번복과 투수 부상 의심, 의료진 확인, 교체를 재현."
+  },
+  {
+    "file": "pdf-snapshot-test.json",
+    "name": "PDF 기반 테스트 경기 · 1이닝 완결",
+    "description": "실제 기록이 아닌 모든 플레이가 포함된 1이닝 단축 테스트. 역전 홈런·3득점·득점 취소를 재생합니다."
+  },
+  {
+    "file": "DOOSAN_2026-03-29.json",
+    "name": "실제 경기 기반 재현",
+    "description": "선별 플레이와 이닝 득점 합계로 재현합니다. 미상 정보는 복원하지 않습니다.",
+    "date": "2026-03-29",
+    "preparedForTeamId": "DOOSAN"
+  },
+  {
+    "file": "HANWHA_2026-03-28.json",
+    "name": "실제 경기 기반 재현",
+    "description": "선별 플레이와 이닝 득점 합계로 재현합니다. 미상 정보는 복원하지 않습니다.",
+    "date": "2026-03-28",
+    "preparedForTeamId": "HANWHA"
+  },
+  {
+    "file": "KIA_2026-04-05.json",
+    "name": "실제 경기 기반 재현",
+    "description": "선별 플레이와 이닝 득점 합계로 재현합니다. 미상 정보는 복원하지 않습니다.",
+    "date": "2026-04-05",
+    "preparedForTeamId": "KIA"
+  },
+  {
+    "file": "KIWOOM_2026-04-01.json",
+    "name": "실제 경기 기반 재현",
+    "description": "선별 플레이와 이닝 득점 합계로 재현합니다. 미상 정보는 복원하지 않습니다.",
+    "date": "2026-04-01",
+    "preparedForTeamId": "KIWOOM"
+  },
+  {
+    "file": "KT_2026-03-28.json",
+    "name": "실제 경기 기반 재현",
+    "description": "선별 플레이와 이닝 득점 합계로 재현합니다. 미상 정보는 복원하지 않습니다.",
+    "date": "2026-03-28",
+    "preparedForTeamId": "KT"
+  },
+  {
+    "file": "LG_2026-04-01.json",
+    "name": "실제 경기 기반 재현",
+    "description": "선별 플레이와 이닝 득점 합계로 재현합니다. 미상 정보는 복원하지 않습니다.",
+    "date": "2026-04-01",
+    "preparedForTeamId": "LG"
+  },
+  {
+    "file": "LOTTE_2026-03-28.json",
+    "name": "실제 경기 기반 재현",
+    "description": "선별 플레이와 이닝 득점 합계로 재현합니다. 미상 정보는 복원하지 않습니다.",
+    "date": "2026-03-28",
+    "preparedForTeamId": "LOTTE"
+  },
+  {
+    "file": "NC_2026-03-28.json",
+    "name": "실제 경기 기반 재현",
+    "description": "선별 플레이와 이닝 득점 합계로 재현합니다. 미상 정보는 복원하지 않습니다.",
+    "date": "2026-03-28",
+    "preparedForTeamId": "NC"
+  },
+  {
+    "file": "SAMSUNG_2026-04-01.json",
+    "name": "실제 경기 기반 재현",
+    "description": "선별 플레이와 이닝 득점 합계로 재현합니다. 미상 정보는 복원하지 않습니다.",
+    "date": "2026-04-01",
+    "preparedForTeamId": "SAMSUNG"
+  },
+  {
+    "file": "SSG_2026-03-28.json",
+    "name": "실제 경기 기반 재현",
+    "description": "선별 플레이와 이닝 득점 합계로 재현합니다. 미상 정보는 복원하지 않습니다.",
+    "date": "2026-03-28",
+    "preparedForTeamId": "SSG"
+  }
+]

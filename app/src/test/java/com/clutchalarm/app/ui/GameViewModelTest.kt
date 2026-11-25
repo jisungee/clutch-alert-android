@@ -180,7 +180,7 @@ class GameViewModelTest {
     fun recordsConfirmationAndCleanupWithinTheCurrentPlaybackSession() = runTest {
         val scheduler = StandardTestDispatcher(testScheduler)
         Dispatchers.setMain(scheduler)
-        val repository = MockGameRepository(scheduler) { file ->
+        val repository = MockGameRepository(scheduler, "test-catalog.json") { file ->
             requireNotNull(javaClass.getResource("/games/$file")).readText(Charsets.UTF_8)
         }
         val first = NotificationAddress("test", 1)
@@ -233,7 +233,7 @@ class GameViewModelTest {
     fun lateConfirmationCannotChangeRecordsAfterReplayOrGameSwitch() = runTest {
         val scheduler = StandardTestDispatcher(testScheduler)
         Dispatchers.setMain(scheduler)
-        val repository = MockGameRepository(scheduler) { file ->
+        val repository = MockGameRepository(scheduler, "test-catalog.json") { file ->
             requireNotNull(javaClass.getResource("/games/$file")).readText(Charsets.UTF_8)
         }
         val confirmations = List(3) { CompletableDeferred<NotificationConfirmation>() }

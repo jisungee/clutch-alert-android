@@ -106,7 +106,7 @@ private fun GameState.notificationSituation(): String {
         bases.second?.let { "2루 ${it.name}" },
         bases.third?.let { "3루 ${it.name}" },
     )
-    return "$inningLabel · ${outs}아웃 · ${runners.joinToString(", ").ifEmpty { "주자 없음" }}"
+    return "$inningLabel · ${outs ?: "미상"}아웃 · ${if (!bases.known) "주자 미상" else runners.joinToString(", ").ifEmpty { "주자 없음" }}"
 }
 
 private const val RECORD_PAGE_SIZE = 3

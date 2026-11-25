@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.clutchalarm.app.domain.model.GameEvent
 import com.clutchalarm.app.domain.model.GameState
+import com.clutchalarm.app.domain.model.Team
 import com.clutchalarm.app.domain.model.KboTeams
 import com.clutchalarm.app.domain.notification.NotificationSession
 import com.clutchalarm.app.domain.notification.NotificationCandidate
@@ -47,8 +48,21 @@ sealed interface GameListState {
     data class Loaded(
         val games: List<GameState>,
         val scenarios: Map<String, GameScenario> = emptyMap(),
-    ) : GameListState
+    ) : GameListState {
+        val replayGames get() = games
+        fun recommendedGames(teamId: String?) = replayGames.filter {
+            teamId != null && scenarios[it.gameId]?.preparedForTeamId == teamId
+        }
+        fun homeShortcut(teamId: String?): HomeGameShortcut? {
+            val game = recommendedGames(teamId).firstOrNull() ?: return null
+            if (teamId != game.awayTeam.id && teamId != game.homeTeam.id) return null
+            val opponent = if (teamId == game.homeTeam.id) game.awayTeam else game.homeTeam
+            return HomeGameShortcut(game.gameId, scenarios[game.gameId]?.date, opponent)
+        }
+    }
 }
+
+data class HomeGameShortcut(val gameId: String, val date: String?, val opponent: Team)
 
 sealed interface GameDetailState {
     data object Loading : GameDetailState
@@ -370,6 +384,12 @@ class GameViewModel(
             ensureActive()
             mutableGames.value = result
         }
+    }
+
+    fun openRecommendedGame() {
+        val teamId = notificationSettings.value.preferences?.preferredTeamId
+        val shortcut = (games.value as? GameListState.Loaded)?.homeShortcut(teamId) ?: return
+        selectGame(shortcut.gameId)
     }
 
     fun selectGame(gameId: String) = openEntry(GameDetailEntry(gameId, DetailEntrySource.LIST))

@@ -8,7 +8,11 @@ data class GameListing(
     val scenario: GameScenario? = null,
 )
 
-data class GameScenario(val name: String, val description: String)
+data class GameScenario(
+    val name: String, val description: String,
+    val date: String? = null, val durationMs: Long = 0,
+    val preparedForTeamId: String? = null,
+)
 
 interface GameRepository {
     suspend fun listGames(): List<GameState>

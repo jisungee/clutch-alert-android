@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 enum class EventType {
     PITCHER_CHANGE, PITCHER_STAT, DEFENSE_HIGHLIGHT, BENCH_CLEARING,
-    SNAPSHOT, GAME_STARTED, SINGLE, DOUBLE, TRIPLE, HOME_RUN, WALK, STRIKEOUT,
+    REACHED_BASE, OFFICIAL_REVIEW_RESULT, SNAPSHOT, GAME_STARTED, SINGLE, DOUBLE, TRIPLE, HOME_RUN, WALK, STRIKEOUT,
     FOUL, BATTED_OUT, RUN_SCORED, HALF_INNING_CHANGED, GAME_ENDED,
     FIRST_PITCH, HALF_INNING_STARTED, HIT_BY_PITCH, REACHED_ON_ERROR,
     DROPPED_THIRD_STRIKE_REACHED, FIELDERS_CHOICE_REACHED, STOLEN_BASE, WILD_PITCH,
@@ -16,6 +16,9 @@ enum class EventType {
 data class PlayDetails(
     val firstPitchConfirmed: Boolean = false,
     val walkOff: Boolean = false,
+    val useSourceDescription: Boolean = false,
+    val notificationDescription: String? = null,
+    val confirmedReach: Boolean = false,
     val runsBattedIn: Int? = null,
     val reviewSubject: String? = null,
     val revisedCall: String? = null,
@@ -38,6 +41,7 @@ data class GameEvent(
     val playActor: Player? = null,
     val sourceLabel: String? = null,
     val sourceSummary: String? = null,
+    val sourceTime: String? = null,
 ) {
     init {
         require(eventId.isNotBlank())
