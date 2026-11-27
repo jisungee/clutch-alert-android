@@ -1,6 +1,8 @@
 package com.clutchalarm.app
 
+import com.clutchalarm.app.behavior.BehaviorEventRecorder
 import com.clutchalarm.app.behavior.DebugBehaviorEvents
+import com.clutchalarm.app.behavior.DurableBehaviorEvents
 import com.clutchalarm.app.auth.AuthenticationProvider
 import com.clutchalarm.app.auth.AndroidSessionStore
 import com.clutchalarm.app.ui.LoginViewModel
@@ -35,6 +37,10 @@ import com.clutchalarm.app.ui.GameViewModel
 import com.clutchalarm.app.ui.MainScreen
 
 class MainActivity : ComponentActivity() {
+    private val behaviorRecorder: BehaviorEventRecorder by lazy {
+        if (BuildConfig.QA_DIAGNOSTICS || BuildConfig.API_BASE_URL.isBlank()) DebugBehaviorEvents
+        else DurableBehaviorEvents.get(applicationContext)
+    }
     private val dispatcher by lazy { AndroidNotificationDispatcher(applicationContext) }
     private var availability by mutableStateOf(NotificationAvailability.DISABLED)
     private val notificationPermission = registerForActivityResult(
@@ -48,8 +54,8 @@ class MainActivity : ComponentActivity() {
                     MockGameRepository(application.assets),
                     dispatcher = dispatcher,
                     preferencesRepository = DataStoreNotificationPreferencesRepository(applicationContext),
-                    notificationOpens = DataStoreNotificationOpenRepository(applicationContext, DebugBehaviorEvents),
-                    behaviorEvents = DebugBehaviorEvents,
+                    notificationOpens = DataStoreNotificationOpenRepository(applicationContext, behaviorRecorder),
+                    behaviorEvents = behaviorRecorder,
                     onDetailEntry = { entry ->
                         if (BuildConfig.DEBUG) Log.i("ClutchNotificationOpen", "source=${entry.source} game=${entry.gameId} " +
                             "post=${entry.delivery?.postId ?: "none"} sequence=${entry.delivery?.sequence ?: 0} " +
@@ -73,6 +79,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        (behaviorRecorder as? DurableBehaviorEvents)?.scheduleRecovery()
         if (savedInstanceState == null) {
             handleNotificationIntent(intent)
         } else {
@@ -95,7 +102,8 @@ class MainActivity : ComponentActivity() {
         )
         setContent {
             GameApp(gameViewModel, loginViewModel, availability, ::requestNotificationPermission, ::openNotificationSettings,
-                DebugBehaviorEvents.appOpen::onScreenVisible)
+                (if (behaviorRecorder is DurableBehaviorEvents) (behaviorRecorder as DurableBehaviorEvents).appOpen
+                    else DebugBehaviorEvents.appOpen)::onScreenVisible)
         }
     }
 

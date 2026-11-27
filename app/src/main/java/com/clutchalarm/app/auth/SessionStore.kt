@@ -4,7 +4,9 @@ import kotlinx.serialization.Serializable
 
 /** Minimal credential plus optional encrypted QA profile cache. Never store passwords. */
 @Serializable
-data class StoredSession(val credential: String, val expiresAtMillis: Long, val accountEmail: String? = null) {
+data class StoredSession(val credential: String, val expiresAtMillis: Long, val accountEmail: String? = null,
+    val refreshToken: String? = null, val refreshExpiresAtMillis: Long? = null,
+    val pendingRefreshId: String? = null) {
     override fun toString() = "StoredSession([redacted])"
 }
 

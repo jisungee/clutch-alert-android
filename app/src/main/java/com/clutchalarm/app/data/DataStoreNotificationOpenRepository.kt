@@ -12,7 +12,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.clutchalarm.app.notification.NotificationDelivery
 import com.clutchalarm.app.notification.NotificationOpenRepository
 
-private val Context.notificationOpenStore by preferencesDataStore(name = "notification_open_receipts")
+internal val Context.notificationOpenStore by preferencesDataStore(name = "notification_open_receipts")
 
 class DataStoreNotificationOpenRepository(private val store: DataStore<Preferences>,
     private val recorder: BehaviorEventRecorder = NoBehaviorEvents) : NotificationOpenRepository {
@@ -36,9 +36,10 @@ class DataStoreNotificationOpenRepository(private val store: DataStore<Preferenc
                             notificationSequence = delivery.sequence, installationId = delivery.sequenceScopeId, gameId = delivery.gameId)
                     }
                 }
+                if (recorder is DurableBehaviorEvents) event?.let { recorder.stage(values, it) }
             }
         }
-        event?.let(recorder::record)
+        event?.let { if (recorder is DurableBehaviorEvents) recorder.committed(it) else recorder.record(it) }
         return first
     }
 

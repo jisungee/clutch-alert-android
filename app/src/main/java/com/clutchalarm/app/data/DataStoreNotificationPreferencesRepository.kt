@@ -1,6 +1,10 @@
 package com.clutchalarm.app.data
 
 import android.content.Context
+import com.clutchalarm.app.behavior.BehaviorEvent
+import com.clutchalarm.app.behavior.BehaviorEventRecorder
+import com.clutchalarm.app.behavior.DurableBehaviorEvents
+import com.clutchalarm.app.behavior.NoBehaviorEvents
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -26,6 +30,12 @@ class DataStoreNotificationPreferencesRepository(
 
     override suspend fun update(
         transform: (NotificationPreferences) -> NotificationPreferences,
+    ): NotificationPreferences = updateWithEvent(NoBehaviorEvents, null, transform)
+
+    override suspend fun updateWithEvent(
+        recorder: BehaviorEventRecorder,
+        event: BehaviorEvent?,
+        transform: (NotificationPreferences) -> NotificationPreferences,
     ): NotificationPreferences = store.edit { values ->
         val previous = values.toNotificationPreferences()
         val transformed = transform(previous)
@@ -41,7 +51,10 @@ class DataStoreNotificationPreferencesRepository(
         } else {
             values[disabledTypesKey] = updated.disabledTypes.mapTo(mutableSetOf()) { it.name }
         }
-    }.toNotificationPreferences()
+        if (recorder is DurableBehaviorEvents) event?.let { recorder.stage(values, it) }
+    }.toNotificationPreferences().also {
+        event?.let { if (recorder is DurableBehaviorEvents) recorder.committed(it) else recorder.record(it) }
+    }
 
     private fun Preferences.toNotificationPreferences(): NotificationPreferences {
         val disabledNames = this[disabledTypesKey].orEmpty() + if (this[initializedKey] == true) emptySet() else setOf("OPPONENT_ON_BASE")

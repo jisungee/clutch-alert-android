@@ -7,11 +7,17 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization")
 }
 
+val apiBaseUrl = providers.gradleProperty("apiBaseUrl").orElse("").get().trim().trimEnd('/')
+require(apiBaseUrl.isEmpty() || Regex("https://[A-Za-z0-9.-]+(?::[0-9]+)?").matches(apiBaseUrl)) {
+    "apiBaseUrl must be an HTTPS origin (e.g. https://your-service.onrender.com)"
+}
+
 android {
     namespace = "com.clutchalarm.app"
     compileSdk = 36
 
     defaultConfig {
+        buildConfigField("String", "API_BASE_URL", "\"$apiBaseUrl\"")
         applicationId = "com.clutchalarm.app"
         minSdk = 23
         targetSdk = 36
@@ -62,6 +68,7 @@ dependencies {
     implementation("androidx.compose.foundation:foundation")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.datastore:datastore-preferences:1.1.7")
+    implementation("androidx.work:work-runtime-ktx:2.10.1")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.9.4")
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.9.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")

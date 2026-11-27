@@ -336,14 +336,13 @@ class GameViewModel(
         mutableNotificationSettings.value = state.copy(busy = true, error = false)
         viewModelScope.launch {
             try {
-                val saved = preferencesRepository.update {
+                val resaveEvent = if (!editor.teamOnly && state.preferences?.notificationSettingsSaved == true)
+                    BehaviorEvent("repeat_done", action = "settings_resave", flowId = editor.flowId) else null
+                val saved = preferencesRepository.updateWithEvent(behaviorEvents, resaveEvent) {
                     editor.draft.copy(onboardingCompleted = it.onboardingCompleted || editor.onboarding,
                         notificationSettingsSaved = it.notificationSettingsSaved || !editor.teamOnly)
                 }
                 mutableNotificationSettings.value = NotificationSettingsState(preferences = saved)
-                if (!editor.teamOnly && state.preferences?.notificationSettingsSaved == true) {
-                    behaviorEvents.record(BehaviorEvent("repeat_done", action = "settings_resave", flowId = editor.flowId))
-                }
                 mutableShowNotificationSettings.value = false
                 if (state.preferences?.preferredTeamId != saved.preferredTeamId) {
                     (detail.value as? GameDetailState.Loaded)?.let {

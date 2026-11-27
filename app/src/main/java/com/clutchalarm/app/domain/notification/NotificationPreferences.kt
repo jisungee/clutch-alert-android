@@ -47,6 +47,11 @@ data class NotificationPreferences(
 interface NotificationPreferencesRepository {
     suspend fun load(): NotificationPreferences
     suspend fun update(transform: (NotificationPreferences) -> NotificationPreferences): NotificationPreferences
+    suspend fun updateWithEvent(
+        recorder: com.clutchalarm.app.behavior.BehaviorEventRecorder,
+        event: com.clutchalarm.app.behavior.BehaviorEvent?,
+        transform: (NotificationPreferences) -> NotificationPreferences,
+    ): NotificationPreferences = update(transform).also { event?.let(recorder::record) }
 }
 
 internal class InMemoryNotificationPreferencesRepository(
